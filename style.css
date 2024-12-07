@@ -1,3 +1,21 @@
-h1{
-    color:brown;
+*{
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    margin: 25px;
+}
+.nav-links{
+    display: flex;
+    align-content: center;
+    
+}
+.head1{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3%;
 }
