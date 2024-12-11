@@ -71,7 +71,7 @@ body{
     align-items: center;
     padding: 10px 20px;
     border-radius: 10px;
-    background:  #b3b7b0c1;
+    background:  #b3b7b04e;
     transition: background 1s;
 }
 .search:hover {
@@ -90,7 +90,7 @@ body{
 }
 .search-icon,
 .searchbar::placeholder {
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.781);
 }
 @media(max-width:1024px){
     .nav-links {
@@ -309,6 +309,7 @@ section{
     background: rgba(255, 255, 255, 0.15);
   }
   .register {
+    font-size: 15px;
     text-align: center;
     margin-top: 30px;
     color: #fff;
