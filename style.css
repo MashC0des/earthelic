@@ -1,10 +1,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+@import url(https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold);
 *{
     margin: 0;
     padding: 0;
     text-decoration: none;
-    font-family: '' , sans-serif;
+    font-family: "Arial Rounded MT Bold";
+    /* font-weight: ; */
+   
+}
+#metname{
+    font-size: 35px;
 }
 html{
     font-size: 62.5%;
@@ -382,6 +388,10 @@ section{
         width: 80%;
         
     }
+    #eas{
+        font-size: 150px;
+        margin-left: 29%;
+    }
 
     /*----------------------------------- responsive-------------------- */
   
@@ -395,6 +405,25 @@ section{
     .wrapper3{
         display: block;
         padding: 50px;
+    }
+    .btn{
+    margin-left:30% ;
+    }
+    .main_sec .home-content h1{
+        padding-left: 10%;
+    }
+    #ea{
+        padding: 10%;
+    }
+    #dsimg{
+        height: 160px;
+        width: 250px;
+    }
+    #desc{
+        margin-left: 5px;
+    }
+    #eas{
+        margin-left: 19%;
     }
     
 }
@@ -414,13 +443,25 @@ section{
     }  
     #ea{
         font-size: 100px;
+        padding: 0%;
     }
     .main_sec .home-content h1{
         padding-left: 5%;
          font-size: 60px;
-        font-weight: 700;
-        line-height: 1.3;
     }
+    #dsimg{
+        height: 190px;   
+    }
+    #more{
+        margin-left: 0;
+    }
+    #eas{
+        margin-left: 8%;
+    }
+    .btn1{
+        padding:2rem 1.8rem;
+    }
+   
 }
 @media(max-width:425px)
 {
@@ -432,11 +473,47 @@ section{
     }
     #ea{
         font-size: 50px;
+        padding: 0;
     }
-    .btn1{
-        margin-left:0;
+    .btn{
+        margin-left:10%;
     }
     .wrapper3{
         padding: 10px;
     }
+    .desc{
+        display: block;
+    }
+    #desc1{
+        position:absolute;
+        margin-top: 70%;
+    }
+    .desc1{
+        margin-bottom: 110%;
+    }
+    #eas{
+        margin-left: 15%;
+        font-size: 70px;
+
+    }
+    .home-content{
+        padding:0%;
+    }
+    section{
+        padding: 0;
+    }
+    .metprod{
+        margin-left: 2.5%;
+        padding: 20px;
+    }
+    #mp{
+        width: 200px;
+    }
+    .btn1{
+        margin-left: 2%;
+        padding:2rem 1.8rem;
+    }
+   
+
 }
+
