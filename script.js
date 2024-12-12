@@ -37,7 +37,7 @@ function nextbtn(){
         for(l of link){
             l.classList.remove("active");
         }
-        currentValue++;
+        currentValue++ ;
         link[currentValue-1].classList.add("active");
     }
 }
