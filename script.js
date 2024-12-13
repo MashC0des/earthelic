@@ -14,7 +14,7 @@ function showlog(){
 }
 
 // -----------------pagination--------------------
-let link = document.getElementsByClassName("link")
+let link = document.querySelectorAll(".link")
 let currentValue = 1;
 function activeLink(){
     for(l of link){
@@ -41,3 +41,4 @@ function nextbtn(){
         link[currentValue-1].classList.add("active");
     }
 }
+
