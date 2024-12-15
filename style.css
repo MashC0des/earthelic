@@ -8,7 +8,7 @@
 }
 
 #metname {
-    font-size: 35px;
+    font-size:x-large;
 }
 
 html {
@@ -393,6 +393,7 @@ button:hover {
     border: 2px solid #2f3b31;
     transition: 0.3s ease;
     cursor: pointer;
+    margin-left: 39%;
 }
 
 .btn1:hover {
@@ -494,7 +495,7 @@ button:hover {
 
     .wrapper3 {
         display: block;
-        padding: 50px;
+        padding: 30px;
     }
 
     .btn {
@@ -527,6 +528,16 @@ button:hover {
     .social-icons {
         padding-left: 35%;
     }
+    #metname{
+        font-size: large;
+    }
+    #metdesc{
+        font-size: small;
+    }
+    .btn1{
+        margin-left: 5%;
+    }
+   
 
 }
 
@@ -573,11 +584,25 @@ button:hover {
     }
 
     .btn1 {
-        padding: 2rem 1.8rem;
+        padding: 1rem 0.5rem;
+        font-size: x-small ;
     }
 
     .social-icons {
         padding-left: 30%;
+    }
+    #mp{
+        height: 180px ;
+    }
+    #metname{
+        font-size: large;
+    }
+    #metdesc{
+        font-size:x-small;
+    }
+    .wrapper3 {
+        display: block;
+        padding: 15px;
     }
 
 }
@@ -635,17 +660,31 @@ button:hover {
         padding: 20px;
     }
 
-    #mp {
-        width: 200px;
-    }
-
     .btn1 {
         margin-left: 2%;
-        padding: 2rem 1.8rem;
+        padding: 0.2rem 0.3rem;
     }
 
     .social-icons {
         padding-left: 10%;
+    }
+    #mp{
+        height: 120px ;
+        margin-right: 5px;
+    }
+    #metname{
+        font-size: large;
+    }
+    #metdesc{
+        font-size:xx-small;
+    }
+    .wrapper3 {
+        display: block;
+        padding: 15px;
+    }
+    .metprod{
+        padding: 0px;
+        margin-left: 0px;
     }
 
 

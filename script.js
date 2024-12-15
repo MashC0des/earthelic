@@ -58,8 +58,8 @@ function activeLink(){
     for(l of link){
         l.classList.remove("active");
     }
-    event.target.classList.add("active");
-    currentValue = event.target.value;
+    // event.target.classList.add("active");
+    // currentValue = event.target.value;
 }
 function backbtn(){
     if(currentValue>1){
@@ -78,5 +78,18 @@ function nextbtn(){
         currentValue++ ;
         link[currentValue-1].classList.add("active");
     }
+}
+function openActiveLinks() {
+    // Select all anchor tags with the 'active' class
+    const activeLinks = document.querySelectorAll('a.active');
+    
+    activeLinks.forEach(link => {
+        // Check if the href attribute exists and is not empty
+        if (link.href) {
+            // Open the link in the current tab
+            window.location.href = link.href;
+            
+        }
+    });
 }
 
