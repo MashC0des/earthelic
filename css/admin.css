@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-image: url("../imgs/sc1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+}
+
+/* Logo fixed top-left */
+.logo-fixed {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    z-index: 1000;
+}
+.logo-fixed img {
+    height: 60px;
+    width: auto;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    height: 100vh;
+    padding-top: 80px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+.sidebar ul li a:hover {
+    color: #5dc572;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 270px;
+    padding: 40px;
+    flex: 1;
+}
+.main-content h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    gap: 20px;
+}
+.card {
+    flex: 1;
+    background: linear-gradient(rgba(227,225,225,0.9), rgba(27,27,27,0.6));
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2f3b31;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+    color: #e8dfdf;
+    font-size: 14px;
+}

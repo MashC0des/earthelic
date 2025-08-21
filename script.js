@@ -1,17 +1,57 @@
 // --------------------login/reg-----------------
-function showreg(){
-    const show = document.querySelector('.wrapper1')
-    show.style.display = 'block'
-    const hide = document.querySelector('.wrapper')
-    hide.style.display = 'none'
+// function showreg(){
+//     const show = document.querySelector('.wrapper1')
+//     show.style.display = 'block'
+//     const hide = document.querySelector('.wrapper')
+//     hide.style.display = 'none'
+// }
+
+// function showlog(){
+//     const show = document.querySelector('.wrapper')
+//     show.style.display = 'block'
+//     const hide = document.querySelector('.wrapper1')
+//     hide.style.display = 'none'
+// }
+function showreg() {
+    const loginForm = document.querySelector('.wrapper');
+    const registerForm = document.querySelector('.wrapper1');
+    const logo = document.getElementById('logimg');
+
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+
+    // Animate forms
+    loginForm.classList.remove('slide-right');
+    registerForm.classList.remove('slide-right');
+
+    loginForm.classList.add('slide-left');
+    registerForm.classList.add('slide-left');
+
+    // Animate logo
+    logo.classList.remove('slide-right');
+    logo.classList.add('slide-left');
 }
 
-function showlog(){
-    const show = document.querySelector('.wrapper')
-    show.style.display = 'block'
-    const hide = document.querySelector('.wrapper1')
-    hide.style.display = 'none'
+function showlog() {
+    const loginForm = document.querySelector('.wrapper');
+    const registerForm = document.querySelector('.wrapper1');
+    const logo = document.getElementById('logimg');
+
+    registerForm.style.display = 'none';
+    loginForm.style.display = 'block';
+
+    // Animate forms
+    registerForm.classList.remove('slide-left');
+    loginForm.classList.remove('slide-left');
+
+    registerForm.classList.add('slide-right');
+    loginForm.classList.add('slide-right');
+
+    // Animate logo
+    logo.classList.remove('slide-left');
+    logo.classList.add('slide-right');
 }
+
 function seterror(id, error)
 {
     element=document.getElementById(id);

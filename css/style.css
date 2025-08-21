@@ -230,6 +230,7 @@ section {
 }
 
 /* ---------------------------------------login page-----------------------------------------------------------*/
+/* ---------------------------------------login page-----------------------------------------------------------*/
 .wrapper,
 .wrapper1 {
     width: 400px;
@@ -348,6 +349,78 @@ button:hover {
 .wrapper1 a:hover {
     text-decoration: underline;
 }
+.home-content-log {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  transition: all 0.8s ease;
+  position: relative;
+}
+
+/* Form container (always centered) */
+.form-side {
+  width: 400px;
+  transition: opacity 0.5s ease;
+}
+
+/* Logo positioning */
+#logimg {
+  width: 200px;
+  height: auto;
+  transition: all 0.8s ease;
+  position: absolute;
+}
+
+/* LOGIN STATE: Logo on the right */
+.slide-right #logimg {
+  right: -220px; /* Adjust based on your layout */
+  left: auto;
+}
+
+/* REGISTER STATE: Logo on the left */
+.slide-left #logimg {
+  left: -220px; /* Adjust based on your layout */
+  right: auto;
+}
+
+/* Form visibility */
+#loginForm {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+#registerForm {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* Active states */
+.slide-right #loginForm {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.slide-right #registerForm {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-left #loginForm {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-left #registerForm {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
 
 /*----------------------------------------------------------------metal products------------------------------------*/
 #mp {

@@ -1,0 +1,119 @@
+/* Reset + font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-image: url("../imgs/sc1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Logo fixed top-left */
+.logo-fixed {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    z-index: 1000;
+}
+.logo-fixed img {
+    height: 60px;
+    width: auto;
+}
+
+/* Upload form container */
+.upload-container {
+    margin-top: 120px; /* space under logo */
+    width: 800px;
+    background: linear-gradient(rgba(227,225,225,0.8), rgba(27,27,27,0.6));
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+}
+
+/* Title */
+.upload-container h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Labels and inputs */
+.upload-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.upload-container input[type="text"],
+.upload-container input[type="number"],
+.upload-container input[type="file"],
+.upload-container textarea,
+.upload-container select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+}
+
+.upload-container input:focus,
+.upload-container textarea:focus,
+.upload-container select:focus {
+    border-color: #0f111c;
+}
+
+/* Button */
+.upload-container button {
+    width: 100%;
+    padding: 15px;
+    background: #2f3b31;
+    color: white;
+    border: 2px solid #2f3b31;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.upload-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Success & error messages */
+.success {
+    color: #27ae60;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.error {
+    color: #e74c3c;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Footer - copyright bottom-left */
+footer {
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+    color: #e8dfdf;
+    font-size: 14px;
+}
