@@ -21,7 +21,8 @@ li {
 
 body {
     width: 100%;
-    background-image: url("imgs/sc1.jpg");
+    /* background-image: url("imgs/sc1.jpg"); */
+    background-color: #958a7cca;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -44,7 +45,7 @@ body {
 
 .nav-links li a {
     font-size: 1.8rem;
-    color: #ffffff;
+    color: #3a392f;
     margin-left: 4rem;
     font-weight: 500;
     transition: 0.3s ease;
@@ -52,11 +53,13 @@ body {
     margin: 20px;
 }
 
+
+
 .nav-links li::after {
     content: '';
     width: 0%;
     height: 3px;
-    background: #a3a8a0;
+    background: #3f403e;
     display: block;
     margin: auto;
     transition: 0.7s;
@@ -92,7 +95,7 @@ body {
 
 .search:hover {
     background: #f2f1f1;
-    box-shadow: 15px 15px 35px #0000005c;
+    box-shadow: 10px 10px 25px #0000005c;
 }
 
 .searchbar {
@@ -132,7 +135,7 @@ section {
 }
 
 #ea {
-    color: #314234;
+    color: #3a392f;
     font-size: 130px;
     font-family: cursive;
     font-weight: 700;
@@ -142,7 +145,7 @@ section {
 .home-content {
     display: block;
     align-content: center;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, #3a392fbf, #3a392f5b);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
@@ -445,6 +448,7 @@ button:hover {
 }
 
 .wrapper3 {
+    /* background-color: #958a7cca; */
     width: 80%;
     border-radius: 8px;
     padding: 30px;
