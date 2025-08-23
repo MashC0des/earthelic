@@ -90,7 +90,7 @@ if (isset($_POST['login'])) {
                     <li><a href="ceramic.php">Ceramic</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="about.php">About us</a></li>
-                    <li><a href="login.php" class="active">Log In</a></li>
+                    
                 </ul>
             </div>
         </nav>

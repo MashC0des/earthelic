@@ -1,12 +1,4 @@
-<?php
-session_start();
 
-// Check if user is logged in & is admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
