@@ -70,56 +70,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="admin.php"><i class="fa fa-home"></i> Dashboard</a></li>
             <li><a href="upload.php"><i class="fa fa-upload"></i> Upload Product</a></li>
             <li><a href="products_list.php"><i class="fa fa-box"></i> Manage Products</a></li>
-            <li><a href="categories_list.php"><i class="fa fa-list"></i> Manage Categories</a></li>
             <li><a href="orders_list.php"><i class="fa fa-shopping-cart"></i> Manage Orders</a></li>
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
 
-<div class="upload-container">
-    <h2>Upload New Product</h2>
+<div class="main-content">
+    <div class="upload-container" style="background: #ffffff38;">
+        <h2>Upload New Product</h2>
 
-    <!-- success/error messages -->
-    <?php if (isset($success)) echo "<p class='success'>$success</p>"; ?>
-    <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
+        <!-- success/error messages -->
+        <?php if (isset($success)) echo "<p class='success'>$success</p>"; ?>
+        <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
 
-    <form action="upload.php" method="POST" enctype="multipart/form-data">
-        <label>Product Name:</label>
-        <input type="text" name="product_name" required>
+        <form action="upload.php" method="POST" enctype="multipart/form-data">
+            <label>Product Name:</label>
+            <input type="text" name="product_name" required>
 
-        <label>Description:</label>
-        <textarea name="description" required></textarea>
+            <label>Description:</label>
+            <textarea name="description" required></textarea>
 
-        <label>Price:</label>
-        <input type="number" step="0.01" name="price" required>
+            <label>Price:</label>
+            <input type="number" step="0.01" name="price" required>
 
-        <label>Stock Quantity:</label>
-        <input type="number" name="stock_quantity" required>
+            <label>Stock Quantity:</label>
+            <input type="number" name="stock_quantity" required>
 
-        <label>Material:</label>
-        <select name="material" required>
-            <option value="ceramic">Ceramic</option>
-            <option value="metal">Metal</option>
-            <option value="canvas">Canvas</option>
-            <option value="mixed">Mixed</option>
-        </select>
+            <label>Material:</label>
+            <select name="material" required>
+                <option value="ceramic">Ceramic</option>
+                <option value="metal">Metal</option>
+                <option value="canvas">Canvas</option>
+                <option value="mixed">Mixed</option>
+            </select>
 
-        <label>Category:</label>
-        <select name="category_id" required>
-            <?php
-            $result = $conn->query("SELECT * FROM Categories");
-            while($row = $result->fetch_assoc()) {
-                echo "<option value='{$row['category_id']}'>{$row['category_name']}</option>";
-            }
-            ?>
-        </select>
+            <label>Category:</label>
+            <select name="category_id" required>
+                <?php
+                $result = $conn->query("SELECT * FROM Categories");
+                while($row = $result->fetch_assoc()) {
+                    echo "<option value='{$row['category_id']}'>{$row['category_name']}</option>";
+                }
+                ?>
+            </select>
 
-        <label>Upload Image:</label>
-        <input type="file" name="image" accept="image/*" required>
+            <label>Upload Image:</label>
+            <input type="file" name="image" accept="image/*" required>
 
-        <button type="submit">Upload Product</button>
-    </form>
+            <button type="submit">Upload Product</button>
+        </form>
+    </div>
 </div>
 
 <footer>

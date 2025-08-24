@@ -35,13 +35,14 @@ body {
 }
 
 .upload-container {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.1);; /* light gray */
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     max-width: 700px;
-    margin: 20px 0; /* aligned to left, no auto centering */
+    margin: 20px 0;
 }
+
 
 .upload-container h2 {
     margin-bottom: 20px;
@@ -63,7 +64,7 @@ body {
 .upload-container textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc61;
     border-radius: 6px;
     margin-bottom: 15px;
     font-size: 14px;

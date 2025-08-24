@@ -1,16 +1,7 @@
 <?php
 session_start();
 
-// Database connection
-$servername = "localhost";
-$username = "root";   // change if needed
-$password = "";       // change if needed
-$dbname = "earthelic";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include "db_connect.php"; // DB connection + session
 
 // Handle Registration
 if (isset($_POST['register'])) {

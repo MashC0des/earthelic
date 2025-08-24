@@ -1,0 +1,60 @@
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+.table-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table thead {
+    background: #5dc572;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+
+td ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.status.processing { color: #3498db; font-weight: bold; }
+.status.pending { color: #f39c12; font-weight: bold; }
+.status.delivered { color: #27ae60; font-weight: bold; }
+.status.cancelled { color: #e74c3c; font-weight: bold; }
+.status.shipped { color: #8e44ad; font-weight: bold; }
+
+/* Buttons */
+.btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-decoration: none;
+    margin-right: 5px;
+    transition: 0.3s;
+    display: inline-block;
+}
+.btn.accept { background: #27ae60; color: white; }
+.btn.reject { background: #e74c3c; color: white; }
+.btn.contact { background: #3498db; color: white; }
+.btn.accept:hover { background: #1e8449; }
+.btn.reject:hover { background: #c0392b; }
+.btn.contact:hover { background: #21618c; }
