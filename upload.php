@@ -52,7 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Upload Product - Earthelic</title>
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="logo-fixed">
@@ -60,6 +63,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="imgs/earthelic logo file png.png" alt="Earthelic Logo">
     </a>
 </div>
+ <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="admin.php"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a href="upload.php"><i class="fa fa-upload"></i> Upload Product</a></li>
+            <li><a href="products_list.php"><i class="fa fa-box"></i> Manage Products</a></li>
+            <li><a href="categories_list.php"><i class="fa fa-list"></i> Manage Categories</a></li>
+            <li><a href="orders_list.php"><i class="fa fa-shopping-cart"></i> Manage Orders</a></li>
+            <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
+            <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
 
 <div class="upload-container">
     <h2>Upload New Product</h2>

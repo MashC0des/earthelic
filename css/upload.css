@@ -12,10 +12,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    /* ❌ remove centering flex, let sidebar + main-content work */
+    display: block;
 }
 
 /* Logo fixed top-left */
@@ -31,68 +29,68 @@ body {
 }
 
 /* Upload form container */
+.main-content {
+    margin-left: 250px; /* pushes content to the right of sidebar */
+    padding: 30px;
+}
+
 .upload-container {
-    margin-top: 120px; /* space under logo */
-    width: 800px;
-    background: linear-gradient(rgba(227,225,225,0.8), rgba(27,27,27,0.6));
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    padding: 40px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 700px;
+    margin: 20px 0; /* aligned to left, no auto centering */
 }
 
-/* Title */
 .upload-container h2 {
-    text-align: center;
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-/* Labels and inputs */
-.upload-container label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
-    color: #222;
-}
-
-.upload-container input[type="text"],
-.upload-container input[type="number"],
-.upload-container input[type="file"],
-.upload-container textarea,
-.upload-container select {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 30px;
-    font-size: 16px;
-    outline: none;
     margin-bottom: 20px;
-    transition: all 0.3s;
+    color: #2f3b31;
+    border-left: 5px solid #5dc572;
+    padding-left: 10px;
+    font-size: 22px;
+}
+
+.upload-container label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+.upload-container input,
+.upload-container select,
+.upload-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    background: #fafafa;
 }
 
 .upload-container input:focus,
-.upload-container textarea:focus,
-.upload-container select:focus {
-    border-color: #0f111c;
+.upload-container select:focus,
+.upload-container textarea:focus {
+    outline: none;
+    border-color: #5dc572;
+    box-shadow: 0 0 4px rgba(93,197,114,0.5);
 }
 
-/* Button */
 .upload-container button {
-    width: 100%;
-    padding: 15px;
-    background: #2f3b31;
-    color: white;
-    border: 2px solid #2f3b31;
-    border-radius: 30px;
-    font-size: 16px;
+    background: #5dc572;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: background 0.3s ease;
 }
 
 .upload-container button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: #4ab25e;
 }
 
 /* Success & error messages */
