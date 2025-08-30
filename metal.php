@@ -29,21 +29,21 @@ $result = $conn->query($sql);
 </head>
 <body>
 <header class="head1">
-    <a href="landing.php"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
-    <div class="search">
-        <span class="search-icon material-symbols-outlined">search</span>
-        <input class="searchbar" type="search" placeholder="Search Metal Products...">
-    </div>
+    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
     <nav class="nav1">   
         <div class="icons1">
             <ul class="nav-links">
-                <li><a href="landing.php">Home</a></li>
-                <li><a href="metal.php" class="active">Metal</a></li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="metal.php">Metal</a></li>
                 <li><a href="ceramic.php">Ceramic</a></li>
                 <li><a href="cart.php">Cart</a></li>
                 <li><a href="about.php">About us</a></li>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <li><a href="logout.php">Logout (<?php echo $_SESSION['full_name']; ?>)</a></li>
+                <?php if (!empty($_SESSION['user_id'])): ?>
+                    <li class="nav-profile-wrap">
+                        <a href="profile.php" class="nav-profile-link">
+                            <span class="nav-profile-name"><?php echo ($_SESSION['full_name'] ?? 'Profile'); ?></span>
+                        </a>
+                    </li>
                 <?php else: ?>
                     <li><a href="login.php">Log In</a></li>
                 <?php endif; ?>
@@ -53,30 +53,36 @@ $result = $conn->query($sql);
 </header>
 
 <section class="main_sec">
+    
     <div class="home-content">
+          <div class="back-btn">
+        <button class="btn-back" onclick="window.history.back()">⬅ Back</button>
+    </div>
         <p style="color: #904A2D;" id="eas">Metal</p>
         <h3>Our Metal Inventory</h3>
 
-        <?php if ($result->num_rows > 0): ?>
-            <?php while($row = $result->fetch_assoc()): ?>
-                <div class="products">
-                    <div class="metprod">
-                        <img src="<?php echo htmlspecialchars($row['image_url']); ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>" id="mp">
-                        <div class="wrapper3">
-                            <p id="metname"><?php echo htmlspecialchars($row['product_name']); ?></p>
-                            <p id="metdesc"><?php echo htmlspecialchars($row['description']); ?></p>
-                            <span id="sp1">
-                                <a href="product.php?id=<?php echo $row['product_id']; ?>" class="btn1">
-                                    ₹<?php echo number_format($row['price'], 2); ?> Buy Now
-                                </a>
-                            </span>
-                        </div>
-                    </div>
+       <?php if ($result->num_rows > 0): ?>
+    <?php while($row = $result->fetch_assoc()): ?>
+        <div class="products">
+            <div class="metprod">
+                <img src="<?php echo htmlspecialchars($row['image_url']); ?>" 
+                     alt="<?php echo htmlspecialchars($row['product_name']); ?>" 
+                     id="mp">
+                <div class="wrapper3">
+                    <p id="metname"><?php echo htmlspecialchars($row['product_name']); ?></p>
+                    <p id="metdesc"><?php echo htmlspecialchars($row['description']); ?></p>
+                    <span id="sp1">
+                        <a href="productpage.php?id=<?php echo $row['product_id']; ?>" class="btn1">
+                            ₹<?php echo number_format($row['price'], 2); ?> Buy Now
+                        </a>
+                    </span>
                 </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p style="color:#fff;">No metal products available.</p>
-        <?php endif; ?>
+            </div>
+        </div>
+    <?php endwhile; ?>
+<?php else: ?>
+    <p style="color:#fff;">No metal products available.</p>
+<?php endif; ?>
 
         <!-- Pagination -->
         <div class="container">

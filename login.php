@@ -50,7 +50,7 @@ if (isset($_POST['login'])) {
             $_SESSION['email'] = $email;
             $_SESSION['role'] = $role;
 
-            header("Location: landing.php"); // redirect to homepage
+            header("Location: landing.html"); // redirect to homepage
             exit();
         } else {
             $error = "Invalid password!";
@@ -72,11 +72,11 @@ if (isset($_POST['login'])) {
 </head>
 <body>
     <header class="head1">
-        <a href="landing.php"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
+        <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
         <nav class="nav1">
             <div class="icons1">
                 <ul class="nav-links">
-                    <li><a href="landing.php">Home</a></li>
+                    <li><a href="landing.html">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
                     <li><a href="cart.php">Cart</a></li>
@@ -100,71 +100,66 @@ if (isset($_POST['login'])) {
             <!-- Login Form -->
             <div class="form-wrapper active" id="login-form">
                 <h2>Login</h2>
-                <form method="POST" action="">
-                    <div class="input-group">
-                        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
-                        <input type="email" name="loginEmail" placeholder="Email" required>
-                    </div>
-                     <div class="input-group">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="password-field">
-                            <input type="password"  placeholder="Password" required>
-                            <button type="button" class="toggle-password" id="toggleLoginPassword">
-                                <i class="far fa-eye"></i>
-                            </button>
-                        </div>
-                        <span class="error-message" id="loginPasswordError"></span>
-                    </div>
-                    <div class="forgot-password"><a href="forgot-password.php">Forgot Password?</a></div>
-                    <button type="submit" name="login" class="btn">Login</button>
-                </form>
+               <!-- Login Form -->
+<form method="POST" action="">
+    <div class="input-group">
+        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
+        <input type="email" name="loginEmail" placeholder="Email" required>
+    </div>
+    <div class="input-group">
+        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
+        <div class="password-field">
+            <input type="password" name="loginPassword" placeholder="Password" required>
+            <button type="button" class="toggle-password" id="toggleLoginPassword">
+                <i class="far fa-eye"></i>
+            </button>
+        </div>
+    </div>
+    <div class="forgot-password"><a href="forgot-password.php">Forgot Password?</a></div>
+    <button type="submit" name="login" class="btn">Login</button>
+</form>
+
                 <p class="toggle-text">Don't have an account? <a href="#" id="show-register">Register</a></p>
             </div>
             
             <!-- Registration Form -->
             <div class="form-wrapper" id="register-form">
                 <h2>Register</h2>
-                <form method="POST" action="">
-                    <div class="input-group">
-                        <div class="icon-wrapper"><i class="fas fa-user"></i></div>
-                        <input type="text" name="fullName" placeholder="Full Name" required>
-                    </div>
-                    <div class="input-group">
-                        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
-                        <input type="email" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="input-group">
-                        <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
-                        <input type="text" name="phone" placeholder="Phone (optional)">
-                    </div>
-<div class="input-group">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="password-field">
-                            <input type="password"  placeholder="Password" required>
-                            <button type="button" class="toggle-password" id="togglePassword">
-                                <i class="far fa-eye"></i>
-                            </button>
-                        </div>
-                        <span class="error-message" id="passwordError"></span>
-                    </div>
-                    <div class="input-group">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="password-field">
-                            <input type="password"  placeholder="Confirm Password" required>
-                            <button type="button" class="toggle-password" id="toggleConfirmPassword">
-                                <i class="far fa-eye"></i>
-                            </button>
-                        </div>
-                        <span class="error-message" id="confirmPasswordError"></span>
-                    </div>
-                    <button type="submit" name="register" class="btn">Register</button>
-                </form>
+               <!-- Registration Form -->
+<form method="POST" action="">
+    <div class="input-group">
+        <div class="icon-wrapper"><i class="fas fa-user"></i></div>
+        <input type="text" name="fullName" placeholder="Full Name" required>
+    </div>
+    <div class="input-group">
+        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
+        <input type="email" name="email" placeholder="Email" required>
+    </div>
+    <div class="input-group">
+        <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
+        <input type="text" name="phone" placeholder="Phone (optional)">
+    </div>
+    <div class="input-group">
+        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
+        <div class="password-field">
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="button" class="toggle-password" id="togglePassword">
+                <i class="far fa-eye"></i>
+            </button>
+        </div>
+    </div>
+    <div class="input-group">
+        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
+        <div class="password-field">
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                <i class="far fa-eye"></i>
+            </button>
+        </div>
+    </div>
+    <button type="submit" name="register" class="btn">Register</button>
+</form>
+
                 <p class="toggle-text">Already have an account? <a href="#" id="show-login">Login</a></p>
             </div>
         </div>

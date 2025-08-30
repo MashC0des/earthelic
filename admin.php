@@ -33,9 +33,9 @@ $today_orders = $today_orders_result->fetch_assoc()['today_orders'];
 <body>
     <!-- Fixed Logo -->
     <div class="logo-fixed">
-        <a href="landing.php">
+        
             <img src="imgs/earthelic logo file png.png" alt="Earthelic Logo">
-        </a>
+    
     </div>
 
     <!-- Sidebar -->
