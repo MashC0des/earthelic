@@ -174,41 +174,19 @@ foreach ($_SESSION['cart'] as $ci) {
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/metal.css">
-    <style>
-        /* Cart Page Specific Styles */
-        .glass-container { padding: 20px; }
-        .quantity-controls { margin: 10px 0; }
-        .quantity-controls label { font-weight: bold; margin-right: 10px; color: #222; }
-        .quantity-controls input { padding: 5px; width: 60px; border-radius: 4px; border: 1px solid #ccc; }
-        .cart-summary { margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 8px; text-align: center; }
-        .grand-total { margin-bottom: 20px; }
-        .grand-total h3 { color: #904A2D; font-size: 24px; }
-        .cart-actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .buy-all-btn { background-color: #904A2D !important; border-color: #904A2D !important; }
-        .buy-all-btn:hover { background-color: #7a3c24 !important; box-shadow: 0 0 25px #904A2D !important; }
-        .empty-cart { text-align: center; padding: 40px; color: #fff; }
-        .products { margin-bottom: 16px; }
-        .metprod { display: flex; align-items: center; gap: 16px; }
-        #mp { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; }
-        #metname { font-weight: 600; margin: 4px 0; }
-        #metdesc { margin: 4px 0; }
-        #sp1 .btn1 { margin-top: 8px; display: inline-block; }
-        /* Responsive adjustments */
-        @media(max-width: 768px) {
-            .cart-actions { flex-direction: column; align-items: center; }
-            .cart-actions .btn1 { width: 100%; max-width: 250px; }
-            .metprod { flex-direction: column; text-align: center; }
-            #mp { margin-right: 0; margin-bottom: 15px; }
-        }
-    </style>
+    
 </head>
 <body>
 <header class="head1">
     <a href="landing.html"><img src="imgs/earthelic logo file png.png" id="logo1" alt="Earthelic Logo"></a>
-    <h2>My Cart</h2>
+    
 </header>
 
 <div class="glass-container">
+       <div class="back-btn">
+        <button class="btn-back" onclick="window.history.back()">⬅ Back</button>
+    </div>
+     <h1>My Cart</h1>
     <?php if (!empty($_SESSION['cart'])): ?>
         <form method="post" action="">
             <?php foreach ($_SESSION['cart'] as $cart_item):

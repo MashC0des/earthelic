@@ -3,6 +3,9 @@ session_start();
 
 include "db_connect.php"; // DB connection + session
 
+$errors = [];
+$success = '';
+
 // Handle Registration
 if (isset($_POST['register'])) {
     $fullName = $_POST['fullName'] ?? '';
@@ -10,12 +13,25 @@ if (isset($_POST['register'])) {
     $phone = $_POST['phone'] ?? '';
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirmPassword'] ?? '';
+    
+    // Validate fields and store errors
+    if (empty($fullName)) {
+        $errors['fullName'] = "Full name is required!";
+    }
+    if (empty($email)) {
+        $errors['email'] = "Email is required!";
+    }
+    if (empty($password)) {
+        $errors['password'] = "Password is required!";
+    }
+    if (empty($confirmPassword)) {
+        $errors['confirmPassword'] = "Confirm password is required!";
+    }
+    if ($password !== $confirmPassword) {
+        $errors['confirmPassword'] = "Passwords do not match!";
+    }
 
-    if (empty($fullName) || empty($email) || empty($password) || empty($confirmPassword)) {
-        $error = "All required fields must be filled!";
-    } elseif ($password !== $confirmPassword) {
-        $error = "Passwords do not match!";
-    } else {
+    if (empty($errors)) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $conn->prepare("INSERT INTO Users (full_name, email, phone, password_hash) VALUES (?, ?, ?, ?)");
@@ -24,7 +40,12 @@ if (isset($_POST['register'])) {
         if ($stmt->execute()) {
             $success = "Registration successful. You can now log in!";
         } else {
-            $error = "Error: Email already exists or DB issue.";
+            // Check for duplicate email error
+            if ($conn->errno == 1062) {
+                $errors['email'] = "Error: Email already exists.";
+            } else {
+                $errors['general'] = "An unexpected database error occurred.";
+            }
         }
         $stmt->close();
     }
@@ -53,13 +74,15 @@ if (isset($_POST['login'])) {
             header("Location: landing.html"); // redirect to homepage
             exit();
         } else {
-            $error = "Invalid password!";
+            $errors['loginPassword'] = "Invalid password!";
         }
     } else {
-        $error = "No user found with this email!";
+        $errors['loginEmail'] = "No user found with this email!";
     }
     $stmt->close();
 }
+
+$showRegisterForm = isset($_POST['register']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,71 +117,77 @@ if (isset($_POST['login'])) {
         
         <div class="form-container">
             <!-- Messages -->
-            <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-            <?php if (isset($success)) echo "<p style='color:green;'>$success</p>"; ?>
+            <?php if (isset($errors['general'])) echo "<p class='error-message' style='text-align:center;'>{$errors['general']}</p>"; ?>
+            <?php if ($success) echo "<p class='success-message' style='text-align:center;'>$success</p>"; ?>
 
             <!-- Login Form -->
-            <div class="form-wrapper active" id="login-form">
+            <div class="form-wrapper <?= $showRegisterForm ? '' : 'active' ?>" id="login-form">
                 <h2>Login</h2>
-               <!-- Login Form -->
-<form method="POST" action="">
-    <div class="input-group">
-        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
-        <input type="email" name="loginEmail" placeholder="Email" required>
-    </div>
-    <div class="input-group">
-        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
-        <div class="password-field">
-            <input type="password" name="loginPassword" placeholder="Password" required>
-            <button type="button" class="toggle-password" id="toggleLoginPassword">
-                <i class="far fa-eye"></i>
-            </button>
-        </div>
-    </div>
-    <div class="forgot-password"><a href="forgot-password.php">Forgot Password?</a></div>
-    <button type="submit" name="login" class="btn">Login</button>
-</form>
+                <!-- Login Form -->
+                <form method="POST" action="">
+                    <div class="input-group">
+                        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
+                        <input type="email" name="loginEmail" placeholder="Email" required class="<?= isset($errors['loginEmail']) ? 'invalid' : '' ?>">
+                        <span class="error-message"><?= $errors['loginEmail'] ?? '' ?></span>
+                    </div>
+                    <div class="input-group" id="loginPasswordGroup">
+                        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
+                        <div class="password-field">
+                            <input type="password" name="loginPassword" id="loginPassword" placeholder="Password" required class="<?= isset($errors['loginPassword']) ? 'invalid' : '' ?>">
+                            <button type="button" class="toggle-password" id="toggleLoginPassword">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message"><?= $errors['loginPassword'] ?? '' ?></span>
+                    </div>
+                    <div class="forgot-password"><a href="forgot-password.php">Forgot Password?</a></div>
+                    <button type="submit" name="login" class="btn">Login</button>
+                </form>
 
                 <p class="toggle-text">Don't have an account? <a href="#" id="show-register">Register</a></p>
             </div>
             
             <!-- Registration Form -->
-            <div class="form-wrapper" id="register-form">
+            <div class="form-wrapper <?= $showRegisterForm ? 'active' : '' ?>" id="register-form">
                 <h2>Register</h2>
-               <!-- Registration Form -->
-<form method="POST" action="">
-    <div class="input-group">
-        <div class="icon-wrapper"><i class="fas fa-user"></i></div>
-        <input type="text" name="fullName" placeholder="Full Name" required>
-    </div>
-    <div class="input-group">
-        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
-        <input type="email" name="email" placeholder="Email" required>
-    </div>
-    <div class="input-group">
-        <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
-        <input type="text" name="phone" placeholder="Phone (optional)">
-    </div>
-    <div class="input-group">
-        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
-        <div class="password-field">
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="button" class="toggle-password" id="togglePassword">
-                <i class="far fa-eye"></i>
-            </button>
-        </div>
-    </div>
-    <div class="input-group">
-        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
-        <div class="password-field">
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-            <button type="button" class="toggle-password" id="toggleConfirmPassword">
-                <i class="far fa-eye"></i>
-            </button>
-        </div>
-    </div>
-    <button type="submit" name="register" class="btn">Register</button>
-</form>
+                <!-- Registration Form -->
+                <form method="POST" action="">
+                    <div class="input-group">
+                        <div class="icon-wrapper"><i class="fas fa-user"></i></div>
+                        <input type="text" name="fullName" id="fullName" placeholder="Full Name" required class="<?= isset($errors['fullName']) ? 'invalid' : '' ?>">
+                        <span class="error-message"><?= $errors['fullName'] ?? '' ?></span>
+                    </div>
+                    <div class="input-group">
+                        <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
+                        <input type="email" name="email" id="email" placeholder="Email" required class="<?= isset($errors['email']) ? 'invalid' : '' ?>">
+                        <span class="error-message"><?= $errors['email'] ?? '' ?></span>
+                    </div>
+                    <div class="input-group">
+                        <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
+                        <input type="text" name="phone" id="phone" placeholder="Phone (optional)">
+                    </div>
+                    <div class="input-group">
+                        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
+                        <div class="password-field">
+                            <input type="password" name="password" id="password" placeholder="Password" required class="<?= isset($errors['password']) ? 'invalid' : '' ?>">
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message"><?= $errors['password'] ?? '' ?></span>
+                    </div>
+                    <div class="input-group">
+                        <div class="icon-wrapper"><i class="fas fa-lock"></i></div>
+                        <div class="password-field">
+                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required class="<?= isset($errors['confirmPassword']) ? 'invalid' : '' ?>">
+                            <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message"><?= $errors['confirmPassword'] ?? '' ?></span>
+                    </div>
+                    <button type="submit" name="register" class="btn">Register</button>
+                </form>
 
                 <p class="toggle-text">Already have an account? <a href="#" id="show-login">Login</a></p>
             </div>

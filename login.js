@@ -1,87 +1,90 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
+    const loginFormWrapper = document.getElementById('login-form');
+    const registerFormWrapper = document.getElementById('register-form');
     const showRegister = document.getElementById('show-register');
     const showLogin = document.getElementById('show-login');
     const logo = document.getElementById('logo');
-    
-    showRegister.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Fade out logo
-        logo.classList.add('fade-out');
-        
-        setTimeout(() => {
-            // Animate forms
-            loginForm.classList.remove('active');
-            registerForm.classList.add('active');
-            
-            // Fade in logo
+
+    // Form switching functionality
+    if (showRegister) {
+        showRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Fade out logo
+            logo.classList.add('fade-out');
             setTimeout(() => {
-                logo.classList.remove('fade-out');
-            }, 300);
-        }, 250); // Half of the transition time
-    });
-    
-    showLogin.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Fade out logo
-        logo.classList.add('fade-out');
-        
-        setTimeout(() => {
-            // Animate forms
-            registerForm.classList.remove('active');
-            loginForm.classList.add('active');
-            
-            // Fade in logo
+                loginFormWrapper.classList.remove('active');
+                registerFormWrapper.classList.add('active');
+                setTimeout(() => {
+                    logo.classList.remove('fade-out');
+                }, 300);
+            }, 250);
+        });
+    }
+
+    if (showLogin) {
+        showLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Fade out logo
+            logo.classList.add('fade-out');
             setTimeout(() => {
-                logo.classList.remove('fade-out');
-            }, 300);
-        }, 250); // Half of the transition time
+                registerFormWrapper.classList.remove('active');
+                loginFormWrapper.classList.add('active');
+                setTimeout(() => {
+                    logo.classList.remove('fade-out');
+                }, 300);
+            }, 250);
+        });
+    }
+
+    // Password toggle functionality
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('input');
+            const icon = this.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
     });
-});
-document.addEventListener('DOMContentLoaded', function() {
-    // Animation code remains the same from previous version
-    
+
     // Form Validation
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
+    const loginForm = document.querySelector('#login-form form');
+    const registerForm = document.querySelector('#register-form form');
     
     // Login Form Validation
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Clear previous errors
+            clearErrors(loginForm);
+
             let isValid = true;
             
             // Validate Email
-            const email = document.getElementById('loginEmail');
+            const email = loginForm.querySelector('input[name="loginEmail"]');
             const emailError = document.getElementById('loginEmailError');
             if (!validateEmail(email.value)) {
-                emailError.textContent = 'Please enter a valid email address';
-                email.parentElement.classList.add('invalid');
+                emailError.textContent = 'Please enter a valid email address.';
+                email.closest('.input-group').classList.add('invalid');
                 isValid = false;
-            } else {
-                emailError.textContent = '';
-                email.parentElement.classList.remove('invalid');
             }
             
             // Validate Password
-            const password = document.getElementById('loginPassword');
+            const password = loginForm.querySelector('input[name="loginPassword"]');
             const passwordError = document.getElementById('loginPasswordError');
             if (password.value.length === 0) {
-                passwordError.textContent = 'Password is required';
-                password.parentElement.classList.add('invalid');
+                passwordError.textContent = 'Password is required.';
+                password.closest('.input-group').classList.add('invalid');
                 isValid = false;
-            } else {
-                passwordError.textContent = '';
-                password.parentElement.classList.remove('invalid');
             }
             
-            if (isValid) {
-                // Submit the form
-                window.location.href = "home.html"; // Redirect to home page
-                // loginForm.submit();
+            if (!isValid) {
+                e.preventDefault();
             }
         });
     }
@@ -89,77 +92,65 @@ document.addEventListener('DOMContentLoaded', function() {
     // Registration Form Validation
     if (registerForm) {
         registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Clear previous errors
+            clearErrors(registerForm);
+
             let isValid = true;
             
             // Validate Full Name
-            const fullName = document.getElementById('fullName');
+            const fullName = registerForm.querySelector('input[name="fullName"]');
             const fullNameError = document.getElementById('fullNameError');
             if (fullName.value.trim().length === 0) {
-                fullNameError.textContent = 'Full name is required';
-                fullName.parentElement.classList.add('invalid');
+                fullNameError.textContent = 'Full name is required.';
+                fullName.closest('.input-group').classList.add('invalid');
                 isValid = false;
             } else if (fullName.value.length > 20) {
-                fullNameError.textContent = 'Name must be 20 characters or less';
-                fullName.parentElement.classList.add('invalid');
+                fullNameError.textContent = 'Name must be 20 characters or less.';
+                fullName.closest('.input-group').classList.add('invalid');
                 isValid = false;
-            } else {
-                fullNameError.textContent = '';
-                fullName.parentElement.classList.remove('invalid');
             }
             
             // Validate Email
-            const email = document.getElementById('email');
+            const email = registerForm.querySelector('input[name="email"]');
             const emailError = document.getElementById('emailError');
             if (!validateEmail(email.value)) {
-                emailError.textContent = 'Please enter a valid email address';
-                email.parentElement.classList.add('invalid');
+                emailError.textContent = 'Please enter a valid email address.';
+                email.closest('.input-group').classList.add('invalid');
                 isValid = false;
-            } else {
-                emailError.textContent = '';
-                email.parentElement.classList.remove('invalid');
             }
             
             // Validate Password
-            const password = document.getElementById('password');
+            const password = registerForm.querySelector('input[name="password"]');
             const passwordError = document.getElementById('passwordError');
             const passwordValidation = validatePassword(password.value);
             if (!passwordValidation.isValid) {
                 passwordError.textContent = passwordValidation.message;
-                password.parentElement.classList.add('invalid');
+                password.closest('.input-group').classList.add('invalid');
                 isValid = false;
-            } else {
-                passwordError.textContent = '';
-                password.parentElement.classList.remove('invalid');
             }
             
             // Validate Confirm Password
-            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmPassword = registerForm.querySelector('input[name="confirmPassword"]');
             const confirmPasswordError = document.getElementById('confirmPasswordError');
             if (password.value !== confirmPassword.value) {
-                confirmPasswordError.textContent = 'Passwords do not match';
-                confirmPassword.parentElement.classList.add('invalid');
+                confirmPasswordError.textContent = 'Passwords do not match.';
+                confirmPassword.closest('.input-group').classList.add('invalid');
                 isValid = false;
             } else if (confirmPassword.value.length === 0) {
-                confirmPasswordError.textContent = 'Please confirm your password';
-                confirmPassword.parentElement.classList.add('invalid');
+                confirmPasswordError.textContent = 'Please confirm your password.';
+                confirmPassword.closest('.input-group').classList.add('invalid');
                 isValid = false;
-            } else {
-                confirmPasswordError.textContent = '';
-                confirmPassword.parentElement.classList.remove('invalid');
             }
             
-            if (isValid) {
-                // Submit the form
-                 window.location.href = "home.html";;
-                // registerForm.submit();
+            if (!isValid) {
+                e.preventDefault();
             }
         });
     }
-    
+
     // Helper Functions
     function validateEmail(email) {
-        const re = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d@.]{1,30}$/ && /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
     
@@ -167,21 +158,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (password.length < 8 || password.length > 12) {
             return {
                 isValid: false,
-                message: 'Password must be 8-12 characters long'
+                message: 'Password must be 8-12 characters long.'
             };
         }
         
         if (!/[A-Z]/.test(password)) {
             return {
                 isValid: false,
-                message: 'Must contain at least one uppercase letter'
+                message: 'Must contain at least one uppercase letter.'
             };
         }
         
         if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
             return {
                 isValid: false,
-                message: 'Must contain at least one special character'
+                message: 'Must contain at least one special character.'
             };
         }
         
@@ -190,35 +181,9 @@ document.addEventListener('DOMContentLoaded', function() {
             message: ''
         };
     }
-    
-    // Animation code remains the same from previous version
+
+    function clearErrors(form) {
+        form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+        form.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+    }
 });
-   // Password toggle functionality
-        document.querySelectorAll('.toggle-password').forEach(button => {
-            button.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('input');
-                const icon = this.querySelector('i');
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                } else {
-                    input.type = 'password';
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                }
-            });
-        });
-
-        // Form switching functionality
-        document.getElementById('show-register')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('login-form').classList.remove('active');
-            document.getElementById('register-form').classList.add('active');
-        });
-
-        document.getElementById('show-login')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('register-form').classList.remove('active');
-            document.getElementById('login-form').classList.add('active');
-        });
