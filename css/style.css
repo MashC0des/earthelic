@@ -275,10 +275,7 @@ section {
     width: 80%;
 }
 
-#eas {
-    font-size: 150px;
-    margin-left: 29%;
-}
+
 
 /*----------------------------------- responsive-------------------- */
 @media(max-width:1024px) {

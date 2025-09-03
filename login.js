@@ -187,3 +187,11 @@ document.addEventListener('DOMContentLoaded', function() {
         form.querySelectorAll('.error-message').forEach(el => el.textContent = '');
     }
 });
+// Hamburger menu toggle
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    const burger = document.querySelector('.hamburger');
+    nav.classList.toggle('active');
+    burger.classList.toggle('active');
+}
+

@@ -106,7 +106,21 @@ $showRegisterForm = isset($_POST['register']);
                     <li><a href="about.php">About us</a></li>
                     
                 </ul>
+                <ul class="nav2-links">
+                    <li><a href="landing.html">Home</a></li>
+                    <li><a href="metal.php">Metal</a></li>
+                    <li><a href="ceramic.php">Ceramic</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="about.php">About us</a></li>
+                    
+                </ul>
             </div>
+            
+            <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
         </nav>
     </header>
 
@@ -193,6 +207,24 @@ $showRegisterForm = isset($_POST['register']);
             </div>
         </div>
     </div>
+    <!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    $(".hamburger").click(function(){
+        $(this).toggleClass("active"); // animate hamburger into X
+
+        // slide animation for nav
+        if ($(".nav2-links").hasClass("open")) {
+            $(".nav2-links").removeClass("open").animate({right: "-250px"}, 300);
+        } else {
+            $(".nav2-links").addClass("open").animate({right: "0px"}, 300);
+        }
+    });
+});
+</script>
+
 </body>
 <script src="login.js"></script>
 </html>
