@@ -1,0 +1,96 @@
+/* ---------------- About Us Page Specific Styles ---------------- */
+
+/* Main content container */
+.glass-container {
+    /* The glass effect styling is inherited from the original file */
+    padding: 40px;
+}
+
+/* General section styling for videos and text */
+.about-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.about-section.intro {
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Video container */
+.about-video {
+    flex-shrink: 0;
+    width: 400px; /* Fixed width for the video */
+    height: 600px; /* Fixed height for the video */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.about-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video fills the container without distortion */
+    border-radius: 10px;
+}
+
+/* Text content */
+.about-text {
+    flex-grow: 1;
+}
+
+.about-text h2 {
+    font-size: 4rem; /* Increased title size */
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.about-text p {
+    font-size: 2.5rem; /* Increased description size */
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .about-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .about-section.left {
+        flex-direction: column;
+    }
+
+    .about-video {
+        width: 100%;
+        height: auto;
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-text h2 {
+        font-size: 2rem;
+    }
+
+    .about-text p {
+        font-size: 1rem;
+    }
+    
+    .glass-container {
+      padding: 20px;
+    }
+}

@@ -2,11 +2,10 @@
 
 /* Section heading */
 #eas {
-  
-  /* margin-left: 29%; */
+  font-size: 90px;
   color: #904A2D;
   font-family: cursive;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 /* Metal product card */
@@ -49,7 +48,7 @@
 
 #metdesc {
   font-size: 1.4rem;
-  color: #444;
+  color: #201f1f;
   margin-bottom: 15px;
 }
 

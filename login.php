@@ -65,7 +65,14 @@ if (isset($_POST['login'])) {
         $stmt->bind_result($user_id, $full_name, $hashedPassword, $role);
         $stmt->fetch();
 
-        if (password_verify($password, $hashedPassword)) {
+        $_SESSION['role'] = $user_data['role']; // make sure role column exists
+
+
+        if ($_SESSION['role'] ==='Admin') {
+    header("Location: admin.php");
+    exit();
+       }
+        elseif (password_verify($password, $hashedPassword)) {
             $_SESSION['user_id'] = $user_id;
             $_SESSION['full_name'] = $full_name;
             $_SESSION['email'] = $email;
@@ -73,7 +80,10 @@ if (isset($_POST['login'])) {
 
             header("Location: landing.html"); // redirect to homepage
             exit();
-        } else {
+            
+        }
+        
+        else {
             $errors['loginPassword'] = "Invalid password!";
         }
     } else {

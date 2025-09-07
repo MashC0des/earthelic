@@ -31,6 +31,11 @@ if (!$product) {
     http_response_code(404);
     die("Product not found.");
 }
+$stmt = $conn->prepare("SELECT profile_picture FROM Users WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$user = $stmt->get_result()->fetch_assoc();
+$stmt->close();
 
 // ---- Handle review submission (if user is logged in) ----
 if (isset($_POST['submit_review']) && isset($_SESSION['user_id'])) {
@@ -174,7 +179,10 @@ $reviews = $stmt->get_result();
                 <?php while ($rev = $reviews->fetch_assoc()): ?>
                     <div class="review-card">
                         <div class="review-header">
-                            <img src="imgs/default-profile.png" alt="User" class="profile-pic">
+                            <img src="<?php echo (!empty($user['profile_picture'])) 
+                    ? $user['profile_picture'] 
+                    : 'imgs/default-profile.png'; ?>" 
+         alt="Profile Picture" class="profile-pic" id="profilePic">
                             <div>
                                 <strong><?php echo h($rev['full_name']); ?></strong>
                                 <div class="stars">

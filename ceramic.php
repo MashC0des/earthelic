@@ -40,6 +40,7 @@ $result = $conn->query($sql);
                     <li><a href="home.php">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
+                     <li><a href="artwork.php">Paintings & Wall Art</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="about.php">About us</a></li>
                     <?php if (!empty($_SESSION['user_id'])): ?>
@@ -63,7 +64,7 @@ $result = $conn->query($sql);
             <div class="back-btn">
                 <button onclick="window.history.back()">⬅ Back</button>
             </div>
-            <h1>Ceramic Products</h1>
+            <h1 id="eas">Ceramic</h1>
             <div class="product-list">
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>

@@ -10,60 +10,49 @@
             font-family: Arial Rounded MT Bold, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+            text-decoration: none;
+            list-style: none;
+            /* outline: 1px solid red;  For debugging layout issues */
+            /* border: 1px solid blue;  For debugging layout issues */
+
         }
 
         html, body {
+            overflow-x: hidden;
             width: 100%;
             height: 100%;
+          
         }
+        .two {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Add padding or margins as needed for spacing */
+  padding: 50px;
+}
 
+.desc-img {
+  width: 300px;  /* Set a fixed width */
+  height: 400px; /* Set a fixed height */
+  object-fit: cover; /* This will ensure the image covers the area without distortion */
+}
+
+/* Optional: Add some space between the images and the text */
+.two-content {
+  margin: 0 40px;
+}
         body::-webkit-scrollbar {
             display: none;
         }
 
         #main {
             width: 100%;
-            background-color: #f7f3e9;
-        }
-
-        nav {
-            position: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            height: 10vh;
-            padding: 0 5vw;
-            z-index: 99;
-            background-color: transparent;
-            transition: background-color 0.3s ease;
-        }
-
-        nav.scrolled {
-            background-color: rgba(247, 243, 233, 0.9);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            
         }
         
-        nav a {
-            font-size: 1em;
-            text-decoration: none;
-            color: #4b3d36;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #904A2D;
-        }
-
-        #logo {
-            height: 50px;
-        }
-        
-        .cntr-nav {
-            display: flex;
-            gap: 2vw;
-            flex-wrap: wrap;
-        }
+       
 
         .one {
             display: flex;
@@ -72,7 +61,7 @@
             justify-content: center;
             width: 100%;
             height: 100vh;
-            background: linear-gradient(150deg, #e4d7c8, #f7f3e9);
+            
             position: relative;
         }
 
@@ -83,33 +72,7 @@
             z-index: 2;
         }
 
-        .one img {
-            position: absolute;
-            transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
-        }
         
-        #ceramic-vase {
-            width: 20%;
-            z-index: 3;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        #metal-statue {
-            width: 15%;
-            top: 15%;
-            left: 10%;
-            z-index: 2;
-        }
-
-        #canvas-painting {
-            width: 18%;
-            top: 60%;
-            right: 15%;
-            z-index: 2;
-        }
-
         .shop-btn {
             margin-top: 20px;
             font-size: 1.5em;
@@ -141,16 +104,28 @@
             text-align: center;
         }
 
-        .two h1 {
-            font-size: 4vw;
-            margin-bottom: 20px;
-        }
+       .two .dis{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5vw;
+        flex-wrap: wrap;
+        margin-bottom: 50px;
+       }
         
-        .two p {
-            font-size: 1.2em;
-            width: 80%;
+        .two .dis p {
+            font-size: 2em;
+            
             max-width: 800px;
             line-height: 1.6;
+        }
+        .two .dis h1{
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .two .left-img{
+            position: left;
         }
 
         .three {
@@ -161,7 +136,7 @@
             gap: 5vw;
             width: 100%;
             height: 100vh;
-            background: linear-gradient(150deg, #f7f3e9, #e4d7c8);
+        
             padding: 10vh 5vw;
         }
         
@@ -182,7 +157,8 @@
         
         .card img {
             position: absolute;
-            width: 80%;
+            width: 85%;
+            height: 85%;
             top: 0;
             left: 50%;
             transform: translate(-50%, -10%);
@@ -208,6 +184,10 @@
             transition: background-color 0.3s ease;
             margin-bottom: 20px;
             z-index: 2;
+        }
+        .card button a{
+            color: #fff;
+            text-decoration: none;
         }
 
         .card button:hover {
@@ -259,7 +239,8 @@
                 width: 60%;
             }
         }
-        /* Footer styles */
+        /* Footer styles
+        
         .foot1 {
             text-align: center;
             padding: 20px 0;
@@ -277,4 +258,4 @@
         }
         .social-icons a:hover {
             color: #904A2D;
-        }
+        } */

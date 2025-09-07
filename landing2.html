@@ -1,49 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earthelic.com | Animated</title>
     <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
+
+    <style>
+        .desc-img {
+            width: 500px;
+            /* Set a fixed width */
+            height: 400px;
+            /* Set a fixed height */
+            object-fit: cover;
+            /* This will ensure the image covers the area without distortion */
+            border-radius: 18px;
+        }
+
+        /* Optional: Add some space between the images and the text */
+        .two-content {
+            margin: 0 40px;
+        }
+
+    </style>
 </head>
+
 <body>
     <div id="main">
         <nav>
-            <a href="landing.html"><img src="imgs\earthelic logo file png.png" alt="Earthelic Logo" id="logo"></a>
-          
+            <a href="landing.html"><img src="imgs\earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
         </nav>
         <div class="one">
             <h1>Earthelic</h1>
             <a href="home.php" class="shop-btn">Shop Now</a>
-            <img id="ceramic-vase" src="imgs\2desc.jpg" alt="Ceramic Vase">
-            <img id="metal-statue" src="imgs\1desc.jpg" alt="Metal Statue">
-            <img id="canvas-painting" src="imgs\3desc.jpg" alt="Canvas Painting">
         </div>
         <div class="two">
-            <h1>Crafted with Passion</h1>
-            <p>
-                Explore our collection of finely crafted ceramic and metal products. Each piece is a unique work of art, designed to bring elegance and style to your home. We blend traditional techniques with modern aesthetics to create timeless and durable pieces.
-            </p>
+            <div class="dis">
+                <img src="imgs/1desc.jpg" alt="Description Image 1" class="desc-img left-img">
+                <div>
+                    <h1 >Ceramics</h1>
+                    <p>
+                        "Transforming raw earth into exquisite <br> ceramic creations-handcrafted with precision,
+                        tailored <br>to your needs, and designed to elevate every <br>space."
+                    </p><a href="ceramic.php" id="more">more <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+            <div class="dis">
+                <div>
+                    <h1>Metals</h1>
+                <p >
+                    "Shaping raw metal into exceptional creations <br>engineered with precision, customized to your <br>requirements,and built to inspire strength and <br>elegance."
+                </p><br>
+                <a href="metal.php" id="more">more <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <img src="imgs/2desc.jpg" alt="Description Image 2" class="desc-img right-img">
+            </div>
+            <div class="dis"><img src="imgs/3desc.jpg" alt="Description Image 3" class="desc-img left-img">
+                <div>
+                    <h1>Paintings</h1>
+                <p>
+                    "Bringing visions to life on canvas — crafted <br>with passion, tailored to your desires, and <br>designed to inspire creativity and emotion."
+                </p>
+                <a href="artwork.php" id="more">more <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+
+
         </div>
         <div class="three">
             <div class="card">
-                <img src="https://placehold.co/300x400/e4d7c8/4b3d36?text=Ceramic+Bowl" alt="Ceramic Bowl">
+                <img src="final product images/(24).jpeg" alt="Ceramic Bowl">
                 <h1>Ceramics</h1>
-                <button>Shop Now</button>
+                <button><a href="ceramic.php">Shop Now</a></button>
             </div>
             <div class="card">
-                <img src="https://placehold.co/300x400/e4d7c8/4b3d36?text=Metal+Art" alt="Metal Art">
+                <img src="final product images/(32).jpeg" alt="Metal Art">
                 <h1>Metal Art</h1>
-                <button>Shop Now</button>
+                <button><a href="metal.php">Shop Now</a></button>
             </div>
             <div class="card">
-                <img src="https://placehold.co/300x400/e4d7c8/4b3d36?text=Canvas+Art" alt="Canvas Art">
+                <img src="final product images/81.webp" alt="Canvas Art">
                 <h1>Canvas Art</h1>
-                <button>Shop Now</button>
+               <button><a href="artwork.php">Shop Now</a></button>
             </div>
         </div>
         <footer class="foot1">
@@ -63,31 +109,32 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        var tl = gsap.timeline({
+        // This is the new animation for the images in the .two section
+        gsap.registerPlugin(ScrollTrigger);
+
+        // This is the new animation for the images in the .two section
+        var tl3 = gsap.timeline({
             scrollTrigger: {
                 trigger: ".two",
-                start: "0% 95%",
-                end: "70% 50%",
-                scrub: true,
+                start: "top center",
+                end: "bottom center",
+                scrub: 1,
             }
         });
-        
-        tl.to("#ceramic-vase", {
-            x: "-200%",
-            y: "0",
-            rotation: -30
-        }, 'products');
-        tl.to("#metal-statue", {
-            x: "-200%",
-            y: "0",
-            rotation: -30
-        }, 'products');
-        tl.to("#canvas-painting", {
-            x: "200%",
-            y: "0",
-            rotation: 30
-        }, 'products');
-        
+
+        // Defines both the starting and ending positions for the images
+        tl3.fromTo(".left-img",
+            { x: -500, opacity: 0.5 }, // **STARTING POSITION**: Off-screen to the left
+            { x: -1, opacity: 1, stagger: 0.7, duration: 1 } // **ENDING POSITION**: 200px to the right of its original spot
+        );
+
+        tl3.fromTo(".right-img",
+            { x: 600, opacity: 0 }, // **STARTING POSITION**: Off-screen to the right
+            { x: 100, opacity: 1, stagger: 0.5, duration: 1 }, // **ENDING POSITION**: 200px to the left of its original spot
+            "<" // The "<" starts this animation at the same time as the previous one
+        );
+
+
         var tl2 = gsap.timeline({
             scrollTrigger: {
                 trigger: ".three",
@@ -96,7 +143,7 @@
                 scrub: true,
             }
         });
-        
+
         tl2.from(".card:nth-child(1)", {
             rotate: "-90deg",
             left: "-100%",
@@ -122,4 +169,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -1,0 +1,127 @@
+/* Reset + Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-image: url("../imgs/sc1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.head1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.6);
+}
+
+#logo1 {
+    height: 50px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #e8dfdf;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.nav-links a:hover {
+    color: #5dc572;
+}
+
+/* Complaint Container */
+.complaint-container {
+    margin: 120px auto 40px;
+    width: 600px;
+    padding: 30px;
+    background: linear-gradient(rgba(227,225,225,0.2), rgba(27,27,27,0.3));
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.complaint-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #fff;
+}
+
+/* Inputs */
+.complaint-container label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.complaint-container input,
+.complaint-container textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.complaint-container textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.complaint-container input:focus,
+.complaint-container textarea:focus {
+    border-color: #5dc572;
+    outline: none;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: #2f3b31;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid #2f3b31;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: #5dc572;
+    border-color: #5dc572;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    color: #fff;
+    margin-top: auto;
+}

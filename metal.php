@@ -23,6 +23,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earthelic - Metal</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css\style.css">
     <link rel="stylesheet" href="css\metal.css">
@@ -32,22 +33,25 @@ $result = $conn->query($sql);
     <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
     <nav class="nav1">   
         <div class="icons1">
-            <ul class="nav-links">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="metal.php">Metal</a></li>
-                <li><a href="ceramic.php">Ceramic</a></li>
-                <li><a href="cart.php">Cart</a></li>
-                <li><a href="about.php">About us</a></li>
-                <?php if (!empty($_SESSION['user_id'])): ?>
-                    <li class="nav-profile-wrap">
-                        <a href="profile.php" class="nav-profile-link">
-                            <span class="nav-profile-name"><?php echo ($_SESSION['full_name'] ?? 'Profile'); ?></span>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li><a href="login.php">Log In</a></li>
-                <?php endif; ?>
-            </ul>
+             <ul class="nav-links">
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="metal.php">Metal</a></li>
+                    <li><a href="ceramic.php">Ceramic</a></li>
+                     <li><a href="artwork.php">Paintings & Wall Art</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="about.php">About us</a></li>
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <li class="nav-profile-wrap">
+                            <a href="profile.php" class="nav-profile-link">
+                                <span class="nav-profile-name"><?php echo ($_SESSION['full_name'] ?? 'Profile'); ?></span>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="login.php">Log In</a></li>
+                    <?php endif; ?>
+                </ul>
+        </div>
+    </nav>
         </div>
     </nav>
 </header>
@@ -58,7 +62,7 @@ $result = $conn->query($sql);
           <div class="back-btn">
         <button class="btn-back" onclick="window.history.back()">⬅ Back</button>
     </div>
-        <p style="color: #904A2D;" id="eas">Metal</p>
+        <p  id="eas">Metal</p>
         <h3>Our Metal Inventory</h3>
 
        <?php if ($result->num_rows > 0): ?>

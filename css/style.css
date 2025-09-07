@@ -10,6 +10,7 @@
     margin-bottom: 20px;
 }
 
+
 .btn-back {
     background: rgba(0, 0, 0, 0.75);
     border: 2px solid #2f3b31;
@@ -186,9 +187,9 @@ section {
     font-weight: 700;
 }
 
-.home-content p {
+/* .home-content p {
     font-size: 1.6rem;
-}
+} */
 
 .social-icons {
     padding-left: 40%;
@@ -253,7 +254,13 @@ section {
 #more {
     font-size: medium;
     margin-left: 70%;
-    color: #321f17;
+    color: #f7f3e9;
+}
+#more:hover {
+    color: #d4c9c0;
+    text-decoration: underline;
+    transition: 1s ease;
+    cursor: pointer;
 }
 
 
@@ -312,9 +319,7 @@ section {
         margin-left: 5px;
     }
 
-    #eas {
-        margin-left: 19%;
-    }
+    
     #logimg{
         height: 200px;
     }
@@ -372,9 +377,6 @@ section {
         margin-left: 0;
     }
 
-    #eas {
-        margin-left: 8%;
-    }
 
     .btn1 {
         padding: 1rem 0.5rem;

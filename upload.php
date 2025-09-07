@@ -102,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="ceramic">Ceramic</option>
                 <option value="metal">Metal</option>
                 <option value="canvas">Canvas</option>
+                <option value="wallart">Wall Art</option>
                 <option value="mixed">Mixed</option>
             </select>
 

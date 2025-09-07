@@ -41,6 +41,7 @@ $stmt->close();
 <head>
   <meta charset="UTF-8">
   <title>Paintings & Wall Art - Earthelic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="css/metal.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -49,22 +50,23 @@ $stmt->close();
     <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
     <nav class="nav1">   
         <div class="icons1">
-            <ul class="nav-links">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="metal.php">Metal</a></li>
-                <li><a href="ceramic.php">Ceramic</a></li>
-                <li><a href="cart.php">Cart</a></li>
-                <li><a href="about.php">About us</a></li>
-                <?php if (!empty($_SESSION['user_id'])): ?>
-                    <li class="nav-profile-wrap">
-                        <a href="profile.php" class="nav-profile-link">
-                            <span class="nav-profile-name"><?php echo ($_SESSION['full_name'] ?? 'Profile'); ?></span>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li><a href="login.php">Log In</a></li>
-                <?php endif; ?>
-            </ul>
+           <ul class="nav-links">
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="metal.php">Metal</a></li>
+                    <li><a href="ceramic.php">Ceramic</a></li>
+                     <li><a href="artwork.php">Paintings & Wall Art</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="about.php">About us</a></li>
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <li class="nav-profile-wrap">
+                            <a href="profile.php" class="nav-profile-link">
+                                <span class="nav-profile-name"><?php echo ($_SESSION['full_name'] ?? 'Profile'); ?></span>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="login.php">Log In</a></li>
+                    <?php endif; ?>
+                </ul>
         </div>
     </nav>
 </header>
