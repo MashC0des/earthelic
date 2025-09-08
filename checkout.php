@@ -39,9 +39,9 @@ $stmt->close();
 
 $cart_items = [];
 $grand_total = 0.0;
-$stmt = $conn->prepare("SELECT ci.product_id, ci.quantity, p.product_name, p.price, p.image_url 
-                        FROM Cart_Items ci 
-                        JOIN Products p ON ci.product_id = p.product_id 
+$stmt = $conn->prepare("SELECT ci.product_id, ci.quantity, p.product_name, p.price, p.image_url
+                        FROM Cart_Items ci
+                        JOIN Products p ON ci.product_id = p.product_id
                         WHERE ci.cart_id = ?");
 $stmt->bind_param("i", $cart_id);
 $stmt->execute();
@@ -54,14 +54,21 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 
 /* -------------------------------------------
-   Handle payment submission (simulated)
-   This section is now updated to create entries
-   in the new Orders and Order_Items tables.
+   Handle payment submission
+   This section is updated to demonstrate passing
+   the calculated total amount to the payment process.
 ------------------------------------------- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
-    // 1. Insert a new record into the Orders table
+    // This is the variable that holds the amount to be passed to the payment gateway
+    $payment_amount = $grand_total;
+    
+    // In a real application, you would use this $payment_amount variable
+    // to make an API call to a payment gateway (e.g., Stripe, PayPal, Razorpay).
+    // For now, we will simulate the process as before.
+    
+    // 1. Insert a new record into the Orders table with the total amount
     $stmt = $conn->prepare("INSERT INTO Orders (user_id, total_amount, status) VALUES (?, ?, 'processing')");
-    $stmt->bind_param("id", $user_id, $grand_total);
+    $stmt->bind_param("id", $user_id, $payment_amount); // Using the new variable here
     $stmt->execute();
     $order_id = $stmt->insert_id;
     $stmt->close();
@@ -141,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
     <meta charset="UTF-8">
     <title>Checkout - Earthelic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/metal.css">
     <style>
@@ -255,11 +263,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
 </head>
 <body>
 <header class="head1">
-    <a href="landing.html"><img src="imgs/earthelic logo file png.png" id="logo1" alt="Earthelic Logo"></a>
-    <h2>Checkout</h2>
+    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
+   
 </header>
 
+
 <main>
+    
     <div class="checkout-container">
         <h3>Order Summary</h3>
         <div class="order-summary">

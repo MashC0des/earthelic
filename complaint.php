@@ -42,24 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Submit a Complaint - Earthelic</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/complaint.css">
+     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        .form-message {
-            text-align: center;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-        }
-        .form-message.success {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .form-message.error {
-            background-color: #f44336;
-            color: white;
-        }
-    </style>
+   
 </head>
 <body>
 
@@ -68,17 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="landing.php">
       <img src="imgs/earthelic logo file png.png" alt="logo" id="logo1">
     </a>
-    <nav class="nav1">
-      <ul class="nav-links">
-        <li><a href="landing.php">Home</a></li>
-        <li><a href="metal.php">Metal</a></li>
-        <li><a href="ceramic.php">Ceramic</a></li>
-        <li><a href="artworks.php">Paintings & Wall Art</a></li>
-        <li><a href="cart.php">Cart</a></li>
-        <li><a href="login.php">Log In</a></li>
-      </ul>
-    </nav>
+  
   </header>
+  <br>
+   <div class="back-btn">
+        <button class="btn-back" onclick="window.history.back()">⬅ Back</button>
+    </div>
 
   <section class="main_sec">
     <div class="glass-container">
@@ -124,14 +104,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </section>
 
   <!-- Footer -->
-  <footer class="foot1">
+ <footer class="foot1">
     <div class="social-icons">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="mailto:earthelicarthouse@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        <a href="tel:999999999"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://www.instagram.com/earthelic_homedecor/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
     </div>
     <p>&copy; 2024 Earthelic.com</p>
-  </footer>
+</footer>
 
 </body>
 </html>

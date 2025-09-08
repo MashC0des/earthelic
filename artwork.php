@@ -41,6 +41,7 @@ $stmt->close();
 <head>
   <meta charset="UTF-8">
   <title>Paintings & Wall Art - Earthelic</title>
+   <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="css/metal.css">
   <link rel="stylesheet" href="css/style.css">

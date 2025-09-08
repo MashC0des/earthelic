@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="css/metal.css">
   <link rel="stylesheet" href="css/aboutus.css">
   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 <header class="head1">
-  <a href="landing.php">
+  <a href="landing.html">
     <img src="imgs/earthelic logo file png.png" alt="logo" id="logo1">
   </a>
   <nav class="nav1">
@@ -40,7 +41,7 @@
     <!-- Section 1: Artist Photo & Intro -->
     <div class="about-section intro">
       <div class="about-photo">
-        <img src="imgs/artist.jpg" alt="Our Artist">
+        <img src="imgs\IMG-20250903-WA0002.jpg" alt="Our Artist">
       </div>
       <div class="about-text">
         <h1>About Our Journey</h1>
@@ -56,7 +57,7 @@
       ["video" => "VID-20250903-WA0001.mp4", "title" => "Our Inspiration", "desc" => "This video shows the detailed process of a sculptor creating a relief of a powerful, bearded figure. The description, Inspired by classical and mythological figures, our art embodies tradition and modern design. This piece showcases the intricate process of bringing a powerful character to life through clay, highlights the classical influence and the craftsmanship involved."],
       ["video" => "VID-20250903-WA0004.mp4", "title" => "The Potter's Wheel", "desc" => "This clip features a potter shaping a piece of clay on a wheel. The description, Witness the ancient art of pottery as skilled hands transform a simple lump of clay into a beautiful, functional piece of art on the wheel, focuses on the creation of a ceramic piece."],
       ["video" => "VID-20250903-WA0005.mp4", "title" => "Shaping Perfection", "desc" => " This video shows an artist meticulously refining the edges and surface of a piece of pottery with their hands. The description, Every curve and line is meticulously shaped to achieve perfection. This video captures the final, delicate touches that give each piece its unique form, emphasizes the attention to detail."],
-      ["video" => "VID-20250903-WA0002.mp4", "title" => "Sculpting Narratives", "desc" => "This video features a close-up of an artist using tools to add fine details to a clay sculpture. The description, Our sculptures tell stories. This piece, with its intricate details and expressive form, showcases the careful craftsmanship that brings each character to life, highlights the storytelling aspect of the artwork."],
+      ["video" => "VID-20250903-WA0002.mp4", "title" => "Sculpting Narratives", "desc" => "Our sculptures tell stories. This piece, with its intricate details and expressive form, showcases the careful craftsmanship that brings each character to life."],
       ["video" => "VID-20250903-WA0003.mp4", "title" => "Finishing Touches", "desc" => "This video shows an artist painting a metal sculpture with a brush. The description, After the initial shaping, our artworks undergo a final transformation. This clip shows the meticulous process of painting a metal piece, blending durability with vibrant creativity,describes the final steps in the creation of a metal artwork."]
     ];
     $i = 0;
@@ -66,7 +67,7 @@
       <div class="about-section <?php echo $isEven ? 'left' : 'right'; ?>">
         <?php if ($isEven): ?>
           <div class="about-video">
-            <video controls muted>
+            <video controls muted autoplay loop>
               <source src="imgs/<?php echo $sec['video']; ?>" type="video/mp4">
               Your browser does not support the video tag.
             </video>
@@ -81,7 +82,7 @@
             <p><?php echo $sec['desc']; ?></p>
           </div>
           <div class="about-video">
-            <video controls muted>
+            <video controls muted autoplay loop>
               <source src="imgs/<?php echo $sec['video']; ?>" type="video/mp4">
               Your browser does not support the video tag.
             </video>
@@ -89,17 +90,24 @@
         <?php endif; ?>
       </div>
     <?php $i++; endforeach; ?>
+    
+    <!-- Complaint Button -->
+    <div class="complaint-button-container">
+        <a href="complaint.php" class="complaint-btn">Submit a Complaint</a>
+    </div>
 
   </div>
 </section>
 
 <footer class="foot1">
-  <div class="social-icons">
-    <a href="#"><i class="fab fa-facebook-f"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-  </div>
-  <p>&copy; 2024 Earthelic.com</p>
+    <div class="social-icons">
+        <a href="mailto:earthelicarthouse@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        <a href="tel:999999999"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://www.instagram.com/earthelic_homedecor/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+    </div>
+    <p>&copy; 2024 Earthelic.com</p>
 </footer>
 </body>
 </html>

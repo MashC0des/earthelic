@@ -32,6 +32,7 @@ $stmt->close();
     <meta charset="UTF-8">
     <title>User Profile - Earthelic</title>
     <link rel="stylesheet" href="css/profile.css">
+     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>

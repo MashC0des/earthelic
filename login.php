@@ -55,6 +55,8 @@ if (isset($_POST['register'])) {
 if (isset($_POST['login'])) {
     $email = $_POST['loginEmail'];
     $password = $_POST['loginPassword'];
+    $errors = [];
+    $success = "";
 
     $stmt = $conn->prepare("SELECT user_id, full_name, password_hash, role FROM Users WHERE email = ?");
     $stmt->bind_param("s", $email);
@@ -65,25 +67,20 @@ if (isset($_POST['login'])) {
         $stmt->bind_result($user_id, $full_name, $hashedPassword, $role);
         $stmt->fetch();
 
-        $_SESSION['role'] = $user_data['role']; // make sure role column exists
-
-
-        if ($_SESSION['role'] ==='Admin') {
-    header("Location: admin.php");
-    exit();
-       }
-        elseif (password_verify($password, $hashedPassword)) {
+        if (password_verify($password, $hashedPassword)) {
             $_SESSION['user_id'] = $user_id;
             $_SESSION['full_name'] = $full_name;
             $_SESSION['email'] = $email;
             $_SESSION['role'] = $role;
 
-            header("Location: landing.html"); // redirect to homepage
-            exit();
-            
-        }
-        
-        else {
+            if (strtolower($role) === 'admin') {
+                header("Location: admin.php");
+                exit();
+            } else {
+                header("Location: landing.html");
+                exit();
+            }
+        } else {
             $errors['loginPassword'] = "Invalid password!";
         }
     } else {
@@ -91,7 +88,6 @@ if (isset($_POST['login'])) {
     }
     $stmt->close();
 }
-
 $showRegisterForm = isset($_POST['register']);
 ?>
 <!DOCTYPE html>
@@ -101,6 +97,7 @@ $showRegisterForm = isset($_POST['register']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login/Register - Earthelic</title>
     <link rel="stylesheet" href="css/login.css">
+     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>

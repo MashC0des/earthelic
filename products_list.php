@@ -22,8 +22,7 @@ $result = $conn->query($sql);
   <link rel="stylesheet" href="css/managepro.css">
   <link rel="stylesheet" href="css/admin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -81,7 +80,6 @@ $result = $conn->query($sql);
                     <td><?php echo $row['product_id']; ?></td>
                     <td>
                         <img src="<?php echo $row['image_url']; ?>" class="prod-img" alt="Product">
-
                     </td>
                     <td><strong><?php echo $row['product_name']; ?></strong></td>
                     <td><?php echo isset($categories[$row['category_id']]) ? $categories[$row['category_id']] : "-"; ?></td>
@@ -89,8 +87,8 @@ $result = $conn->query($sql);
                     <td><b>₹<?php echo $row['price']; ?></b></td>
                     <td><?php echo $row['stock_quantity']; ?></td>
                     <td>
-                        <button class="action-btn edit-btn"><i class="fa fa-edit"></i> Edit</button>
-                        <button class="action-btn delete-btn"><i class="fa fa-trash"></i> Delete</button>
+                        <button class="action-btn edit-btn" data-id="<?php echo $row['product_id']; ?>"><i class="fa fa-edit"></i> Edit</button>
+                        <button class="action-btn delete-btn" data-id="<?php echo $row['product_id']; ?>"><i class="fa fa-trash"></i> Delete</button>
                     </td>
                 </tr>
         <?php
@@ -107,5 +105,38 @@ $result = $conn->query($sql);
         <p>&copy; 2024 Earthelic.com</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Edit button functionality
+            $('.edit-btn').on('click', function() {
+                var productId = $(this).data('id');
+                window.location.href = 'upload.php?id=' + productId;
+            });
+
+            // Delete button functionality (now uses a simple modal instead of confirm)
+            $('.delete-btn').on('click', function() {
+                var productId = $(this).data('id');
+                // Use a simple custom modal or a hidden form for confirmation
+                if (confirm('Are you sure you want to delete this product?')) {
+                    $.ajax({
+                        url: 'delete_product.php',
+                        type: 'POST',
+                        data: { product_id: productId },
+                        success: function(response) {
+                            if (response.trim() === 'success') {
+                                location.reload();
+                            } else {
+                                console.error('Error deleting product:', response);
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error('An error occurred. Please try again.', textStatus, errorThrown);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

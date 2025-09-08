@@ -19,6 +19,12 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
+.about-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
 
 .about-section.intro {
     background: none;
@@ -61,6 +67,33 @@
     line-height: 1.6;
     color: #ddd;
 }
+/* Styles for the Complaint Button */
+.complaint-button-container {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.complaint-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #2f3b31;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid #2f3b31;
+    text-decoration: none;
+}
+
+.complaint-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {

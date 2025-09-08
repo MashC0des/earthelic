@@ -171,6 +171,7 @@ foreach ($_SESSION['cart'] as $ci) {
     <meta charset="UTF-8">
     <title>My Cart - Earthelic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/metal.css">
@@ -200,11 +201,12 @@ foreach ($_SESSION['cart'] as $ci) {
                         <img id="mp" src="<?php echo htmlspecialchars($image_url); ?>" alt="<?php echo htmlspecialchars((string)$cart_item['name']); ?>">
                         <div class="wrapper3">
                             <p id="metname"><?php echo htmlspecialchars((string)$cart_item['name']); ?></p>
-                            <p id="metdesc">Price: ₹<?php echo number_format($price, 2); ?> each</p>
+                            <p id="metdesc">Price: ₹<span class="price-value" data-price="<?php echo $price; ?>"><?php echo number_format($price, 2); ?></span> each</p>
                             <div class="quantity-controls">
                                 <label for="qty_<?php echo htmlspecialchars((string)$cart_item['id']); ?>">Quantity:</label>
                                 <input
                                     type="number"
+                                    class="quantity-input"
                                     id="qty_<?php echo htmlspecialchars((string)$cart_item['id']); ?>"
                                     name="qty[<?php echo htmlspecialchars((string)$cart_item['id']); ?>]"
                                     value="<?php echo $quantity; ?>"
@@ -212,7 +214,7 @@ foreach ($_SESSION['cart'] as $ci) {
                                     inputmode="numeric"
                                 >
                             </div>
-                            <p id="metdesc">Total: ₹<?php echo number_format($total, 2); ?></p>
+                            <p id="metdesc">Total: ₹<span class="total-price"><?php echo number_format($total, 2); ?></span></p>
                             <span id="sp1">
                                 <a
                                     href="cart.php?remove=<?php echo urlencode((string)$cart_item['id']); ?>"
@@ -227,11 +229,10 @@ foreach ($_SESSION['cart'] as $ci) {
 
             <div class="cart-summary">
                 <div class="grand-total">
-                    <h3>Grand Total: ₹<?php echo number_format($grand_total, 2); ?></h3>
+                    <h3>Grand Total: ₹<span id="grand-total"><?php echo number_format($grand_total, 2); ?></span></h3>
                 </div>
 
                 <div class="cart-actions">
-                    <button type="submit" name="update_qty" class="btn1">Update Quantities</button>
                     <button type="submit" name="buy_now" class="btn1 buy-all-btn">Proceed to Checkout</button>
                 </div>
             </div>
@@ -243,6 +244,35 @@ foreach ($_SESSION['cart'] as $ci) {
         </div>
 <?php endif; ?>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        const grandTotalElement = document.getElementById('grand-total');
 
+        function updateCartTotals() {
+            let newGrandTotal = 0;
+            quantityInputs.forEach(input => {
+                const quantity = parseInt(input.value, 10);
+                const itemContainer = input.closest('.products');
+                const priceElement = itemContainer.querySelector('.price-value');
+                const totalPriceElement = itemContainer.querySelector('.total-price');
+                
+                const price = parseFloat(priceElement.dataset.price);
+                const itemTotal = price * quantity;
+                
+                totalPriceElement.textContent = itemTotal.toFixed(2);
+                newGrandTotal += itemTotal;
+            });
+            
+            grandTotalElement.textContent = newGrandTotal.toFixed(2);
+        }
+
+        quantityInputs.forEach(input => {
+            input.addEventListener('input', updateCartTotals);
+        });
+
+        // The old, redundant form submission logic has been removed.
+    });
+</script>
 </body>
 </html>

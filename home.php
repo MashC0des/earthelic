@@ -32,6 +32,9 @@ $categories = ["metal", "ceramic", "canvas", "mixed"];
 <head>
     <meta charset="UTF-8">
     <title>Earthelic.com</title>
+     <link rel="stylesheet"
+        href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
+     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -131,7 +134,7 @@ $categories = ["metal", "ceramic", "canvas", "mixed"];
 <header class="head1">
     <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
     <div class="search">
-        <span class="search-icon material-symbols-outlined">search</span>
+        <span class="search-icon material-symbols-outlined"></span>
         <input class="searchbar" type="search" placeholder="Search products...">
     </div>
     <nav class="nav1">   
@@ -167,7 +170,6 @@ $categories = ["metal", "ceramic", "canvas", "mixed"];
         </p>
         <!-- Best Sellers Section -->
         <section class="best-sellers">
-            <h2>🔥 Best Sellers</h2>
             <?php foreach ($categories as $category): ?>
                 <?php $bestSellers = getBestSellers($conn, $category); ?>
                 <?php if ($bestSellers->num_rows > 0): ?>

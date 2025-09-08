@@ -28,6 +28,8 @@ $today_orders = $today_orders_result->fetch_assoc()['today_orders'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Earthelic</title>
     <link rel="stylesheet" href="css/admin.css">
+     <link rel="stylesheet"
+        href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
@@ -47,6 +49,7 @@ $today_orders = $today_orders_result->fetch_assoc()['today_orders'];
             <li><a href="products_list.php"><i class="fa fa-box"></i> Manage Products</a></li>
             <li><a href="orders_list.php"><i class="fa fa-shopping-cart"></i> Manage Orders</a></li>
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
+            <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>

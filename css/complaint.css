@@ -16,90 +16,97 @@ body {
     flex-direction: column;
 }
 
-/* Header */
-.head1 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    background: rgba(0,0,0,0.6);
-}
 
-#logo1 {
-    height: 50px;
-}
 
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-}
 
-.nav-links a {
-    text-decoration: none;
-    color: #e8dfdf;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-.nav-links a:hover {
-    color: #5dc572;
-}
-
-/* Complaint Container */
-.complaint-container {
+/* Complaint Container (Updated to match the login page's container style) */
+.glass-container {
     margin: 120px auto 40px;
-    width: 600px;
-    padding: 30px;
-    background: linear-gradient(rgba(227,225,225,0.2), rgba(27,27,27,0.3));
+    width: 800px;
+    height: 750px;
+    background: linear-gradient(rgba(227, 225, 225, 0.511), rgba(27, 27, 27, 0.516));
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.complaint-container h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #fff;
-}
-
-/* Inputs */
-.complaint-container label {
-    display: block;
-    margin: 12px 0 6px;
-    font-weight: bold;
-    color: #fff;
-}
-
-.complaint-container input,
-.complaint-container textarea {
+.contact-section {
     width: 100%;
-    padding: 15px;
+    height: 100%;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-form {
+    width: 100%;
+    padding: 40px;
+}
+
+
+/* Form Title and Description */
+.form-title {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #fff; /* Adjusted for better contrast on the glass container */
+}
+
+.form-description {
+    text-align: center;
+    color: #e8dfdf;
+    margin-bottom: 25px;
+}
+
+/* Inputs (Updated to match login.css input styles) */
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #e8dfdf;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px 30px 15px 45px;
     border: 1px solid #ddd;
-    border-radius: 12px;
+    border-radius: 30px;
     font-size: 16px;
-    margin-bottom: 15px;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-}
-
-.complaint-container textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.complaint-container input:focus,
-.complaint-container textarea:focus {
-    border-color: #5dc572;
     outline: none;
+    transition: all 0.3s;
+    position: relative;
+    background: transparent;
+    color: white;
 }
 
-/* Button */
-.btn {
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #0f111c;
+}
+
+/* Update textarea to match the border-radius of inputs */
+.form-group textarea {
+    border-radius: 30px;
+    min-height: 120px;
+    padding-left: 15px; /* No icon for textarea, so adjust padding */
+    padding-right: 15px;
+}
+
+
+/* Button (Updated to match login.css button styles) */
+.submit-btn {
     width: 100%;
     padding: 15px;
     background: #2f3b31;
@@ -111,17 +118,26 @@ body {
     transition: all 0.3s;
     border: 2px solid #2f3b31;
 }
-.btn:hover {
+
+.submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    background: #5dc572;
-    border-color: #5dc572;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer */
-footer {
+/* Form Messages */
+.form-message {
     text-align: center;
     padding: 15px;
-    color: #fff;
-    margin-top: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
 }
+.form-message.success {
+    background-color: #4CAF50;
+    color: white;
+}
+.form-message.error {
+    background-color: #f44336;
+    color: white;
+}
+

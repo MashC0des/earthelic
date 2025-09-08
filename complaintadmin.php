@@ -3,12 +3,6 @@ session_start();
 // Include the database connection file
 include "db_connect.php";
 
-// Check if the user is an authenticated admin
-// This is a basic check. A more robust system would verify user roles.
-if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
-    header("Location: login.php"); // Redirect non-admins
-    exit();
-}
 
 // Handle complaint status updates
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_status'])) {
@@ -35,7 +29,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Complaints - Admin Panel</title>
-    <link rel="stylesheet" href="css/admin_panel.css">
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         .complaints-table {
@@ -126,7 +120,7 @@ $conn->close();
                                 <td><?php echo htmlspecialchars($row['status']); ?></td>
                                 <td><?php echo htmlspecialchars($row['created_at']); ?></td>
                                 <td>
-                                    <form class="status-form" method="post" action="complaints.php">
+                                    <form class="status-form" method="post" action="">
                                         <input type="hidden" name="complaint_id" value="<?php echo $row['id']; ?>">
                                         <select name="status">
                                             <option value="Pending" <?php echo ($row['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>

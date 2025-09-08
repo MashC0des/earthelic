@@ -8,6 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <title>Order Confirmed - Earthelic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/metal.css">
     <style>
