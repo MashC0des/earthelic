@@ -29,7 +29,16 @@ table th, table td {
     vertical-align: top;
 }
 
+/* Styles for the new "Dispatch" and "Delivered" buttons */
+.btn.shipped{
+    background-color: #ffc107; /* A yellowish color */
+    color: #fff;
+}
 
+.btn.delivered {
+    background-color: #2870a7; /* A green color */
+    color: #fff;
+}
 td ul {
     list-style: none;
     padding-left: 0;

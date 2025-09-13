@@ -6,6 +6,7 @@
     text-decoration: none;
     font-family: "Arial Rounded MT Bold";
 }
+
 .back-btn {
     margin-bottom: 20px;
 }
@@ -27,8 +28,9 @@
     color: black;
     box-shadow: 0 0 12px #2f3b31;
 }
+
 #metname {
-    font-size:x-large;
+    font-size: x-large;
 }
 
 html {
@@ -59,7 +61,7 @@ body {
     justify-content: space-between;
     padding-top: 4px;
     padding-bottom: 4px;
-    
+
     white-space: nowrap;
 }
 
@@ -256,15 +258,13 @@ section {
     margin-left: 70%;
     color: #f7f3e9;
 }
+
 #more:hover {
     color: #d4c9c0;
     text-decoration: underline;
     transition: 1s ease;
     cursor: pointer;
 }
-
-
-
 
 
 .home-content-log {
@@ -285,202 +285,3 @@ section {
 
 
 /*----------------------------------- responsive-------------------- */
-@media(max-width:1024px) {
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        padding-bottom: 5px;
-    }
-
-    .wrapper3 {
-        display: block;
-        padding: 30px;
-    }
-
-    .btn {
-        margin-left: 30%;
-    }
-
-    .main_sec .home-content h1 {
-        padding-left: 10%;
-    }
-
-    #ea {
-        padding: 10%;
-    }
-
-    #dsimg {
-        height: 160px;
-        width: 250px;
-    }
-
-    #desc {
-        margin-left: 5px;
-    }
-
-    
-    #logimg{
-        height: 200px;
-    }
-    .social-icons {
-        padding-left: 35%;
-    }
-    #metname{
-        font-size: large;
-    }
-    #metdesc{
-        font-size: small;
-    }
-    .btn1{
-        margin-left: 5%;
-    }
-   
-
-}
-
-@media (max-width:768px) {
-    .head1 {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        padding-bottom: 5px;/
-    }
-
-    .searchbar {
-        width: 200px;
-    }
-
-    #ea {
-        font-size: 100px;
-        padding: 0%;
-    }
-    #logimg{
-        display: none;
-    }
-
-    .main_sec .home-content h1 {
-        padding-left: 5%;
-        font-size: 60px;
-    }
-
-    #dsimg {
-        height: 190px;
-    }
-
-    #more {
-        margin-left: 0;
-    }
-
-
-    .btn1 {
-        padding: 1rem 0.5rem;
-        font-size: x-small ;
-    }
-
-    .social-icons {
-        padding-left: 30%;
-    }
-    #mp{
-        height: 180px ;
-    }
-    #metname{
-        font-size: large;
-    }
-    #metdesc{
-        font-size:x-small;
-    }
-    .wrapper3 {
-        display: block;
-        padding: 15px;
-    }
-
-}
-
-@media(max-width:425px) {
-    .main_sec .home-content h1 {
-        padding-left: 0%;
-        font-size: 35px;
-        font-weight: 700;
-        line-height: 1.3;
-    }
-
-    #ea {
-        font-size: 50px;
-        padding: 0;
-    }
-
-    .btn {
-        margin-left: 10%;
-    }
-
-    .wrapper3 {
-        padding: 10px;
-    }
-
-    .desc {
-        display: block;
-    }
-
-    #desc1 {
-        position: absolute;
-        margin-top: 70%;
-    }
-
-    .desc1 {
-        margin-bottom: 110%;
-    }
-
-    #eas {
-        margin-left: 15%;
-        font-size: 70px;
-
-    }
-
-    .home-content {
-        padding: 0%;
-    }
-
-    section {
-        padding: 0;
-    }
-
-    .metprod {
-        margin-left: 2.5%;
-        padding: 20px;
-    }
-
-    .btn1 {
-        margin-left: 2%;
-        padding: 0.2rem 0.3rem;
-    }
-
-    .social-icons {
-        padding-left: 10%;
-    }
-    #mp{
-        height: 120px ;
-        margin-right: 5px;
-    }
-    #metname{
-        font-size: large;
-    }
-    #metdesc{
-        font-size:xx-small;
-    }
-    .wrapper3 {
-        display: block;
-        padding: 15px;
-    }
-    .metprod{
-        padding: 0px;
-        margin-left: 0px;
-    }
-
-
-}

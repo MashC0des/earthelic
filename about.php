@@ -11,12 +11,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-<header class="head1">
-  <a href="landing.html">
-    <img src="imgs/earthelic logo file png.png" alt="logo" id="logo1">
-  </a>
-  <nav class="nav1">
-    <ul class="nav-links">
+  <header class="head1">
+        <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
+        <nav class="nav1">
+                <ul class="nav-links">
                     <li><a href="home.php">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
@@ -32,8 +30,11 @@
                     <?php else: ?>
                         <li><a href="login.php">Log In</a></li>
                     <?php endif; ?>
+                    
                 </ul>
-</header>
+               
+        </nav>
+    </header>
 
 <section class="main_sec">
   <div class="glass-container">
@@ -109,5 +110,7 @@
     </div>
     <p>&copy; 2024 Earthelic.com</p>
 </footer>
+
+
 </body>
 </html>

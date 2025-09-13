@@ -1,0 +1,114 @@
+ body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+        .checkout-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 900px;
+            width: 95%;
+            margin: auto;
+        }
+        .order-summary {
+            width: 100%;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 25px;
+        }
+        .order-summary table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+        .order-summary th, .order-summary td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: left;
+        }
+        .order-summary th {
+            font-weight: bold;
+            color: #904A2D;
+            font-size: 1.1rem;
+        }
+        .order-summary .total-row td {
+            font-weight: bold;
+            color: #904A2D;
+            font-size: 1.4rem;
+        }
+        .payment-form {
+            width: 100%;
+        }
+        .payment-form .form-group {
+            margin-bottom: 20px;
+        }
+        .payment-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #eee;
+        }
+        .payment-form input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+        .payment-form .btn1 {
+            width: 100%;
+            font-size: 1.4rem;
+            margin-top: 25px;
+        }
+        .payment-form .btn1.pay-now-btn {
+            background-color: #904A2D !important;
+            border-color: #904A2D !important;
+        }
+        .payment-form .btn1.pay-now-btn:hover {
+            background-color: #7a3c24 !important;
+            box-shadow: 0 0 25px #904A2D !important;
+        }
+        .payment-options {
+            margin-bottom: 20px;
+        }
+        .payment-options label {
+            display: inline-block;
+            margin-right: 20px;
+            font-weight: normal;
+        }
+        .payment-method-details {
+            display: none;
+            margin-top: 20px;
+        }
+        h3 {
+            font-size: 1.8rem;
+            color: #904A2D;
+            margin-bottom: 15px;
+        }
+        .address-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .address-buttons .btn1 {
+            width: auto;
+            flex-grow: 1;
+        }

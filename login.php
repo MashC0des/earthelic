@@ -97,6 +97,7 @@ $showRegisterForm = isset($_POST['register']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login/Register - Earthelic</title>
     <link rel="stylesheet" href="css/login.css">
+
      <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -217,21 +218,9 @@ $showRegisterForm = isset($_POST['register']);
     <!-- Load jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-$(document).ready(function(){
-    $(".hamburger").click(function(){
-        $(this).toggleClass("active"); // animate hamburger into X
 
-        // slide animation for nav
-        if ($(".nav2-links").hasClass("open")) {
-            $(".nav2-links").removeClass("open").animate({right: "-250px"}, 300);
-        } else {
-            $(".nav2-links").addClass("open").animate({right: "0px"}, 300);
-        }
-    });
-});
-</script>
 
 </body>
+<script src="script.js"></script>
 <script src="login.js"></script>
 </html>

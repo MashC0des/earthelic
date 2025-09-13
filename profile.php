@@ -35,39 +35,54 @@ $stmt->close();
      <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .track-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition-duration: 0.4s;
+        }
+
+        .track-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="head1">
         <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
     </header>
 
-    <!-- Profile Container -->
     <div class="profile-container">
         <h2>Welcome, <?php echo htmlspecialchars($user['full_name']); ?> 👋</h2>
         
-        <!-- Profile Image -->
-       <div class="profile-pic-box">
+        <div class="profile-pic-box">
     <img src="<?php echo (!empty($user['profile_picture'])) 
-                    ? $user['profile_picture'] 
+                    ? htmlspecialchars($user['profile_picture'])
                     : 'imgs/default-profile.png'; ?>" 
          alt="Profile Picture" class="profile-pic" id="profilePic">
     <p>Click image to change</p>
 </div>
 
-        <!-- User Info -->
         <div class="user-info">
             <h3><i class="fa fa-user"></i> My Details</h3>
-            <p><strong>Name:</strong> <?php echo $user['full_name']; ?></p>
-            <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
-            <p><strong>Phone:</strong> <?php echo $user['phone'] ?: 'N/A'; ?></p>
-            <p><strong>Role:</strong> <?php echo ucfirst($user['role']); ?></p>
-            <p><strong>Member Since:</strong> <?php echo date("d M Y", strtotime($user['created_at'])); ?></p>
-            <a href="forgot-password.php" class="btn"><i class="fa fa-key"></i> Change Password</a>
+            <p><strong>Name:</strong> <?php echo htmlspecialchars($user['full_name']); ?></p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+            <p><strong>Phone:</strong> <?php echo htmlspecialchars($user['phone'] ?: 'N/A'); ?></p>
+            <p><strong>Role:</strong> <?php echo ucfirst(htmlspecialchars($user['role'])); ?></p>
+            <p><strong>Member Since:</strong> <?php echo htmlspecialchars(date("d M Y", strtotime($user['created_at']))); ?></p>
+            <a href="forgot_password.php" class="btn"><i class="fa fa-key"></i> Change Password</a>
             <a href="logout.php" class="btn logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </div>
 
-        <!-- Orders -->
         <div class="orders-section">
             <h3><i class="fa fa-shopping-cart"></i> My Orders</h3>
             <?php if ($orders->num_rows > 0): ?>
@@ -78,15 +93,22 @@ $stmt->close();
                             <th>Total Amount</th>
                             <th>Status</th>
                             <th>Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php while ($row = $orders->fetch_assoc()): ?>
                         <tr>
-                            <td>#<?php echo $row['order_id']; ?></td>
-                            <td>₹<?php echo number_format($row['total_amount'], 2); ?></td>
-                            <td><span class="status <?php echo $row['status']; ?>"><?php echo ucfirst($row['status']); ?></span></td>
-                            <td><?php echo date("d M Y H:i", strtotime($row['order_date'])); ?></td>
+                            <td>#<?php echo htmlspecialchars($row['order_id']); ?></td>
+                            <td>₹<?php echo htmlspecialchars(number_format($row['total_amount'], 2)); ?></td>
+                            <td><span class="status <?php echo htmlspecialchars($row['status']); ?>"><?php echo ucfirst(htmlspecialchars($row['status'])); ?></span></td>
+                            <td><?php echo htmlspecialchars(date("d M Y H:i", strtotime($row['order_date']))); ?></td>
+                            <td>
+                                <form action="tracking.php" method="POST">
+                                    <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($row['order_id']); ?>">
+                                    <button type="submit" class="track-btn">Track</button>
+                                </form>
+                            </td>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -97,7 +119,6 @@ $stmt->close();
         </div>
     </div>
 
-    <!-- Modal for Upload -->
     <div id="uploadModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
