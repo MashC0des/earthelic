@@ -31,11 +31,6 @@ if (!$product) {
     http_response_code(404);
     die("Product not found.");
 }
-$stmt = $conn->prepare("SELECT profile_picture FROM Users WHERE user_id = ?");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$user = $stmt->get_result()->fetch_assoc();
-$stmt->close();
 
 // ---- Handle review submission (if user is logged in) ----
 if (isset($_POST['submit_review']) && isset($_SESSION['user_id'])) {
@@ -66,8 +61,8 @@ $stmt->close();
 $avg_rating = $summary['avg_rating'] ? (float)$summary['avg_rating'] : 0.0;
 $total_reviews = (int)($summary['total_reviews'] ?? 0);
 
-// ---- Fetch all reviews for this product ----
-$stmt = $conn->prepare("SELECT r.rating, r.comment, r.review_date, u.full_name
+// ---- Fetch all reviews for this product, including user details ----
+$stmt = $conn->prepare("SELECT r.rating, r.comment, r.review_date, u.full_name, u.profile_picture
                         FROM Reviews r
                         JOIN Users u ON r.user_id = u.user_id
                         WHERE r.product_id = ?
@@ -83,6 +78,7 @@ $reviews = $stmt->get_result();
     <meta charset="UTF-8" />
     <title><?php echo h($product['product_name']); ?> - Earthelic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/productpage.css" />
@@ -162,8 +158,8 @@ $reviews = $stmt->get_result();
                             <input type="hidden" name="product_name" value="<?php echo h($product['product_name']); ?>">
                             <input type="hidden" name="product_price" value="<?php echo h((string)$product['price']); ?>">
                             <input type="hidden" name="image_url" value="<?php echo h($product['image_url']); ?>">
-                            <input type="number" name="quantity" value="1" min="1">
-                            <button type="submit" name="add_to_cart">Add to Cart</button>
+                            <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                            <button type="submit" name="add_to_cart" class="btn-add-cart">Add to Cart</button>
                         </form>
                     <?php else: ?>
                         <button class="btn-disabled" disabled>Out of Stock</button>
@@ -179,10 +175,10 @@ $reviews = $stmt->get_result();
                 <?php while ($rev = $reviews->fetch_assoc()): ?>
                     <div class="review-card">
                         <div class="review-header">
-                            <img src="<?php echo (!empty($user['profile_picture'])) 
-                    ? $user['profile_picture'] 
-                    : 'imgs/default-profile.png'; ?>" 
-         alt="Profile Picture" class="profile-pic" id="profilePic">
+                            <img src="<?php echo (!empty($rev['profile_picture'])) 
+                                ? h($rev['profile_picture']) 
+                                : 'imgs/default-profile.png'; ?>" 
+                                alt="Profile Picture" class="profile-pic">
                             <div>
                                 <strong><?php echo h($rev['full_name']); ?></strong>
                                 <div class="stars">
@@ -223,7 +219,6 @@ $reviews = $stmt->get_result();
                 <?php endif; ?>
             </div>
         </section>
-
     </div>
 </main>
 

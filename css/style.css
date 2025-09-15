@@ -34,7 +34,7 @@
 }
 
 html {
-    font-size: 62.5%;
+    font-size: 55%;
 }
 
 li {
@@ -43,10 +43,9 @@ li {
 
 body {
     width: 100%;
-    /* background-image: url("imgs/sc1.jpg"); */
     background-color: #958a7cca;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
 }
 
@@ -75,8 +74,6 @@ body {
     margin: 20px;
 }
 
-
-
 .nav-links li::after {
     content: '';
     width: 0%;
@@ -103,13 +100,9 @@ body {
     width: 137px;
 }
 
-
-
-
-
-
 .search {
-    width: max-content;
+    width: 80%;
+    max-width: 400px;
     display: flex;
     height: 14px;
     margin-top: 2%;
@@ -118,6 +111,7 @@ body {
     border-radius: 10px;
     background: #b3b7b04e;
     transition: background 1s;
+    margin: 0 auto;
 }
 
 .search:hover {
@@ -126,14 +120,14 @@ body {
 }
 
 .searchbar {
-    font-size: 25px;
+    font-size: 18px;
     margin-right: 20px;
     margin-left: 20px;
     color: #333333;
     outline: none;
     border: none;
     background: transparent;
-    width: 300px;
+    width: 100%;
 }
 
 .search-icon,
@@ -156,7 +150,6 @@ section {
 .main_sec .home-content h1 {
     padding-left: 19%;
     font-size: 70px;
-    /* font-size: 6vw; */
     font-weight: 700;
     line-height: 1.3;
 }
@@ -188,10 +181,6 @@ section {
     margin-bottom: 1rem;
     font-weight: 700;
 }
-
-/* .home-content p {
-    font-size: 1.6rem;
-} */
 
 .social-icons {
     padding-left: 40%;
@@ -282,6 +271,158 @@ section {
     width: 80%;
 }
 
-
-
 /*----------------------------------- responsive-------------------- */
+
+@media (max-width: 768px) {
+    .head1 {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: block;
+        padding-top: 0;
+        margin: 20px auto;
+    }
+
+    .nav-links li {
+        text-align: center;
+    }
+
+    #logo1 {
+        height: 60px;
+        width: 80px;
+    }
+
+    .search {
+        margin-top: 10px;
+        padding: 8px 15px;
+    }
+
+    .searchbar {
+        font-size: 16px;
+        width: 100%;
+        margin: 0;
+    }
+    
+    section {
+        padding: 3rem 5%;
+    }
+
+    .main_sec {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .home-content, .home-content-log {
+        padding: 10%;
+        width: 90%;
+    }
+
+    .home-content h1 {
+        font-size: 40px;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    #ea {
+        font-size: 60px;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .home-content h3 {
+        font-size: 2.5rem;
+    }
+
+    .social-icons {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .btn {
+        margin-left: 0;
+        margin: 20px auto;
+        display: block;
+        text-align: center;
+    }
+    
+    #dsimg {
+        height: auto;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .desc {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #more {
+        margin-left: 0;
+        text-align: center;
+    }
+}
+
+@media (max-width: 425px) {
+    /* Styles specifically for small mobile devices */
+    html {
+        font-size: 50%; /* Further reduce base font size for small screens */
+    }
+
+    .head1 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        padding-top: 0;
+    }
+
+    .nav-links li a {
+        font-size: 1.6rem;
+        margin: 10px;
+    }
+
+    #logo1 {
+        height: 50px;
+        width: 70px;
+    }
+    
+    .search {
+        width: 90%;
+        padding: 6px 10px;
+    }
+
+    .searchbar {
+        font-size: 14px;
+    }
+
+    .main_sec {
+        gap: 2rem;
+    }
+
+    .home-content, .home-content-log {
+        padding: 8%;
+        width: 95%;
+    }
+
+    .home-content h1 {
+        font-size: 30px;
+    }
+
+    #ea {
+        font-size: 50px;
+    }
+
+    .home-content h3 {
+        font-size: 2rem;
+    }
+    
+    .btn {
+        padding: 1.5rem 2rem;
+        font-size: 1.4rem;
+    }
+}

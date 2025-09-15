@@ -1,4 +1,4 @@
-  @font-face {
+@font-face {
             font-family: Arial Rounded MT Bold;
             src: url(https://db.onlinewebfonts.com/t/ef6bdf5ef216552c7e9869841e891ca0.ttf);
         }
@@ -222,40 +222,71 @@
             .two p {
                 font-size: 1em;
             }
+            .two .desc-img {
+                width: 10vh;
+                height: 30vh;
+            }
 
             .three {
-                flex-direction: column;
+                
                 height: auto;
                 padding-bottom: 10vh;
             }
 
             .card {
-                width: 80%;
-                min-width: unset;
+                
                 height: 50vh;
             }
 
-            .card img {
-                width: 60%;
+        }       
+
+/* Styles for mobile devices (less than 425px) */
+@media (max-width: 426px) {
+    
+
+    .shop-btn {
+        font-size: 1.2em;
+        padding: 10px 25px;
+    }
+
+    .two .dis {
+        flex-direction: column;
+        gap: 3vw;
+    }
+
+    .two .dis p {
+        font-size: 1.2em;
+    }
+
+    .two .dis h1 {
+        font-size: 2.5em;
+    }
+
+     .two .desc-img {
+                width: 200px;
+                height: 150px;
             }
-        }
-        /* Footer styles
-        
-        .foot1 {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #4b3d36;
-            color: #f7f3e9;
-        }
-        .social-icons {
-            margin-bottom: 10px;
-        }
-        .social-icons a {
-            color: #f7f3e9;
-            font-size: 1.5em;
-            margin: 0 15px;
-            transition: color 0.3s ease;
-        }
-        .social-icons a:hover {
-            color: #904A2D;
-        } */
+
+    .three {
+        padding: 5vh 5vw;
+    }
+
+    .card {
+        width: 60%;
+        min-width: unset;
+        height: 40vh;
+    }
+
+    .card img {
+        width: 70%;
+    }
+
+    .card h1 {
+        font-size: 1.5em;
+    }
+
+    .card button {
+        font-size: 0.9em;
+        padding: 8px 20px;
+    }
+}
