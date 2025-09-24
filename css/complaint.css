@@ -16,14 +16,45 @@ body {
     flex-direction: column;
 }
 
+/* Header/Navigation */
+header.nav1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
 
+#logo1 {
+    height: 50px;
+    width: auto;
+}
 
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #e8dfdf;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #5dc572;
+}
 
 /* Complaint Container (Updated to match the login page's container style) */
 .glass-container {
     margin: 120px auto 40px;
-    width: 800px;
-    height: 750px;
+    width: 90%;
+    max-width: 800px;
     background: linear-gradient(rgba(227, 225, 225, 0.511), rgba(27, 27, 27, 0.516));
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
@@ -31,39 +62,31 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .contact-section {
     width: 100%;
-    height: 100%;
-    padding: 40px;
+    padding: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
-.contact-form {
-    width: 100%;
-    padding: 40px;
-}
-
-
-/* Form Title and Description */
-.form-title {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 30px;
+.contact-section h2 {
+    color: #f7f7f7;
     text-align: center;
-    color: #fff; /* Adjusted for better contrast on the glass container */
+    margin-bottom: 20px;
 }
-
-.form-description {
-    text-align: center;
-    color: #e8dfdf;
-    margin-bottom: 25px;
+.main-content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+align-items: center; }
+.main-content h2{
+    margin-bottom: 20px;
+    color: white;
+    font-size: 4vw;
 }
-
-/* Inputs (Updated to match login.css input styles) */
 .form-group {
     margin-bottom: 20px;
     position: relative;
@@ -113,31 +136,53 @@ body {
     color: white;
     border: none;
     border-radius: 30px;
-    font-size: 16px;
     cursor: pointer;
-    transition: all 0.3s;
-    border: 2px solid #2f3b31;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: #5dc572;
 }
 
-/* Form Messages */
-.form-message {
-    text-align: center;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-}
-.form-message.success {
-    background-color: #4CAF50;
-    color: white;
-}
-.form-message.error {
-    background-color: #f44336;
-    color: white;
+
+
+/* Responsive design */
+
+/* Tablet View */
+@media (max-width: 768px) {
+    .glass-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .contact-section h2 {
+        font-size: 1.8em;
+    }
 }
 
+/* Mobile View */
+@media (max-width: 480px) {
+    .glass-container {
+        width: 95%;
+        margin-top: 100px;
+        padding: 10px;
+    }
+    
+    .contact-section h2 {
+        font-size: 1.5em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+        padding: 12px 15px;
+    }
+
+    .submit-btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+}

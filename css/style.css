@@ -31,9 +31,7 @@
     box-shadow: 0 0 12px #2f3b31;
 }
 
-#metname {
-    font-size: x-large;
-}
+
 
 html {
     font-size: 55%;
@@ -418,7 +416,6 @@ section {
     }
 
     .head1 {
-        flex-direction: column;
         align-items: center;
     }
 

@@ -49,7 +49,7 @@
 }
 
 .product-details h1 {
-    font-size: 2.4rem;
+    font-size: 5rem;
     margin-bottom: 10px;
     color: #904A2D;
 }
@@ -80,7 +80,7 @@
 
 .product-description {
     color: #333;
-    font-size: 1rem;
+    font-size: 2.5rem;
     line-height: 1.6;
     margin-bottom: 20px;
 }
@@ -94,7 +94,7 @@
 .product-features li {
     color: #333;
     margin-bottom: 8px;
-    font-size: 0.95rem;
+    font-size: 1.5rem;
 }
 
 .product-actions {
@@ -191,7 +191,7 @@
     color: #904A2D;
     text-align: center;
     margin-bottom: 25px;
-    font-size: 2rem;
+    font-size: 4rem;
 }
 
 .review-card {
@@ -221,7 +221,7 @@
 
 .review-header strong {
     color: #904A2D;
-    font-size: 1.1rem;
+    font-size: 3rem;
     display: block;
 }
 
@@ -238,6 +238,7 @@
     color: #333;
     line-height: 1.5;
     margin: 0;
+    font-size: 2rem;
 }
 
 .no-reviews {
@@ -261,6 +262,7 @@
 .review-form h3 {
     color: #904A2D;
     margin-bottom: 15px;
+    font-size: 2rem;
 }
 
 .review-form select,
@@ -308,6 +310,7 @@
 .login-note {
     color: #333;
     text-align: center;
+    font-size: 1.5rem;
 }
 
 .login-note a {

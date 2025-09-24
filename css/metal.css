@@ -4,7 +4,6 @@
 #eas {
   font-size: 90px;
   color: #904A2D;
-  font-family: cursive;
   font-weight: 700;
   text-align: center;
   margin-top: 20px;
@@ -129,7 +128,7 @@
     margin: 20px auto;
   }
   .metprod {
-    flex-direction: column; /* Stack image and text vertically */
+     /* Stack image and text vertically */
     text-align: center;
     width: 80%;
   }
@@ -166,7 +165,6 @@
     margin: 15px auto;
   }
   .metprod {
-    flex-direction: column;
     width: 95%; /* Use almost full width on mobile */
     padding: 10px;
   }
@@ -178,7 +176,7 @@
     font-size: medium;
   }
   #metdesc {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   .btn1 {
     font-size: 1rem;
