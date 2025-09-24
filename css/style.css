@@ -1,5 +1,7 @@
+/* style.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
-
+@import url('https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 * {
     margin: 0;
     padding: 0;
@@ -49,6 +51,13 @@ body {
     background-position: center;
 }
 
+.nav1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
 .nav-links {
     display: flex;
     align-content: center;
@@ -58,6 +67,7 @@ body {
 .head1 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-top: 4px;
     padding-bottom: 4px;
 
@@ -270,23 +280,44 @@ section {
     overflow-x: hidden;
     width: 80%;
 }
+.hamburger i {
+    display: none;
+}
 
 /*----------------------------------- responsive-------------------- */
 
 @media (max-width: 768px) {
-    .head1 {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+    
 
     .nav-links {
-        display: block;
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #000000fa;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 10;
+        text-align: center;
         padding-top: 0;
         margin: 20px auto;
     }
 
+    .nav-links.nav-active {
+        display: flex;
+    }
+
     .nav-links li {
         text-align: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #ffffff33;
+    }
+     .nav-links li a{
+        color: white;
+     }
+    
+    .nav-links li:last-child {
+        border-bottom: none;
     }
 
     #logo1 {
@@ -316,7 +347,7 @@ section {
 
     .home-content, .home-content-log {
         padding: 10%;
-        width: 90%;
+    
     }
 
     .home-content h1 {
@@ -364,6 +395,20 @@ section {
         margin-left: 0;
         text-align: center;
     }
+    .hamburger i {
+    display: block;
+    font-size: 2.5rem;
+}
+    
+    .hamburger {
+    align-items: end;
+        font-size: 2em;
+        color: white;
+        cursor: pointer;
+        padding-right: 30px;
+    }
+
+    
 }
 
 @media (max-width: 425px) {
@@ -387,7 +432,7 @@ section {
     }
 
     #logo1 {
-        height: 50px;
+        height: 70px;
         width: 70px;
     }
     

@@ -23,18 +23,16 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earthelic - Metal</title>
-     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css\style.css">
     <link rel="stylesheet" href="css\metal.css">
 </head>
 <body>
 <header class="head1">
-    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
-    <nav class="nav1">   
+    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
+    
+    <nav class="nav1">
         <div class="icons1">
-             <ul class="nav-links">
+           <ul class="nav-links">
                     <li><a href="home.php">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
@@ -53,10 +51,10 @@ $result = $conn->query($sql);
                 </ul>
         </div>
     </nav>
+     <div class="hamburger" onclick="toggleNav()">
+            <i class="fa-solid fa-bars"></i>
         </div>
-    </nav>
 </header>
-
 <section class="main_sec">
     
     <div class="home-content">
@@ -120,5 +118,6 @@ $result = $conn->query($sql);
     </div>
     <p>&copy; 2024 Earthelic.com</p>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>

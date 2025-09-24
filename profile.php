@@ -30,10 +30,10 @@ $stmt->close();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile - Earthelic</title>
     <link rel="stylesheet" href="css/profile.css">
-     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .track-btn {
@@ -58,8 +58,33 @@ $stmt->close();
 </head>
 <body>
     <header class="head1">
-        <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
-    </header>
+    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
+    
+    <nav class="nav1">
+        <div class="icons1">
+           <ul class="nav-links">
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="metal.php">Metal</a></li>
+                    <li><a href="ceramic.php">Ceramic</a></li>
+                     <li><a href="artwork.php">Paintings & Wall Art</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="about.php">About us</a></li>
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <li class="nav-profile-wrap">
+                            <a href="profile.php" class="nav-profile-link">
+                                <span class="nav-profile-name"><?php echo ($_SESSION['full_name'] ?? 'Profile'); ?></span>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="login.php">Log In</a></li>
+                    <?php endif; ?>
+                </ul>
+        </div>
+    </nav>
+     <div class="hamburger" onclick="toggleNav()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+</header>
 
     <div class="profile-container">
         <h2>Welcome, <?php echo htmlspecialchars($user['full_name']); ?> 👋</h2>
@@ -131,10 +156,17 @@ $stmt->close();
         </div>
     </div>
 
-    <footer class="foot1">
-        <p>&copy; 2024 Earthelic.com</p>
-    </footer>
-
+   <footer class="foot1">
+    <div class="social-icons">
+        <a href="mailto:earthelicarthouse@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        <a href="tel:999999999"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://www.instagram.com/earthelic_homedecor/" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+    </div>
+    <p>&copy; 2024 Earthelic.com</p>
+</footer>
+<script src="script.js"></script>
 <script>
 $(document).ready(function(){
     // Open modal

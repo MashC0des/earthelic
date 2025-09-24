@@ -24,17 +24,14 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earthelic - Ceramic</title>
-     <link rel="stylesheet"
-        href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css\style.css">
-    <link rel="stylesheet" href="css\ceramic.css">
+    <link rel="stylesheet" href="css\metal.css">
 </head>
 <body>
 <header class="head1">
-    <a href="landing.php"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
-   
-    <nav class="nav1">   
+    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
+    
+    <nav class="nav1">
         <div class="icons1">
            <ul class="nav-links">
                     <li><a href="home.php">Home</a></li>
@@ -55,10 +52,16 @@ $result = $conn->query($sql);
                 </ul>
         </div>
     </nav>
+     <div class="hamburger" onclick="toggleNav()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
 </header>
 
 <section class="main_sec">
     <div class="home-content">
+        <div class="back-btn">
+            <button class="btn-back" onclick="window.history.back()">⬅ Back</button>
+        </div>
         <p style="color: #904A2D;" id="eas">Ceramic</p>
         <h3>Our Ceramic Inventory</h3>
 
@@ -113,5 +116,6 @@ $result = $conn->query($sql);
     </div>
     <p>&copy; 2024 Earthelic.com</p>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>

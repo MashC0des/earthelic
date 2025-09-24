@@ -6,14 +6,26 @@
   color: #904A2D;
   font-family: cursive;
   font-weight: 700;
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* Metal product card */
+/* Metal product card container */
+.products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .metprod {
   display: flex;
+  flex-direction: row; /* Default layout for larger screens */
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+  width: 90%; /* Use a percentage for flexible width */
+  max-width: 900px; /* Max width to prevent it from getting too large on big screens */
+  padding: 15px;
 }
 
 #mp {
@@ -22,6 +34,7 @@
   margin-right: 30px;
   box-shadow: 0 0 45px rgba(0, 0, 0, 0.445);
   transition: 0.3s;
+  flex-shrink: 0; /* Prevents the image from shrinking */
 }
 
 #mp:hover {
@@ -29,7 +42,7 @@
 }
 
 .wrapper3 {
-  width: 80%;
+  width: 100%; /* Take full width of its container on smaller screens */
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -78,11 +91,12 @@
   justify-content: center;
   align-items: center;
   margin: 40px 0;
+  flex-wrap: wrap; /* Allow links to wrap to the next line on small screens */
 }
 
 .pagination a {
   display: inline-block;
-  margin: 0 8px;
+  margin: 5px 8px; /* Adjusted margin for better spacing on mobile */
   background: #cccccc2f;
   height: 45px;
   width: 45px;
@@ -106,47 +120,74 @@
   color: #fff;
 }
 
-/* Responsive tweaks */
+/* ---------------- Responsive Tweaks ---------------- */
+
+/* Tablet-specific styles */
 @media(max-width: 768px) {
   #eas {
-    font-size: 100px;
-    margin-left: 10%;
+    font-size: 70px; /* Reduced font size for tablets */
+    margin: 20px auto;
+  }
+  .metprod {
+    flex-direction: column; /* Stack image and text vertically */
+    text-align: center;
+    width: 80%;
   }
   #mp {
     height: 180px;
+    margin-right: 0;
+    margin-bottom: 20px; /* Add space below the image */
+  }
+  .wrapper3 {
+    width: 90%; /* Adjusted width for wrapper on tablet */
   }
   #metname {
     font-size: large;
   }
   #metdesc {
-    font-size: small;
-  }
-  .wrapper3 {
-    padding: 15px;
+    font-size: 1rem;
   }
   .btn1 {
-    font-size: small;
+    font-size: 1.2rem;
     padding: 0.8rem 1.2rem;
+  }
+  .pagination a {
+    height: 40px;
+    width: 40px;
+    font-size: 18px;
+    line-height: 40px;
   }
 }
 
+/* Mobile-specific styles */
 @media(max-width: 425px) {
   #eas {
-    font-size: 60px;
-    margin-left: 15%;
+    font-size: 50px; /* Further reduced font size for mobile */
+    margin: 15px auto;
+  }
+  .metprod {
+    flex-direction: column;
+    width: 95%; /* Use almost full width on mobile */
+    padding: 10px;
   }
   #mp {
     height: 120px;
-    margin-right: 10px;
+    margin-bottom: 15px;
   }
   #metname {
     font-size: medium;
   }
   #metdesc {
-    font-size: x-small;
+    font-size: 0.8rem;
   }
   .btn1 {
-    font-size: x-small;
+    font-size: 1rem;
     padding: 0.5rem 1rem;
+  }
+  .pagination a {
+    height: 35px;
+    width: 35px;
+    font-size: 16px;
+    line-height: 35px;
   }
 }

@@ -1,15 +1,12 @@
 /* Profile Page */
 body {
-    background: url("../imgs/sc1.jpg") no-repeat center center/cover;
-    font-family: Arial, sans-serif;
-    color: #333;
     margin: 0;
     padding: 0;
 }
 
 /* Container */
 .profile-container {
-    max-width: 1000px;
+    max-width: 80%;
     margin: 100px auto 40px;
     background: #fff;
     padding: 30px;
@@ -62,6 +59,7 @@ body {
     padding: 12px;
     text-align: center;
     border: 1px solid #ddd;
+    font-size: medium
 }
 .orders-table tbody tr:hover {
     background: #f9f9f9;
@@ -124,4 +122,11 @@ body {
     float:right;
     cursor:pointer;
     font-size:20px;
+}
+@media (max-width: 426px) {
+   .orders-table th, .orders-table td {
+       font-size: 12px;
+       padding: 8px;
+   }
+    
 }

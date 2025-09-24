@@ -36,27 +36,22 @@
 /* Video container */
 .about-video {
     flex-shrink: 0;
-    width: 400px; /* Fixed width for the video */
-    height: 600px; /* Fixed height for the video */
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 400px;
 }
 
 .about-video video {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the video fills the container without distortion */
+    height: auto;
     border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Text content */
 .about-text {
-    flex-grow: 1;
+    width: 60%;
 }
 
 .about-text h2 {
-    font-size: 4rem; /* Increased title size */
+    font-size: 3rem; /* Increased title size */
     font-weight: 600;
     color: #fff;
     margin-bottom: 15px;
@@ -98,43 +93,46 @@
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .about-section {
-        flex-direction: column;
+        flex-direction: column; /* Stack video/text vertically */
         text-align: center;
-        gap: 20px;
     }
-    
-    .about-section.left {
-        flex-direction: column;
+    .about-section.intro {
+        flex-direction: row; /* Keep intro section row-based as it has a photo */
     }
-
+    .about-text {
+        width: 100%; /* Text takes full width */
+    }
     .about-video {
-        width: 100%;
-        height: auto;
-        max-height: 500px;
+        width: 100%; /* Video takes full width */
+    }
+    .about-text h2 {
+        font-size: 2.5rem; /* Adjust heading size */
+    }
+    .about-text p {
+        font-size: 1.8rem; /* Adjust paragraph size */
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .about-section.intro {
+        flex-direction: column;
+    }
     .about-text h2 {
         font-size: 2rem;
     }
-
     .about-text p {
-        font-size: 1rem;
-    }
-    
-    .glass-container {
-      padding: 20px;
+        font-size: 1.5rem;
     }
 }
-@media (max-width: 426px){
+
+@media (max-width: 425px) {
     .about-text h2 {
         font-size: 1.5rem;
     }
-
     .about-text p {
-        font-size: 0.8rem;
+        font-size: 1.2rem;
     }
-    
-    
+    .glass-container {
+        padding: 20px;
+    }
 }

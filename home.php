@@ -31,18 +31,16 @@ $categories = ["metal", "ceramic", "canvas", "mixed"];
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earthelic.com</title>
-     <link rel="stylesheet"
-        href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 <header class="head1">
     <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
-    <nav class="nav1">   
+    
+    <nav class="nav1">
         <div class="icons1">
            <ul class="nav-links">
                     <li><a href="home.php">Home</a></li>
@@ -63,9 +61,11 @@ $categories = ["metal", "ceramic", "canvas", "mixed"];
                 </ul>
         </div>
     </nav>
+     <div class="hamburger" onclick="toggleNav()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
 </header>
 
-<!-- Main Section -->
 <section class="main_sec">
     <div class="home-content">
         <span id="ea">Earthelic</span><br>
@@ -73,7 +73,6 @@ $categories = ["metal", "ceramic", "canvas", "mixed"];
         <p>
             Explore our diverse range of high-quality ceramic and metal products, designed to meet your needs with durability and style.
         </p>
-        <!-- Best Sellers Section -->
         <section class="best-sellers">
             <?php foreach ($categories as $category): ?>
                 <?php $bestSellers = getBestSellers($conn, $category); ?>
@@ -109,5 +108,7 @@ $categories = ["metal", "ceramic", "canvas", "mixed"];
     </div>
     <p>&copy; 2024 Earthelic.com</p>
 </footer>
+<script src="script.js"></script>
+   
 </body>
 </html>

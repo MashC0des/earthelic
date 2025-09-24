@@ -7,29 +7,6 @@
     <title>Earthelic.com | Animated</title>
     <link rel="stylesheet" href="css/landing.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet"
-        href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-
-    <style>
-        .desc-img {
-            width: 500px;
-            /* Set a fixed width */
-            height: 400px;
-            /* Set a fixed height */
-            object-fit: cover;
-            /* This will ensure the image covers the area without distortion */
-            border-radius: 18px;
-        }
-
-        /* Optional: Add some space between the images and the text */
-        .two-content {
-            margin: 0 40px;
-        }
-    </style>
 </head>
 
 <body>
@@ -74,9 +51,8 @@
                     <a href="artwork.php" id="more">more <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 </div>
             </div>
-
-
         </div>
+        
         <div class="three">
             <div class="card">
                 <img src="final product images/(24).jpeg" alt="Ceramic Bowl">
@@ -110,57 +86,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
 
-        // This is the new animation for the images in the .two section
         gsap.registerPlugin(ScrollTrigger);
 
         // This is the new animation for the images in the .two section
         var tl3 = gsap.timeline({
             scrollTrigger: {
                 trigger: ".two",
-                start: "top center",
+                start: "top bottom",
                 end: "bottom center",
                 scrub: 1,
             }
         });
 
-        // Defines both the starting and ending positions for the images
+        // Defines both the starting and ending positions for the images using vw for responsiveness
         tl3.fromTo(".left-img",
-            { x: -600, opacity: 0 }, // **STARTING POSITION**: Off-screen to the left
-            { x: -100, opacity: 1, stagger: 0.7, duration: 1 } // **ENDING POSITION**: 200px to the right of its original spot
+            { x: "-60vw", opacity: 0 }, // **STARTING POSITION**: Off-screen to the left using viewport width
+            { x: "-1vw", opacity: 1, stagger: 0.7, duration: 1 } // **ENDING POSITION**: 10% from the left edge of the viewport
         );
 
         tl3.fromTo(".right-img",
-            { x: 600, opacity: 0 }, // **STARTING POSITION**: Off-screen to the right
-            { x: 100, opacity: 1, stagger: 0.5, duration: 1 }, // **ENDING POSITION**: 200px to the left of its original spot
+            { x: "60vw", opacity: 0 }, // **STARTING POSITION**: Off-screen to the right using viewport width
+            { x: "1vw", opacity: 1, stagger: 0.5, duration: 1 }, // **ENDING POSITION**: 10% from the right edge of the viewport
             "<" // The "<" starts this animation at the same time as the previous one
         );
-
-        
-
-
-        var tl2 = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".three",
-                start: "30% 95%",
-                end: "20% 50%",
-                scrub: true,
-            }
-        });
-
-        tl2.from(".card:nth-child(1)", {
-            rotate: "-120deg",
-            left: "-100%",
-            top: "110%"
-        }, 'cards');
-        tl2.from(".card:nth-child(2)", {
-            top: "110%",
-            left: "100%",
-        }, 'cards');
-        tl2.from(".card:nth-child(3)", {
-            rotate: "120deg",
-            top: "110%",
-            left: "-100%"
-        }, 'cards');
 
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');

@@ -40,16 +40,17 @@ $stmt->close();
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paintings & Wall Art - Earthelic</title>
-   <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
   <link rel="stylesheet" href="css/metal.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header class="head1">
-    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
-    <nav class="nav1">   
+    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
+    
+    <nav class="nav1">
         <div class="icons1">
            <ul class="nav-links">
                     <li><a href="home.php">Home</a></li>
@@ -70,6 +71,9 @@ $stmt->close();
                 </ul>
         </div>
     </nav>
+     <div class="hamburger" onclick="toggleNav()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
 </header>
 
 <section class="main_sec">
@@ -108,17 +112,17 @@ $stmt->close();
         <div class="container">
             <div class="pagination">
                 <?php if ($page > 1): ?>
-                    <a class="btnpg1" href="metal.php?page=<?php echo $page - 1; ?>"><i class="fa-solid fa-chevron-left"></i></a>
+                    <a class="btnpg1" href="artwork.php?page=<?php echo $page - 1; ?>"><i class="fa-solid fa-chevron-left"></i></a>
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <a class="link <?php echo ($i == $page) ? 'active' : ''; ?>" href="metal.php?page=<?php echo $i; ?>">
+                    <a class="link <?php echo ($i == $page) ? 'active' : ''; ?>" href="artwork.php?page=<?php echo $i; ?>">
                         <?php echo $i; ?>
                     </a>
                 <?php endfor; ?>
 
                 <?php if ($page < $total_pages): ?>
-                    <a class="btnpg1" href="metal.php?page=<?php echo $page + 1; ?>"><i class="fa-solid fa-chevron-right"></i></a>
+                    <a class="btnpg1" href="artwork.php?page=<?php echo $page + 1; ?>"><i class="fa-solid fa-chevron-right"></i></a>
                 <?php endif; ?>
             </div>
         </div>
@@ -135,5 +139,6 @@ $stmt->close();
     </div>
     <p>&copy; 2024 Earthelic.com</p>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>
