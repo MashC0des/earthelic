@@ -89,10 +89,12 @@ $stmt->close();
 /* -------------------------------------------
    Handle payment submission
 ------------------------------------------- */
+$errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
     $payment_amount = $grand_total;
     $shipping_address_id = null;
 
+    // Validate shipping address
     if (isset($_POST['change_address_flag']) && $_POST['change_address_flag'] === 'yes') {
         $address_line1 = $_POST['address_line1'] ?? '';
         $address_line2 = $_POST['address_line2'] ?? '';
@@ -101,56 +103,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
         $postal_code = $_POST['postal_code'] ?? '';
         $country = $_POST['country'] ?? '';
         
-        // Server-side validation for new address
         if (empty($address_line1) || empty($city) || empty($state) || empty($postal_code) || empty($country)) {
-            // Handle error: redirect or display a message
-            exit("Please fill in all required address fields.");
+            $errors[] = "Please fill in all required address fields.";
         }
-        
-        $stmt = $conn->prepare("INSERT INTO ShippingAddresses (user_id, address_line1, address_line2, city, state, postal_code, country) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("issssss", $user_id, $address_line1, $address_line2, $city, $state, $postal_code, $country);
-        $stmt->execute();
-        $shipping_address_id = $stmt->insert_id;
-        $stmt->close();
     } else if (isset($_POST['existing_address_id'])) {
         $shipping_address_id = (int)$_POST['existing_address_id'];
+    } else {
+        $errors[] = "A shipping address must be selected or entered.";
     }
 
-    if ($shipping_address_id) {
-        $stmt = $conn->prepare("INSERT INTO Orders (user_id, total_amount, status, shipping_address_id) VALUES (?, ?, 'processing', ?)");
-        $stmt->bind_param("idi", $user_id, $payment_amount, $shipping_address_id);
-        $stmt->execute();
-        $order_id = $stmt->insert_id;
-        $stmt->close();
+    // Validate payment method details
+    $payment_method_input = $_POST['payment_method'] ?? 'card';
+    switch ($payment_method_input) {
+        case 'card':
+            if (isset($_POST['change_card_flag']) && $_POST['change_card_flag'] === 'yes') {
+                $card_number = $_POST['card_number'] ?? '';
+                $cardholder_name = $_POST['card_name'] ?? '';
+                $expiry_date = $_POST['expiry'] ?? '';
+                $cvv = $_POST['cvv'] ?? '';
+                if (empty($card_number) || empty($cardholder_name) || empty($expiry_date) || empty($cvv)) {
+                    $errors[] = "Please fill in all required credit/debit card details.";
+                }
+            }
+            break;
+        case 'upi':
+            if (isset($_POST['change_upi_flag']) && $_POST['change_upi_flag'] === 'yes') {
+                $upi_id = $_POST['upi_id'] ?? '';
+                if (empty($upi_id)) {
+                    $errors[] = "Please enter a valid UPI ID.";
+                }
+            }
+            break;
+        case 'cod':
+            // No extra validation needed for COD
+            break;
+    }
 
-        $stmt = $conn->prepare("INSERT INTO Order_Items (order_id, product_id, product_name, quantity, price) VALUES (?, ?, ?, ?, ?)");
-        foreach ($cart_items as $item) {
-            $price = to_float($item['price']);
-            $quantity = (int)$item['quantity'];
-            $product_id = (int)$item['product_id'];
-            $product_name = $item['product_name'];
-            $stmt->bind_param("iisid", $order_id, $product_id, $product_name, $quantity, $price);
+    // Process payment if there are no errors
+    if (empty($errors)) {
+        // Insert new address if applicable
+        if (isset($_POST['change_address_flag']) && $_POST['change_address_flag'] === 'yes') {
+            $stmt = $conn->prepare("INSERT INTO ShippingAddresses (user_id, address_line1, address_line2, city, state, postal_code, country) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("issssss", $user_id, $address_line1, $address_line2, $city, $state, $postal_code, $country);
             $stmt->execute();
+            $shipping_address_id = $stmt->insert_id;
+            $stmt->close();
         }
-        $stmt->close();
-        
-        $payment_method_input = $_POST['payment_method'] ?? 'card';
-        $payment_method = '';
-        $payment_status = 'completed';
 
+        // Insert new payment details if applicable
         switch ($payment_method_input) {
             case 'card':
                 $payment_method = 'credit_card';
+                $payment_status = 'completed';
                 if (isset($_POST['change_card_flag']) && $_POST['change_card_flag'] === 'yes') {
-                    $card_number = $_POST['card_number'] ?? '';
-                    $cardholder_name = $_POST['card_name'] ?? '';
-                    $expiry_date = $_POST['expiry'] ?? '';
-                    
-                    // Server-side validation for new card details
-                    if (empty($card_number) || empty($cardholder_name) || empty($expiry_date)) {
-                        exit("Please fill in all required card details.");
-                    }
-                    
                     $stmt = $conn->prepare("INSERT INTO Card_Details (user_id, card_number, cardholder_name, expiry_date) VALUES (?, ?, ?, ?)");
                     $stmt->bind_param("isss", $user_id, $card_number, $cardholder_name, $expiry_date);
                     $stmt->execute();
@@ -158,14 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 break;
             case 'upi':
                 $payment_method = 'upi';
+                $payment_status = 'completed';
                 if (isset($_POST['change_upi_flag']) && $_POST['change_upi_flag'] === 'yes') {
-                    $upi_id = $_POST['upi_id'] ?? '';
-                    
-                    // Server-side validation for new UPI ID
-                    if (empty($upi_id)) {
-                        exit("Please enter a valid UPI ID.");
-                    }
-                    
                     $stmt = $conn->prepare("INSERT INTO Upi_Details (user_id, upi_id) VALUES (?, ?)");
                     $stmt->bind_param("is", $user_id, $upi_id);
                     $stmt->execute();
@@ -177,14 +176,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 break;
             default:
                 $payment_method = 'credit_card';
+                $payment_status = 'completed';
                 break;
         }
 
+        // Create the order
+        $stmt = $conn->prepare("INSERT INTO Orders (user_id, total_amount, status, shipping_address_id) VALUES (?, ?, 'processing', ?)");
+        $stmt->bind_param("idi", $user_id, $payment_amount, $shipping_address_id);
+        $stmt->execute();
+        $order_id = $stmt->insert_id;
+        $stmt->close();
+
+        // Insert order items
+        $stmt = $conn->prepare("INSERT INTO Order_Items (order_id, product_id, product_name, quantity, price) VALUES (?, ?, ?, ?, ?)");
+        foreach ($cart_items as $item) {
+            $price = to_float($item['price']);
+            $quantity = (int)$item['quantity'];
+            $product_id = (int)$item['product_id'];
+            $product_name = $item['product_name'];
+            $stmt->bind_param("iisid", $order_id, $product_id, $product_name, $quantity, $price);
+            $stmt->execute();
+        }
+        $stmt->close();
+        
+        // Insert payment record
         $stmt = $conn->prepare("INSERT INTO Payments (order_id, payment_method, payment_status) VALUES (?, ?, ?)");
         $stmt->bind_param("iss", $order_id, $payment_method, $payment_status);
         $stmt->execute();
         $stmt->close();
         
+        // Clear the cart
         $stmt = $conn->prepare("DELETE FROM Cart_Items WHERE cart_id = ?");
         $stmt->bind_param("i", $cart_id);
         $stmt->execute();
@@ -243,11 +264,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
         </div>
 
         <div class="payment-form">
+            <?php if (!empty($errors)): ?>
+                <div class="error-message">
+                    <?php foreach ($errors as $error): ?>
+                        <p><?php echo htmlspecialchars($error); ?></p>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
             <form method="post" action="">
                 <h3>Shipping Details</h3>
                 <?php if ($existing_address): ?>
                     <div id="existing-address-container">
-                        <p style="color: #fff; font-size: 1.1em; line-height: 1.5;">
+                        <p style="color: #fff;">
                             Shipping to:<br>
                             <?php echo htmlspecialchars($existing_address['address_line1']); ?><br>
                             <?php echo htmlspecialchars($existing_address['address_line2']); ?><br>
@@ -309,7 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 <div id="card-details" class="payment-method-details" style="display:block;">
                     <?php if ($existing_card_details): ?>
                         <div id="existing-card-container">
-                            <p style="color: #fff; font-size: 1.1em; line-height: 1.5;">
+                            <p style="color: #fff;">
                                 Saved Card:<br>
                                 Cardholder: <?php echo htmlspecialchars($existing_card_details['cardholder_name']); ?><br>
                                 Ends in: <?php echo htmlspecialchars($existing_card_details['last_four']); ?><br>
@@ -323,19 +352,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                     <?php endif; ?>
                             <div class="form-group">
                                 <label for="card_name">Cardholder Name</label>
-                                <input type="text" id="card_name" name="card_name" >
+                                <input type="text" id="card_name" name="card_name" <?php echo !$existing_card_details ? 'required' : ''; ?>>
                             </div>
                             <div class="form-group">
                                 <label for="card_number">Card Number</label>
-                                <input type="text" id="card_number" name="card_number" pattern="\d{16}" title="16-digit card number" >
+                                <input type="text" id="card_number" name="card_number" pattern="\d{16}" title="16-digit card number" <?php echo !$existing_card_details ? 'required' : ''; ?>>
                             </div>
                             <div class="form-group">
                                 <label for="expiry">Expiry Date (MM/YY)</label>
-                                <input type="text" id="expiry" name="expiry" pattern="\d{2}/\d{2}" title="Format: MM/YY" >
+                                <input type="text" id="expiry" name="expiry" pattern="\d{2}/\d{2}" title="Format: MM/YY" <?php echo !$existing_card_details ? 'required' : ''; ?>>
                             </div>
                             <div class="form-group">
                                 <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" name="cvv" pattern="\d{3,4}" title="3 or 4 digits" >
+                                <input type="text" id="cvv" name="cvv" pattern="\d{3,4}" title="3 or 4 digits" <?php echo !$existing_card_details ? 'required' : ''; ?>>
                             </div>
                             <?php if ($existing_card_details): ?>
                                 <button type="button" class="btn1" id="cancel-card-btn" style="width: auto; background-color: #a0a0a0; border-color: #a0a0a0;">Cancel</button>
@@ -347,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 <div id="upi-details" class="payment-method-details">
                     <?php if ($existing_upi_details): ?>
                         <div id="existing-upi-container">
-                            <p style="color: #fff; font-size: 1.1em; line-height: 1.5;">
+                            <p style="color: #fff;">
                                 Saved UPI ID:<br>
                                 <?php echo htmlspecialchars($existing_upi_details['upi_id']); ?>
                             </p>
@@ -359,18 +388,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                     <?php endif; ?>
                             <div class="form-group">
                                 <label for="upi_id">Your UPI ID</label>
-                                <input type="text" id="upi_id" name="upi_id" >
+                                <input type="text" id="upi_id" name="upi_id" <?php echo !$existing_upi_details ? 'required' : ''; ?>>
                             </div>
                             <?php if ($existing_upi_details): ?>
                                 <button type="button" class="btn1" id="cancel-upi-btn" style="width: auto; background-color: #a0a0a0; border-color: #a0a0a0;">Cancel</button>
+                            </div>
                             <?php endif; ?>
                         </div>
-                    <p style="color: #fff; font-size: 0.9em;">You will receive a payment request on your UPI app.</p>
+                    <p style="color: #fff;">You will receive a payment request on your UPI app.</p>
                     <input type="hidden" name="change_upi_flag" id="change-upi-flag" value="<?php echo $existing_upi_details ? 'no' : 'yes'; ?>">
                 </div>
                 
                 <div id="cod-details" class="payment-method-details">
-                    <p style="color: #fff; font-size: 1.1em;">You have selected Cash on Delivery. Please keep the exact amount ready.</p>
+                    <p style="color: #fff;">You have selected Cash on Delivery. Please keep the exact amount ready.</p>
                 </div>
 
                 <input type="hidden" name="total" value="<?php echo htmlspecialchars((string)$grand_total); ?>">
@@ -387,31 +417,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
-        const cardDetails = document.getElementById('card-details');
-        const upiDetails = document.getElementById('upi-details');
-        const codDetails = document.getElementById('cod-details');
-        
         const detailsMap = {
-            'card': cardDetails,
-            'upi': upiDetails,
-            'cod': codDetails
+            'card': document.getElementById('card-details'),
+            'upi': document.getElementById('upi-details'),
+            'cod': document.getElementById('cod-details')
         };
         
-        function updateFormVisibility() {
-            const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
-            for (const method in detailsMap) {
-                if (method === selectedMethod) {
-                    detailsMap[method].style.display = 'block';
-                } else {
-                    detailsMap[method].style.display = 'none';
-                }
-            }
-        }
-        
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', updateFormVisibility);
-        });
-
         const addressInputs = document.querySelectorAll('#new-address-form input');
         const cardInputs = document.querySelectorAll('#new-card-form input');
         const upiInputs = document.querySelectorAll('#new-upi-form input');
@@ -425,7 +436,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 }
             });
         }
+
+        // Handles visibility and 'required' attributes for all payment methods
+        function updateFormState() {
+            const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            
+            // Hide all details sections
+            for (const method in detailsMap) {
+                detailsMap[method].style.display = 'none';
+            }
+            
+            // Show the selected details section and manage 'required' attributes
+            detailsMap[selectedMethod].style.display = 'block';
+
+            // Reset required for all inputs
+            setRequired(cardInputs, false);
+            setRequired(upiInputs, false);
+
+            if (selectedMethod === 'card') {
+                const changeCardFlag = document.getElementById('change-card-flag');
+                if (changeCardFlag.value === 'yes') {
+                    setRequired(cardInputs, true);
+                }
+            } else if (selectedMethod === 'upi') {
+                const changeUpiFlag = document.getElementById('change-upi-flag');
+                if (changeUpiFlag.value === 'yes') {
+                    setRequired(upiInputs, true);
+                }
+            }
+            // For COD, no inputs are required
+        }
         
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', updateFormState);
+        });
+
         // Address Toggling
         const changeAddressBtn = document.getElementById('change-address-btn');
         const cancelChangeBtn = document.getElementById('cancel-change-btn');
@@ -498,17 +543,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
             });
         }
         
-        // Initial setup to handle 'required' attributes correctly
-        updateFormVisibility();
-        // This part needs to be improved to ensure inputs for the selected method are required
-        // based on the initial 'change_flag' value
-        if (document.querySelector('input[name="payment_method"]:checked').value === 'card' && changeCardFlag.value === 'yes') {
-            setRequired(cardInputs, true);
-        } else if (document.querySelector('input[name="payment_method"]:checked').value === 'upi' && changeUpiFlag.value === 'yes') {
-            setRequired(upiInputs, true);
-        }
+        // Initial setup for required attributes and visibility
+        updateFormState();
     });
 </script>
+
+<style>
+/* Add a new style for the error message */
+.error-message {
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+.error-message p {
+    margin: 0;
+    padding: 0;
+}
+</style>
 
 </body>
 </html>

@@ -27,6 +27,11 @@
             width: 95%;
             margin: auto;
         }
+        .checkout-container p{
+            font-size: 1.6rem;
+            color: #eee;
+            margin-bottom: 15px;
+        }
         .order-summary {
             width: 100%;
             margin-bottom: 25px;
@@ -42,11 +47,12 @@
             padding: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             text-align: left;
+            font-size: 1.5rem;
         }
         .order-summary th {
             font-weight: bold;
             color: #904A2D;
-            font-size: 1.1rem;
+            font-size: 2rem;
         }
         .order-summary .total-row td {
             font-weight: bold;
@@ -64,6 +70,7 @@
             margin-bottom: 8px;
             font-weight: bold;
             color: #eee;
+            font-size: 1.4rem;
         }
         .payment-form input {
             width: 100%;
@@ -72,6 +79,13 @@
             border: 1px solid #ccc;
             background-color: rgba(255, 255, 255, 0.8);
             color: #333;
+        }
+        .payment-options input[type="radio"] {
+        
+            transform: scale(1.5);
+            cursor: pointer;    
+            vertical-align: middle;
+
         }
         .payment-form .btn1 {
             width: 100%;
@@ -93,13 +107,14 @@
             display: inline-block;
             margin-right: 20px;
             font-weight: normal;
+            font-size: 2rem;
         }
         .payment-method-details {
             display: none;
             margin-top: 20px;
         }
         h3 {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             color: #904A2D;
             margin-bottom: 15px;
         }

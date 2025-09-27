@@ -74,7 +74,7 @@ border-radius: 18px;
         
         .shop-btn {
             margin-top: 20px;
-            font-size: 1.5em;
+            font-size: 2em;
             border-radius: 50px;
             border: none;
             color: #fff;
@@ -185,6 +185,7 @@ border-radius: 18px;
         .card button a{
             color: #fff;
             text-decoration: none;
+            font-size: 2rem;
         }
 
         .card button:hover {

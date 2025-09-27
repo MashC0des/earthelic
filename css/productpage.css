@@ -63,12 +63,12 @@
 
 .stars {
     color: #ffd700;
-    font-size: 1.2rem;
+    font-size: 2rem;
 }
 
 .rating-text {
     color: #666;
-    font-size: 0.9rem;
+    font-size: 1.5rem;
 }
 
 .product-price {
@@ -118,7 +118,7 @@
     border: 2px solid #2f3b31;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 600;
     transition: 0.3s;
 }
@@ -231,7 +231,7 @@
 
 .review-header time {
     color: #777;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
 }
 
 .review-card p {
@@ -280,6 +280,7 @@
 .review-form textarea {
     resize: vertical;
     min-height: 100px;
+    max-width: 97%;
 }
 
 .review-form button {
@@ -291,7 +292,7 @@
     cursor: pointer;
     margin-top: 10px;
     transition: background 0.3s;
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
 .review-form button:hover {
