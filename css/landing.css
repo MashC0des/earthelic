@@ -1,294 +1,297 @@
-@font-face {
-            font-family: Arial Rounded MT Bold;
-            src: url(https://db.onlinewebfonts.com/t/ef6bdf5ef216552c7e9869841e891ca0.ttf);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial Rounded MT Bold, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            scroll-behavior: smooth;
-            text-decoration: none;
-            list-style: none;
-            /* outline: 1px solid red;  For debugging layout issues */
-            /* border: 1px solid blue;  For debugging layout issues */
+@font-face { font-family: Arial Rounded MT Bold; src: url(https://db.onlinewebfonts.com/t/ef6bdf5ef216552c7e9869841e891ca0.ttf); }
 
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial Rounded MT Bold, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+        text-decoration: none;
+        list-style: none;
+        /* outline: 1px solid red;  For debugging layout issues */
+        /* border: 1px solid blue;  For debugging layout issues */
 
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            height: 100%;
-          
-        }
-        .two {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* Add padding or margins as needed for spacing */
-  padding: 50px;
+    }
+
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        height: 100%;
+      
+    }
+    .two {
+
+
+position: relative;
+display: flex;
+justify-content: space-between;
+align-items: center;
+/* Add padding or margins as needed for spacing */
+padding: 50px;
 }
 
 .desc-img {
-  width: 500px;  /* Set a fixed width */
-  height: 400px; /* Set a fixed height */
-  object-fit: cover; /* This will ensure the image covers the area without distortion */
+width: 500px; 
+height: 400px;
+object-fit: cover;
 border-radius: 18px;
+
+will-change: transform, opacity;
 }
 
 /* Optional: Add some space between the images and the text */
 
-        body::-webkit-scrollbar {
-            display: none;
-        }
+    body::-webkit-scrollbar {
+        display: none;
+    }
 
-        #main {
-            width: 100%;
-            
-        }
+    #main {
+        width: 100%;
         
-       
+    }
+    
+   
 
-        .one {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100vh;
-            
-            position: relative;
+    .one {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        
+        position: relative;
+    }
+
+    .one h1 {
+        font-size: 20vw;
+        color: #4b3d36;
+        text-shadow: 6px 6px 10px rgba(0, 0, 0, 0.257);
+        z-index: 2;
+    }
+
+    
+    .shop-btn {
+        margin-top: 20px;
+        font-size: 2em;
+        border-radius: 50px;
+        border: none;
+        color: #fff;
+        background-color: #904A2D;
+        padding: 15px 35px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        z-index: 3;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .shop-btn:hover {
+        background-color: #7a3c24;
+    }
+
+    .two {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 10vh 5vw;
+        background: #4b3d36;
+        color: #f7f3e9;
+        text-align: center;
+    }
+
+   .two .dis{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+   }
+    
+    .two .dis p {
+        font-size: 2em;
+        max-width: 800px;
+        line-height: 1.6;
+    }
+    .two .dis h1{
+        font-size: 4em;
+        margin-bottom: 20px;
+    }
+
+    .two .left-img{
+        position: left;
+    }
+
+    .three {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 5vw;
+        width: 100%;
+        height: 100vh;
+    
+        padding: 10vh 5vw;
+    }
+    
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 25vw;
+        min-width: 250px;
+        height: 70vh;
+        border-radius: 20px;
+        background-color: #fff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    
+    .card img {
+        position: absolute;
+        width: 85%;
+        height: 85%;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -10%);
+        transition: all 0.5s ease;
+        z-index: 1;
+    }
+    
+    .card h1 {
+        font-size: 2em;
+        color: #4b3d36;
+        margin-bottom: 20px;
+        z-index: 2;
+    }
+    
+    .card button {
+        font-size: 1em;
+        border-radius: 50px;
+        border: none;
+        color: #fff;
+        background-color: #904A2D;
+        padding: 10px 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+        z-index: 2;
+    }
+    .card button a{
+        color: #fff;
+        text-decoration: none;
+        font-size: 2rem;
+    }
+
+    .card button:hover {
+        background-color: #7a3c24;
+    }
+
+    #fanta-card h1 {
+        margin-top: 100px; /* Adjust for image size */
+    }
+    .dis div{
+        margin:0vw 5vw;
+    }   
+    
+    @media (max-width: 768px) {
+        nav {
+            padding: 0 5vw;
+        }
+
+        .cntr-nav {
+            display: none;
         }
 
         .one h1 {
             font-size: 20vw;
-            color: #4b3d36;
-            text-shadow: 6px 6px 10px rgba(0, 0, 0, 0.257);
-            z-index: 2;
         }
 
-        
-        .shop-btn {
-            margin-top: 20px;
-            font-size: 2em;
-            border-radius: 50px;
-            border: none;
-            color: #fff;
-            background-color: #904A2D;
-            padding: 15px 35px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-            z-index: 3;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        .one img {
+            width: 30%;
         }
 
-        .shop-btn:hover {
-            background-color: #7a3c24;
+        .two h1 {
+            font-size: 7vw;
         }
 
-        .two {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 10vh 5vw;
-            background: #4b3d36;
-            color: #f7f3e9;
-            text-align: center;
+      .two .dis p {
+        font-size: 1.3em;
+            max-width: 420px;
         }
-
-       .two .dis{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 50px;
-       }
-        
-        .two .dis p {
-            font-size: 2em;
-            max-width: 800px;
-            line-height: 1.6;
-        }
-        .two .dis h1{
-            font-size: 4em;
-            margin-bottom: 20px;
-        }
-
-        .two .left-img{
-            position: left;
+        .two .desc-img {
+            width: 250px;
+            height: 200px;
         }
 
         .three {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 5vw;
-            width: 100%;
-            height: 100vh;
-        
-            padding: 10vh 5vw;
+            
+            height: auto;
+            padding-bottom: 10vh;
         }
-        
+
         .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            width: 25vw;
-            min-width: 250px;
-            height: 70vh;
-            border-radius: 20px;
-            background-color: #fff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .card img {
-            position: absolute;
-            width: 85%;
-            height: 85%;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, -10%);
-            transition: all 0.5s ease;
-            z-index: 1;
-        }
-        
-        .card h1 {
-            font-size: 2em;
-            color: #4b3d36;
-            margin-bottom: 20px;
-            z-index: 2;
-        }
-        
-        .card button {
-            font-size: 1em;
-            border-radius: 50px;
-            border: none;
-            color: #fff;
-            background-color: #904A2D;
-            padding: 10px 25px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 20px;
-            z-index: 2;
-        }
-        .card button a{
-            color: #fff;
-            text-decoration: none;
-            font-size: 2rem;
+            
+            height: 50vh;
         }
 
-        .card button:hover {
-            background-color: #7a3c24;
-        }
+    }       
 
-        #fanta-card h1 {
-            margin-top: 100px; /* Adjust for image size */
-        }
-        .dis div{
-            margin:0vw 5vw;
-        }   
-        
-        @media (max-width: 768px) {
-            nav {
-                padding: 0 5vw;
-            }
-
-            .cntr-nav {
-                display: none;
-            }
-
-            .one h1 {
-                font-size: 20vw;
-            }
-
-            .one img {
-                width: 30%;
-            }
-
-            .two h1 {
-                font-size: 7vw;
-            }
-
-          .two .dis p {
-            font-size: 1.3em;
-                max-width: 420px;
-            }
-            .two .desc-img {
-                width: 250px;
-                height: 200px;
-            }
-
-            .three {
-                
-                height: auto;
-                padding-bottom: 10vh;
-            }
-
-            .card {
-                
-                height: 50vh;
-            }
-
-        }       
 
 /* Styles for mobile devices (less than 425px) */
 @media (max-width: 426px) {
-    
 
-    .shop-btn {
-        font-size: 1.2em;
-        padding: 10px 25px;
-    }
+.shop-btn {
+    font-size: 1.2em;
+    padding: 10px 25px;
+}
 
 
-    .two .dis p {
-        font-size: 1em;
-    }
+.two .dis p {
+    font-size: 1em;
+}
 
-    .two .dis h1 {
-        font-size: 2em;
-    }
+.two .dis h1 {
+    font-size: 2em;
+}
 
-     .two .desc-img {
-                width: 155px;
-                height: 150px;
-            }
+ .two .desc-img {
+            width: 155px;
+            height: 150px;
+        }
 
-            .dis div{
-            margin:0vw 0vw;
-        }  
+        .dis div{
+        margin:0vw 0vw;
+    }  
 
-    .three {
-        padding: 5vh 5vw;
-    }
+.three {
+    padding: 5vh 5vw;
+}
 
-    .card {
-        width: 60%;
-        min-width: unset;
-        height: 40vh;
-    }
+.card {
+    width: 60%;
+    min-width: unset;
+    height: 40vh;
+}
 
-    .card img {
-        width: 70%;
-    }
+.card img {
+    width: 70%;
+}
 
-    .card h1 {
-        font-size: 1.5em;
-    }
+.card h1 {
+    font-size: 1.5em;
+}
 
-    .card button {
-        font-size: 0.9em;
-        padding: 8px 20px;
-    }
+.card button {
+    font-size: 0.9em;
+    padding: 8px 20px;
+}
+
+
 }

@@ -81,7 +81,111 @@
 .product-card .btn:hover {
     background-color: #7a3c24;
 }
+#morebtn {
+    display: inline-block;
+    align-self: center;  
+    padding: 10px 20px;
+    background-color: #95919165;
+    color: #fff;
+    font-size: 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: #0000005c 8px 8px 15px ;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+     #custom-product-section {
+            padding: 40px 20px;
+            background-color: #b6aeae73;
+            text-align: center;
+            border-radius: 10px;
+        }
 
+        #custom-product-form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 30px;
+            background: #b6aeae73;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Initially hidden */
+            text-align: left;
+        }
+         #custom-product-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;  
+            color: #333;
+            font-size: 1.5rem;
+        }
+        
+
+        #custom-product-form input[type="text"],
+        #custom-product-form textarea,
+        #custom-product-form select,
+        #custom-product-form input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #b6aeae73;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #file-upload-button{
+            background-color: #904A2D;
+        }
+
+        #custom-product-form button[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #custom-product-form button[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        
+        #toggleCustomFormBtn {
+            background-color: #904A2D;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            margin-bottom: 20px; /* Space below the button */
+        }
+
+        #toggleCustomFormBtn:hover {
+            background-color: #904b2dcc;
+            color: black;
+        }
+        
+        #ajax-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            font-size: 2rem;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
 /* Media query for tablets (up to 768px) */
 @media (max-width: 768px) {
     .product-grid {

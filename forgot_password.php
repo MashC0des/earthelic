@@ -1,10 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "earthelic");
-
-if ($conn->connect_error) {
-    die("DB Error: " . $conn->connect_error);
-}
+include "db_connect.php"; // includes DB + starts session
 
 $message = "";
 

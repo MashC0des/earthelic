@@ -8,7 +8,6 @@ session_start();
     <meta charset="UTF-8">
     <title>Order Confirmed - Earthelic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/metal.css">
     <style>
@@ -31,34 +30,43 @@ session_start();
         .confirmation-container h1 {
             color: #904A2D;
             margin-bottom: 20px;
+            font-size: 3rem;
         }
         .confirmation-container p {
-            font-size: 1.1rem;
+            font-size: 2rem;
             margin-bottom: 30px;
         }
         .confirmation-icon {
-            font-size: 4rem;
+            font-size: 5rem;
             color: #4CAF50;
             margin-bottom: 20px;
         }
         .home-btn {
             background-color: #904A2D !important;
             border-color: #904A2D !important;
+            font-size: 2rem;
         }
         .home-btn:hover {
             background-color: #7a3c24 !important;
             box-shadow: 0 0 25px #904A2D !important;
+        }
+        .confirmation-container h2 {
+            color: #904A2D;
+            margin-bottom: 10px;
+            font-size: 4rem;
         }
     </style>
 </head>
 <body>
 <header class="head1">
     <a href="landing.html"><img src="imgs/earthelic logo file png.png" id="logo1" alt="Earthelic Logo"></a>
-    <h2>Order Confirmed</h2>
+   
 </header>
 
 <main>
+    
     <div class="confirmation-container">
+         <h2>Order Confirmed</h2>
         <div class="confirmation-icon">&#10003;</div>
         <h1>Thank You!</h1>
         <p>Your order has been placed successfully.</p>

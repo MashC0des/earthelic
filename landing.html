@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earthelic.com | Animated</title>
+    <title>Earthelic.com</title>
     <link rel="stylesheet" href="css/landing.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -21,7 +21,10 @@
         </div>
         <div class="two">
             <div class="dis">
-                <img src="imgs/1desc.jpg" alt="Description Image 1" class="desc-img left-img">
+                <!-- Added a container for the image to manage spacing -->
+                <div class="desc-img-container">
+                    <img src="imgs/1desc.jpg" alt="Description Image 1" class="desc-img left-img">
+                </div>
                 <div>
                     <h1>Ceramics</h1>
                     <p>
@@ -39,9 +42,16 @@
                     </p><br>
                     <a href="metal.php" id="more">more <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 </div>
-                <img src="imgs/2desc.jpg" alt="Description Image 2" class="desc-img right-img">
+                 <!-- Added a container for the image to manage spacing -->
+                <div class="desc-img-container">
+                    <img src="imgs/2desc.jpg" alt="Description Image 2" class="desc-img right-img">
+                </div>
             </div>
-            <div class="dis"><img src="imgs/3desc.jpg" alt="Description Image 3" class="desc-img left-img">
+            <div class="dis">
+                <!-- Added a container for the image to manage spacing -->
+                <div class="desc-img-container">
+                    <img src="imgs/3desc.jpg" alt="Description Image 3" class="desc-img left-img">
+                </div>
                 <div>
                     <h1>Paintings</h1>
                     <p>
@@ -82,6 +92,7 @@
         </footer>
     </div>
 
+    <!-- GSAP Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
@@ -94,30 +105,25 @@
                 trigger: ".two",
                 start: "top bottom",
                 end: "bottom center",
-                scrub: 1,
+                // PERFORMANCE FIX: Reduced scrub to 0.5 for smoother movement on mobile
+                scrub: 0.5, 
             }
         });
 
         // Defines both the starting and ending positions for the images using vw for responsiveness
+        // GSAP automatically uses translate3d for hardware acceleration
         tl3.fromTo(".left-img",
-            { x: "-60vw", opacity: 0 }, // **STARTING POSITION**: Off-screen to the left using viewport width
-            { x: "-1vw", opacity: 1, stagger: 0.7, duration: 1 } // **ENDING POSITION**: 10% from the left edge of the viewport
+            { x: "-60vw", opacity: 0 }, 
+            { x: "-1vw", opacity: 1, stagger: 0.7, duration: 1 } 
         );
 
         tl3.fromTo(".right-img",
-            { x: "60vw", opacity: 0 }, // **STARTING POSITION**: Off-screen to the right using viewport width
-            { x: "1vw", opacity: 1, stagger: 0.5, duration: 1 }, // **ENDING POSITION**: 10% from the right edge of the viewport
+            { x: "60vw", opacity: 0 }, 
+            { x: "1vw", opacity: 1, stagger: 0.5, duration: 1 }, 
             "<" // The "<" starts this animation at the same time as the previous one
         );
 
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 0) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
+        // PERFORMANCE FIX: Removed the redundant window.addEventListener('scroll') as it was not controlling any visible 'nav' element.
     </script>
 </body>
 

@@ -143,6 +143,7 @@ $showRegisterForm = isset($_POST['register']);
                     <li><a href="landing.html">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
+                        <li><a href="canvas.php">Paintings & Wall Art</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="about.php">About us</a></li>
                 </ul>
@@ -150,6 +151,7 @@ $showRegisterForm = isset($_POST['register']);
                     <li><a href="landing.html">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
+                        <li><a href="canvas.php">Paintings & Wall Art</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="about.php">About us</a></li>
                 </ul>

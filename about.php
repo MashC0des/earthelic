@@ -19,7 +19,7 @@
                     <li><a href="home.php">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
-                     <li><a href="artwork.php">Paintings & Wall Art</a></li>
+                     <li><a href="canvas.php">Paintings & Wall Art</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="about.php">About us</a></li>
                     <?php if (!empty($_SESSION['user_id'])): ?>

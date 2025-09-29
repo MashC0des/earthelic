@@ -78,37 +78,39 @@ $reviews = $stmt->get_result();
     <meta charset="UTF-8" />
     <title><?php echo h($product['product_name']); ?> - Earthelic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/ef6bdf5ef216552c7e9869841e891ca0?family=Arial+Rounded+MT+Bold">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/productpage.css" />
 </head>
 <body>
 
 <header class="head1">
-    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="Earthelic Logo" id="logo1"></a>
+    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
+    
     <nav class="nav1">
         <div class="icons1">
-            <ul class="nav-links">
-                <li><a href="home.php">Home</a></li>
-                <li><a href="metal.php">Metal</a></li>
-                <li><a href="ceramic.php">Ceramic</a></li>
-                <li><a href="cart.php">Cart</a></li>
-                <li><a href="about.php">About us</a></li>
-                <?php if (!empty($_SESSION['user_id'])): ?>
-                    <li class="nav-profile-wrap">
-                        <a href="profile.php" class="nav-profile-link">
-                            <span class="nav-profile-name"><?php echo h($_SESSION['full_name'] ?? 'Profile'); ?></span>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li><a href="login.php">Log In</a></li>
-                <?php endif; ?>
-            </ul>
+           <ul class="nav-links">
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="metal.php">Metal</a></li>
+                    <li><a href="ceramic.php">Ceramic</a></li>
+                     <li><a href="canvas.php">Paintings & Wall Art</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="about.php">About us</a></li>
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <li class="nav-profile-wrap">
+                            <a href="profile.php" class="nav-profile-link">
+                                <span class="nav-profile-name"><?php echo ($_SESSION['full_name'] ?? 'Profile'); ?></span>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="login.php">Log In</a></li>
+                    <?php endif; ?>
+                </ul>
         </div>
     </nav>
+     <div class="hamburger" onclick="toggleNav()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
 </header>
-
 <main class="main_sec">
     <div class="glass-container">
         <div class="back-btn">

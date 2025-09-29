@@ -1,12 +1,8 @@
 <?php
 session_start();
 include "db_connect.php";
+include "commonthings.php"; // includes truncate function
 
-// Pagination setup
-$limit = 10;
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-if ($page < 1) $page = 1;
-$offset = ($page - 1) * $limit;
 
 // Count total painting + wall art products
 $count_sql = "
@@ -56,7 +52,7 @@ $stmt->close();
                     <li><a href="home.php">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
-                     <li><a href="artwork.php">Paintings & Wall Art</a></li>
+                     <li><a href="canvas.php">Paintings & Wall Art</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="about.php">About us</a></li>
                     <?php if (!empty($_SESSION['user_id'])): ?>
@@ -94,7 +90,8 @@ $stmt->close();
                      id="mp">
                 <div class="wrapper3">
                     <p id="metname"><?php echo htmlspecialchars($row['product_name']); ?></p>
-                    <p id="metdesc"><?php echo htmlspecialchars($row['description']); ?></p>
+                    <!-- Truncate the description here with 300 characters limit -->
+                    <p id="metdesc"><?php echo htmlspecialchars(string: truncate_description($row['description'], 300)); ?></p>
                     <span id="sp1">
                         <a href="productpage.php?id=<?php echo $row['product_id']; ?>" class="btn1">
                             ₹<?php echo number_format($row['price'], 2); ?> Buy Now
@@ -112,17 +109,20 @@ $stmt->close();
         <div class="container">
             <div class="pagination">
                 <?php if ($page > 1): ?>
-                    <a class="btnpg1" href="artwork.php?page=<?php echo $page - 1; ?>"><i class="fa-solid fa-chevron-left"></i></a>
+                    <!-- CORRECTED LINK: Changed artwork.php to canvas.php -->
+                    <a class="btnpg1" href="canvas.php?page=<?php echo $page - 1; ?>"><i class="fa-solid fa-chevron-left"></i></a>
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <a class="link <?php echo ($i == $page) ? 'active' : ''; ?>" href="artwork.php?page=<?php echo $i; ?>">
+                    <!-- CORRECTED LINK: Changed artwork.php to canvas.php -->
+                    <a class="link <?php echo ($i == $page) ? 'active' : ''; ?>" href="canvas.php?page=<?php echo $i; ?>">
                         <?php echo $i; ?>
                     </a>
                 <?php endfor; ?>
 
                 <?php if ($page < $total_pages): ?>
-                    <a class="btnpg1" href="artwork.php?page=<?php echo $page + 1; ?>"><i class="fa-solid fa-chevron-right"></i></a>
+                    <!-- CORRECTED LINK: Changed artwork.php to canvas.php -->
+                    <a class="btnpg1" href="canvas.php?page=<?php echo $page + 1; ?>"><i class="fa-solid fa-chevron-right"></i></a>
                 <?php endif; ?>
             </div>
         </div>

@@ -41,8 +41,11 @@ $today_orders = $today_orders_result->fetch_assoc()['today_orders'];
             <li><a href="admin.php" class="active"><i class="fa fa-home"></i> Dashboard</a></li>
             <li><a href="upload.php"><i class="fa fa-upload"></i> Upload Product</a></li>
             <li><a href="products_list.php"><i class="fa fa-box"></i> Manage Products</a></li>
+            
             <li><a href="orders_list.php"><i class="fa fa-shopping-cart"></i> Manage Orders</a></li>
+            <li><a href="custom_requests_list.php" class="active"><i class="fa fa-paint-brush"></i> Custom Requests</a></li>
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
+           
             <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>

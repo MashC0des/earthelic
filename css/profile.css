@@ -18,6 +18,7 @@ body {
 .profile-container h2 {
     margin-bottom: 20px;
     color: #2f3b31;
+    font-size: 28px;
 }
 .user-info h3, .orders-section h3 {
     margin: 20px 0 10px;

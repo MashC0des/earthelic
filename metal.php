@@ -1,11 +1,7 @@
 <?php
 include "db_connect.php"; // includes DB + starts session
+include "commonthings.php"; // includes truncate function
 
-// Pagination setup
-$limit = 10; // products per page
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-if ($page < 1) $page = 1;
-$offset = ($page - 1) * $limit;
 
 // Count total products
 $total_query = $conn->query("SELECT COUNT(*) AS total FROM Products WHERE material='metal'");
@@ -36,7 +32,7 @@ $result = $conn->query($sql);
                     <li><a href="home.php">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
-                     <li><a href="artwork.php">Paintings & Wall Art</a></li>
+                     <li><a href="canvas.php">Paintings & Wall Art</a></li>
                     <li><a href="cart.php">Cart</a></li>
                     <li><a href="about.php">About us</a></li>
                     <?php if (!empty($_SESSION['user_id'])): ?>
@@ -73,8 +69,8 @@ $result = $conn->query($sql);
                      id="mp">
                 <div class="wrapper3">
                     <p id="metname"><?php echo htmlspecialchars($row['product_name']); ?></p>
-                    <p id="metdesc"><?php echo htmlspecialchars($row['description']); ?></p>
-                    <span id="sp1">
+                      <!-- Truncate the description here with 300 characters limit -->
+                    <p id="metdesc"><?php echo htmlspecialchars(string: truncate_description($row['description'], 300)); ?></p>
                         <a href="productpage.php?id=<?php echo $row['product_id']; ?>" class="btn1">
                             ₹<?php echo number_format($row['price'], 2); ?> Buy Now
                         </a>
