@@ -148,8 +148,8 @@ will-change: transform, opacity;
         min-width: 250px;
         height: 70vh;
         border-radius: 20px;
-        background-color: #fff;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff74;
+        box-shadow: 0 20px 40px rgba(9, 8, 8, 0.1);
         overflow: hidden;
     }
     

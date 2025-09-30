@@ -14,17 +14,6 @@ body {
     display: flex;
 }
 
-/* Logo fixed top-left */
-.logo-fixed {
-    position: fixed;
-    top: 15px;
-    left: 20px;
-    z-index: 1000;
-}
-.logo-fixed img {
-    height: 60px;
-    width: auto;
-}
 
 /* Sidebar */
 .sidebar {

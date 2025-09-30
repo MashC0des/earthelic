@@ -11,8 +11,7 @@
 </head>
 <body>
  <header class="head1">
-    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
-    
+      <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
     <nav class="nav1">
         <div class="icons1">
            <ul class="nav-links">

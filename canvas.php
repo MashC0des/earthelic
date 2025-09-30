@@ -109,20 +109,20 @@ $stmt->close();
         <div class="container">
             <div class="pagination">
                 <?php if ($page > 1): ?>
-                    <!-- CORRECTED LINK: Changed artwork.php to canvas.php -->
-                    <a class="btnpg1" href="canvas.php?page=<?php echo $page - 1; ?>"><i class="fa-solid fa-chevron-left"></i></a>
+                    <!-- Previous button ID added for uniqueness -->
+                    <a id="prev-page" class="btnpg1" href="canvas.php?page=<?php echo $page - 1; ?>"><i class="fa-solid fa-chevron-left"></i></a>
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <!-- CORRECTED LINK: Changed artwork.php to canvas.php -->
-                    <a class="link <?php echo ($i == $page) ? 'active' : ''; ?>" href="canvas.php?page=<?php echo $i; ?>">
+                    <!-- Page number links now have unique, sequential IDs -->
+                    <a id="page-link-<?php echo $i; ?>" class="link <?php echo ($i == $page) ? 'active' : ''; ?>" href="canvas.php?page=<?php echo $i; ?>">
                         <?php echo $i; ?>
                     </a>
                 <?php endfor; ?>
 
                 <?php if ($page < $total_pages): ?>
-                    <!-- CORRECTED LINK: Changed artwork.php to canvas.php -->
-                    <a class="btnpg1" href="canvas.php?page=<?php echo $page + 1; ?>"><i class="fa-solid fa-chevron-right"></i></a>
+                    <!-- Next button ID added for uniqueness -->
+                    <a id="next-page" class="btnpg1" href="canvas.php?page=<?php echo $page + 1; ?>"><i class="fa-solid fa-chevron-right"></i></a>
                 <?php endif; ?>
             </div>
         </div>
