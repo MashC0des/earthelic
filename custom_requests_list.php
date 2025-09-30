@@ -174,11 +174,6 @@ $requests = $conn->query($sql);
     </style>
 </head>
 <body>
-    <div class="logo-fixed">
-        <a href="landing.php">
-            <img src="imgs/earthelic logo file png.png" alt="Earthelic Logo">
-        </a>
-    </div>
 
     <div class="sidebar">
         <h2>Admin Panel</h2>

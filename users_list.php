@@ -49,13 +49,6 @@ if (isset($_GET['edit'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-  <!-- Logo -->
-  <div class="logo-fixed">
-      <a href="landing.php">
-          <img src="imgs/earthelic logo file png.png" alt="Earthelic Logo">
-      </a>
-  </div>
-
   <!-- Sidebar -->
    <div class="sidebar">
         <h2>Admin Panel</h2>
