@@ -1,6 +1,5 @@
 <?php
-// Ensure session is started in db_connect.php or start it here if it's not.
-// Assuming db_connect.php includes session_start();
+
 include "db_connect.php"; 
 
 // --- Function to safely format status for CSS class (removes spaces, converts to lowercase) ---

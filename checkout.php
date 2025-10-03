@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
         }
 
         // Create the order
-        $stmt = $conn->prepare("INSERT INTO Orders (user_id, total_amount, status, shipping_address_id) VALUES (?, ?, 'processing', ?)");
+        $stmt = $conn->prepare("INSERT INTO Orders (user_id, total_amount, status, shipping_address_id) VALUES (?, ?, 'pending', ?)");
         $stmt->bind_param("idi", $user_id, $payment_amount, $shipping_address_id);
         $stmt->execute();
         $order_id = $stmt->insert_id;

@@ -59,7 +59,7 @@ session_start();
 </head>
 <body>
 <header class="head1">
-    <a href="landing.html"><img src="imgs/earthelic logo file png.png" id="logo1" alt="Earthelic Logo"></a>
+    <a href="index.html"><img src="imgs/earthelic logo file png.png" id="logo1" alt="Earthelic Logo"></a>
    
 </header>
 
