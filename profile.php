@@ -137,6 +137,36 @@ $stmt->close();
             background-color: #45a049;
         }
         
+        /* New style for the Cancel button */
+        .cancel-btn {
+            background-color: #dc3545 !important; /* Red color for cancel */
+        }
+        .cancel-btn:hover {
+            background-color: #c82333 !important;
+        }
+
+        /* Style for disabled button placeholder */
+        .disabled-btn {
+            background-color: #adb5bd !important; /* Grey color for disabled */
+            cursor: not-allowed !important;
+            opacity: 0.7;
+        }
+        .disabled-btn:hover {
+            background-color: #adb5bd !important;
+        }
+
+        /* Style for the button container to ensure they are side-by-side */
+        .order-actions {
+            display: flex;
+            gap: 5px; /* Spacing between buttons */
+            align-items: center;
+            /* Remove the default top margin from the button styles since flex handles alignment */
+        }
+        .order-actions .track-btn {
+            margin: 0; /* Resetting margins to allow flex gap to control spacing */
+        }
+
+
         /* Basic modal styles */
         .modal-input {
             width: 100%;
@@ -226,15 +256,35 @@ $stmt->close();
                     <tbody>
                         <?php while ($row = $orders->fetch_assoc()): ?>
                         <tr>
-                            <td>#<?php echo htmlspecialchars($row['order_id']); ?></td>
+                            <td><a href="my_orders.php" style="color: inherit; text-decoration: underline;">#<?php echo htmlspecialchars($row['order_id']); ?></a></td>
                             <td>₹<?php echo htmlspecialchars(number_format($row['total_amount'], 2)); ?></td>
                             <td><span class="status <?php echo htmlspecialchars($row['status']); ?>"><?php echo ucfirst(htmlspecialchars($row['status'])); ?></span></td>
                             <td><?php echo htmlspecialchars(date("d M Y H:i", strtotime($row['order_date']))); ?></td>
                             <td>
-                                <form action="tracking.php" method="POST">
-                                    <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($row['order_id']); ?>">
-                                    <button type="submit" class="track-btn">Track</button>
-                                </form>
+                                <div class="order-actions">
+                                    <!-- Track Button -->
+                                    <form action="tracking.php" method="POST">
+                                        <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($row['order_id']); ?>">
+                                        <button type="submit" class="track-btn">Track</button>
+                                    </form>
+                                    
+                                    <!-- Cancellation Action Placeholder/Button -->
+                                    <?php if ($row['status'] === 'pending' || $row['status'] === 'processing'): ?>
+                                        <!-- Active Cancel Button -->
+                                        <form action="my_orders.php" method="POST" onsubmit="return confirm('Are you sure you want to cancel Order #<?php echo $row['order_id']; ?>? This action is irreversible.');">
+                                            <input type="hidden" name="cancel_order_id" value="<?php echo htmlspecialchars($row['order_id']); ?>">
+                                            <input type="hidden" name="cancellation_reason" value="User cancelled via Profile page.">
+                                            <button type="submit" class="track-btn cancel-btn">Cancel</button>
+                                        </form>
+                                    <?php else: 
+                                        // Show a disabled button to maintain consistent layout
+                                        $button_text = ($row['status'] === 'cancelled') ? 'Cancelled' : 'Not Cancellable';
+                                    ?>
+                                        <button type="button" class="track-btn disabled-btn" disabled>
+                                            <?php echo $button_text; ?>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
                             </td>
                         </tr>
                         <?php endwhile; ?>

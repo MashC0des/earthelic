@@ -71,7 +71,7 @@ session_start();
         <h1>Thank You!</h1>
         <p>Your order has been placed successfully.</p>
         <p>A confirmation email has been sent to your registered email address.</p>
-        <a href="landing.html" class="btn1 home-btn">Continue Shopping</a>
+        <a href="index.html" class="btn1 home-btn">Continue Shopping</a>
     </div>
 </main>
 

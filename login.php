@@ -109,7 +109,7 @@ if (isset($_POST['login'])) {
                 header("Location: admin.php");
                 exit();
             } else {
-                header("Location: landing.html");
+                header("Location: index.html");
                 exit();
             }
         } else {
@@ -140,7 +140,7 @@ $showRegisterForm = isset($_POST['register']);
         <nav class="nav1">
             <div class="icons1">
                 <ul class="nav-links">
-                    <li><a href="landing.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
                         <li><a href="canvas.php">Paintings & Wall Art</a></li>
@@ -148,7 +148,7 @@ $showRegisterForm = isset($_POST['register']);
                     <li><a href="about.php">About us</a></li>
                 </ul>
                 <ul class="nav2-links">
-                    <li><a href="landing.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="metal.php">Metal</a></li>
                     <li><a href="ceramic.php">Ceramic</a></li>
                         <li><a href="canvas.php">Paintings & Wall Art</a></li>

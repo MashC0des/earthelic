@@ -230,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
 </head>
 <body>
 <header class="head1">
-    <a href="landing.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
+    <a href="index.html"><img src="imgs/earthelic logo file png.png" alt="logo" id="logo1"></a>
 </header>
 
 <main>

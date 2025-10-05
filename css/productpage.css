@@ -244,6 +244,7 @@
 }
 
 .no-reviews {
+    font-size: 1.5rem;
     color: #333;
     text-align: center;
     font-style: italic;
@@ -330,7 +331,6 @@
 ======================= */
 @media (max-width: 768px) {
     .head1 {
-        flex-direction: column;
         padding: 15px 20px;
     }
 
