@@ -1,5 +1,23 @@
 <?php
 include "db_connect.php"; // ✅ uses your central connection file
+/* -------------------------------------------
+   Auth check
+------------------------------------------- */
+if (empty($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+$user_id = $_SESSION['user_id'];
+// Fetch user role
+$stmt = $conn->prepare("SELECT role FROM Users WHERE id = ?");  
+$stmt->bind_param("i", $user_id);
+$stmt->execute();   
+$stmt->bind_result($role);
+$stmt->fetch();
+if ($role !== 'admin') {
+    header("Location: login.php");
+    exit();
+}
 
 // Count total users
 $users_result = $conn->query("SELECT COUNT(*) AS total_users FROM Users");
@@ -47,6 +65,7 @@ $today_orders = $today_orders_result->fetch_assoc()['today_orders'];
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
            
             <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
+           <li><a href="refunds_list.php"><i class="fa fa-headset"></i> Manage Refunds</a></li>
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>

@@ -118,6 +118,7 @@ $stmt->close();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Existing CSS styles remain here */
         .track-btn {
             background-color: #4CAF50;
             color: white;
@@ -270,12 +271,12 @@ $stmt->close();
                                     
                                     <!-- Cancellation Action Placeholder/Button -->
                                     <?php if ($row['status'] === 'pending' || $row['status'] === 'processing'): ?>
-                                        <!-- Active Cancel Button -->
-                                        <form action="my_orders.php" method="POST" onsubmit="return confirm('Are you sure you want to cancel Order #<?php echo $row['order_id']; ?>? This action is irreversible.');">
-                                            <input type="hidden" name="cancel_order_id" value="<?php echo htmlspecialchars($row['order_id']); ?>">
-                                            <input type="hidden" name="cancellation_reason" value="User cancelled via Profile page.">
-                                            <button type="submit" class="track-btn cancel-btn">Cancel</button>
-                                        </form>
+                                        <!-- Active Cancel Button - Opens Modal -->
+                                        <button type="button" 
+                                                class="track-btn cancel-btn" 
+                                                onclick="openCancelModal(<?php echo htmlspecialchars($row['order_id']); ?>, '<?php echo htmlspecialchars(number_format($row['total_amount'], 2)); ?>')">
+                                            Cancel
+                                        </button>
                                     <?php else: 
                                         // Show a disabled button to maintain consistent layout
                                         $button_text = ($row['status'] === 'cancelled') ? 'Cancelled' : 'Not Cancellable';
@@ -322,7 +323,7 @@ $stmt->close();
         </div>
     </div>
     
-    <!-- Existing Upload Modal -->
+    <!-- Upload Picture Modal -->
     <div id="uploadModal" class="modal">
         <div class="modal-content">
             <span class="close upload-close">&times;</span>
@@ -332,6 +333,35 @@ $stmt->close();
                 <button type="submit">Upload</button>
             </form>
             <p id="uploadMsg"></p>
+        </div>
+    </div>
+
+    <!-- Cancel Order Modal (NEW) -->
+    <div id="cancelOrderModal" class="modal">
+        <div class="modal-content">
+            <span class="close cancel-close">&times;</span>
+            <h3>Cancel Order & Refund Details</h3>
+            <p style="margin-bottom: 15px;">You are about to cancel Order #<strong id="modal-order-id"></strong> for a total refund of ₹<strong id="modal-refund-amount"></strong>.</p>
+            
+            <form id="cancelForm">
+                <input type="hidden" name="order_id" id="cancel_order_id_input">
+            
+                <label for="cancel_reason">Reason for Cancellation (Required)</label>
+                <input type="text" id="cancel_reason" name="reason" required class="modal-input" placeholder="e.g., Ordered by mistake, wrong size, low quality, etc.">
+
+                <h4 style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 15px;">Refund Method (Provide at least one)</h4>
+                
+                <label for="account_number">Bank A/C Number / Wallet ID</label>
+                <input type="text" id="account_number" name="account_number" class="modal-input" placeholder="e.g., 1234567890 (Optional)">
+
+                <label for="upi_id">UPI ID</label>
+                <input type="text" id="upi_id" name="upi_id" class="modal-input" placeholder="e.g., user@bank (Optional)">
+
+                <p id="refund-error-msg" style="color: red; font-weight: bold; margin-top: 10px;"></p>
+                
+                <button type="submit" class="btn track-btn cancel-btn" style="margin-top: 10px;">Confirm & Request Refund</button>
+            </form>
+            <p id="cancelMsg"></p>
         </div>
     </div>
 
@@ -347,6 +377,24 @@ $stmt->close();
 </footer>
 <script src="script.js"></script>
 <script>
+    /* Function to open the new cancellation modal and populate data */
+    function openCancelModal(orderId, amount) {
+        // Populate modal fields
+        $('#modal-order-id').text(orderId);
+        $('#modal-refund-amount').text(amount);
+        $('#cancel_order_id_input').val(orderId);
+        $('#refund-error-msg').text(''); // Clear previous error messages
+        
+        // Clear previous input values
+        $('#cancel_reason').val(''); 
+        $('#account_number').val(''); 
+        $('#upi_id').val('');
+        
+        // Show the modal
+        $("#cancelOrderModal").fadeIn();
+    }
+    
+    
 $(document).ready(function(){
     // --- Modal Control Logic ---
     
@@ -368,9 +416,7 @@ $(document).ready(function(){
     // Close modal if user clicks outside of it
     $(window).click(function(event) {
       if ($(event.target).is('.modal')) {
-        // Only fade out if the modal wasn't just opened due to an error.
-        // For simplicity with the PHP POST, we rely on the PHP messages 
-        // being displayed after the page reload or immediate POST.
+        // Close all modals when clicking outside
         $('.modal').fadeOut();
       }
     });
@@ -390,6 +436,53 @@ $(document).ready(function(){
             success:function(response){
                 $("#uploadMsg").html(response);
                 setTimeout(()=>{ location.reload(); },1500);
+            }
+        });
+    });
+    
+    // --- NEW AJAX Logic for Order Cancellation ---
+    $("#cancelForm").on("submit", function(e){
+        e.preventDefault();
+        
+        // Basic frontend validation for refund method
+        var accountNumber = $('#account_number').val().trim();
+        var upiId = $('#upi_id').val().trim();
+        
+        if (accountNumber === '' && upiId === '') {
+            $('#refund-error-msg').text('Error: Please provide either a Bank Account Number or a UPI ID for the refund.');
+            return;
+        }
+        
+        $('#refund-error-msg').text(''); // Clear error on successful check
+        
+        // Custom confirmation prompt (since alert() is disallowed)
+        if (!confirm('Are you absolutely sure you want to cancel this order? This action is irreversible and a refund will be processed.')) {
+            return;
+        }
+
+        var formData = $(this).serialize();
+        
+        // Show a temporary loading message
+        $('#refund-error-msg').css('color', '#007bff').text('Processing cancellation and refund request...'); 
+
+        $.ajax({
+            url: "cancel_order_handler.php", // New handler script
+            type: "POST",
+            data: formData,
+            dataType: 'json',
+            success:function(response){
+                // Display success or failure message and reload
+                $('#refund-error-msg').css('color', response.success ? 'green' : 'red').text(response.message);
+                
+                if (response.success) {
+                    // Reload after a short delay to show the updated order status
+                    setTimeout(()=>{ location.reload(); }, 2000); 
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle non-200 responses (e.g., 401, 500)
+                var errorResponse = xhr.responseJSON || { message: "An unexpected network error occurred." };
+                $('#refund-error-msg').css('color', 'red').text('Error: ' + errorResponse.message);
             }
         });
     });
