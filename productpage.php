@@ -80,6 +80,21 @@ $reviews = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/productpage.css" />
+    <style>
+        /* CSS for the temporary warning message */
+        .stock-warning {
+            color: #dc3545; /* Red color */
+            font-size: 1.5rem;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .stock-warning.show {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
 
@@ -116,7 +131,7 @@ $reviews = $stmt->get_result();
         <div class="back-btn">
             <button class="btn-back" onclick="window.history.back()">⬅ Back</button>
         </div>
-
+                         <h1><?php echo h($product['product_name']); ?></h1>
         <!-- PRODUCT SHOWCASE SECTION -->
         <section class="product-showcase">
             <div class="product-image">
@@ -124,7 +139,7 @@ $reviews = $stmt->get_result();
             </div>
 
             <div class="product-details">
-                <h1><?php echo h($product['product_name']); ?></h1>
+               
 
                 <div class="rating-row">
                     <?php if ($total_reviews > 0): ?>
@@ -153,16 +168,31 @@ $reviews = $stmt->get_result();
 
                 <div class="product-actions">
                     <?php if ($product['stock_quantity'] > 0): ?>
-                       <form method="POST" action="cart.php">
+                       <form method="POST" action="cart.php" id="add-to-cart-form">
                             <!-- All product data is passed as hidden inputs to cart.php -->
                             <input type="hidden" name="add_to_cart" value="1">
                             <input type="hidden" name="product_id" value="<?php echo h((string)$product['product_id']); ?>">
                             <input type="hidden" name="product_name" value="<?php echo h($product['product_name']); ?>">
                             <input type="hidden" name="product_price" value="<?php echo h((string)$product['price']); ?>">
                             <input type="hidden" name="image_url" value="<?php echo h($product['image_url']); ?>">
-                            <input type="number" name="quantity" class="quantity-input" value="1" min="1">
+                            
+                         
+
+                            <input type="number" 
+                                   name="quantity" 
+                                   id="quantityInput"
+                                   class="quantity-input" 
+                                   value="1" 
+                                   min="1" 
+                                   max="<?php echo h((string)$product['stock_quantity']); ?>"
+                                   data-max-stock="<?php echo h((string)$product['stock_quantity']); ?>"
+                                   oninput="checkStockLimit(this)">
                             <button type="submit" name="add_to_cart" class="btn-add-cart">Add to Cart</button>
-                        </form>
+                            <!-- IMPORTANT: Remember to add server-side validation in cart.php 
+                                 to ensure the submitted quantity does not exceed the current stock. -->
+                           <!-- Add a container for the warning message -->
+                            <div id="stockWarningMessage" class="stock-warning"></div>
+                                </form>
                     <?php else: ?>
                         <button class="btn-disabled" disabled>Out of Stock</button>
                     <?php endif; ?>
@@ -234,5 +264,41 @@ $reviews = $stmt->get_result();
     </div>
     <p>&copy; 2024 Earthelic.com</p>
 </footer>
+    <script src="script.js"></script>
+<script>
+    // Debounce function to limit how often the warning fades out
+    let warningTimeout;
+
+    function checkStockLimit(input) {
+        const value = parseInt(input.value);
+        const maxStock = parseInt(input.getAttribute('data-max-stock'));
+        const warningElement = document.getElementById('stockWarningMessage');
+
+        // Clear any existing timeout
+        clearTimeout(warningTimeout);
+
+        if (value > maxStock) {
+            // 1. Enforce the limit: set the input value back to maxStock
+            input.value = maxStock;
+
+            // 2. Show the warning
+            warningElement.textContent = `You can only add a maximum of ${maxStock} items to the cart.`;
+            warningElement.classList.add('show');
+
+            // 3. Set a timeout to fade the warning out
+            warningTimeout = setTimeout(() => {
+                warningElement.classList.remove('show');
+            }, 3000); // Warning visible for 3 seconds
+        } else if (value < 1) {
+            // Also ensure the value doesn't drop below 1
+            input.value = 1;
+            warningElement.classList.remove('show');
+        } else {
+            // Hide warning if input is valid
+            warningElement.classList.remove('show');
+        }
+    }
+</script>
+
 </body>
 </html>

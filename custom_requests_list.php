@@ -88,8 +88,10 @@ $requests = $conn->query($sql);
     <meta charset="UTF-8">
     <title>Manage Custom Requests - Earthelic Admin</title>
     <link rel="stylesheet" href="css/admin.css">
+    <!-- ADDED: Link to managepro.css for consistent table styling -->
+    <link rel="stylesheet" href="css/managepro.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Inline CSS for status colors and table layout, including button fix -->
+    <!-- Inline CSS for status colors and button styles (retained as they are unique to this table) -->
     <style>
         .status {
             padding: 4px 8px;
@@ -112,7 +114,7 @@ $requests = $conn->query($sql);
         .btn {
             display: inline-block;
             padding: 6px 10px;
-            margin: 2px 0;
+            margin: 2px 5px 2px 0; /* Adjusted margin for horizontal flow */
             color: white;
             text-decoration: none;
             border-radius: 4px;
@@ -125,8 +127,8 @@ $requests = $conn->query($sql);
             opacity: 0.9;
         }
 
-        /* Adjusted button style for Pricing Sent */
-        .btn.shipped { background-color: #007bff; }
+        /* Adjusted button style for Pricing Sent (mapped to 'shipped' color) */
+        .btn.shipped { background-color: #007bff; } 
         /* Complete button style */
         .btn.completed { background-color: #28a745; }
         /* New In Review button style */
@@ -139,21 +141,7 @@ $requests = $conn->query($sql);
             overflow-x: auto;
         }
 
-        .table-container table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table-container th, .table-container td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-            vertical-align: top;
-        }
-
-        .table-container th {
-            background-color: #f8f9fa;
-        }
+        /* REMOVED: Generic table styling that would conflict with managepro.css */
 
         /* Styling for the long description column */
         .table-container td:nth-child(7) { 
@@ -184,6 +172,7 @@ $requests = $conn->query($sql);
             <li><a href="custom_requests_list.php" class="active"><i class="fa fa-paint-brush"></i> Custom Requests</a></li>
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
             <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
+             <li><a href="refunds_list.php" class="active"><i class="fa fa-receipt"></i> Manage Refunds</a></li> <!-- Added new item -->
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
@@ -253,7 +242,7 @@ $requests = $conn->query($sql);
                                 <td>
                                     <?php if (!empty($request['reference_image_path'])): ?>
                                         <a href="<?php echo htmlspecialchars($request['reference_image_path']); ?>" target="_blank">
-                                            <img src="<?php echo htmlspecialchars($request['reference_image_path']); ?>" alt="Ref Image">
+                                            <img src="<?php echo htmlspecialchars($request['reference_image_path']); ?>" alt="Ref Image" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/333333?text=No+Image';">
                                         </a>
                                     <?php else: ?>
                                         N/A

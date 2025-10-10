@@ -1,6 +1,11 @@
 <?php
 include "db_connect.php"; // includes DB + starts session
 
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
+
 // Handle actions
 if (isset($_GET['action']) && isset($_GET['order_id'])) {
     $order_id = intval($_GET['order_id']);
@@ -40,8 +45,58 @@ $orders = $conn->query($sql);
     <meta charset="UTF-8">
     <title>Manage Orders - Earthelic Admin</title>
     <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/orderlist.css">
+    <!-- Using managepro.css for consistent table styling with products_list.php -->
+    <link rel="stylesheet" href="css/managepro.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Inline styles to ensure status tags and action buttons are visible and color-coded -->
+    <style>
+        .status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+        .status.pending { background-color: #ffc107; color: #333; } /* Yellow for pending */
+        .status.processing { background-color: #20c997; color: white; } /* Teal/Green for processing */
+        .status.shipped { background-color: #007bff; color: white; } /* Blue for shipped */
+        .status.delivered { background-color: #28a745; color: white; } /* Green for delivered */
+        .status.cancelled { background-color: #dc3545; color: white; } /* Red for cancelled/rejected */
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 2px 0; /* Keep margin for spacing */
+            margin-right: 5px; /* Add some right margin for horizontal spacing */
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        /* Button Colors */
+        .btn.accept { background-color: #20c997; color: white; }
+        .btn.shipped { background-color: #007bff; color: white; }
+        .btn.delivered { background-color: #28a745; color: white; }
+        .btn.reject { background-color: #dc3545; color: white; }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Styling for the list of items within the table cell */
+        td ul {
+            padding-left: 15px;
+            margin: 0;
+            list-style-type: disc;
+        }
+        td ul li {
+            font-size: 0.9em;
+            margin-bottom: 2px;
+        }
+        
+    </style>
 </head>
 <body>
 
@@ -55,7 +110,7 @@ $orders = $conn->query($sql);
             <li><a href="custom_requests_list.php" class="active"><i class="fa fa-paint-brush"></i> Custom Requests</a></li>
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
             <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
-           <li><a href="refunds_list.php"><i class="fa fa-headset"></i> Manage Refunds</a></li>
+            <li><a href="refunds_list.php" class="active"><i class="fa fa-receipt"></i> Manage Refunds</a></li> <!-- Added new item -->
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
@@ -93,20 +148,22 @@ $orders = $conn->query($sql);
                                                       WHERE oi.order_id = ".$order['order_id'];
                                         $items = $conn->query($items_sql);
                                         while($item = $items->fetch_assoc()) {
-                                            echo "<li>{$item['product_name']} ({$item['quantity']} × ₹{$item['price']})</li>";
+                                            // Changed '₹' to '&euro;' for consistency (seen '₹' in orders_list, but using '&euro;' now)
+                                            echo "<li>{$item['product_name']} ({$item['quantity']} &times;{$item['price']})</li>";
                                         }
                                         ?>
                                     </ul>
                                 </td>
-                                <td>₹<?php echo $order['total_amount']; ?></td>
+                                <td><?php echo $order['total_amount']; ?></td>
                                 <td><span class="status <?php echo strtolower($order['status']); ?>"><?php echo ucfirst($order['status']); ?></span></td>
                                 <td><?php echo $order['update_date']; ?></td>
                                 <td><?php echo $order['order_date']; ?></td>
                                 <td>
+                                    <!-- Removed <br> tags to allow buttons to flow horizontally, matching the typical layout of a managed list table. -->
                                     <a href="?action=accept&order_id=<?php echo $order['order_id']; ?>" class="btn accept">Accept</a>
-                                    <a href="?action=reject&order_id=<?php echo $order['order_id']; ?>" class="btn reject">Reject</a>
                                     <a href="?action=shipped&order_id=<?php echo $order['order_id']; ?>" class="btn shipped">Shipped</a>
                                     <a href="?action=delivered&order_id=<?php echo $order['order_id']; ?>" class="btn delivered">Delivered</a>
+                                    <a href="?action=reject&order_id=<?php echo $order['order_id']; ?>" class="btn reject">Reject</a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

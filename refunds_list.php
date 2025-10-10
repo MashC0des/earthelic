@@ -3,10 +3,10 @@
 include "db_connect.php"; 
 
 // IMPORTANT: Add authorization check here to ensure only 'admin' role can access this page
-// if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-//     header("Location: login.php");
-//     exit;
-// }
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
 
 // ================= Update Refund Status =================
 if (isset($_POST['update_refund'])) {
@@ -100,10 +100,11 @@ if (isset($_GET['edit'])) {
         <li><a href="upload.php"><i class="fa fa-upload"></i> Upload Product</a></li>
         <li><a href="products_list.php"><i class="fa fa-box"></i> Manage Products</a></li>
         <li><a href="orders_list.php"><i class="fa fa-shopping-cart"></i> Manage Orders</a></li>
-        <li><a href="refunds_list.php" class="active"><i class="fa fa-receipt"></i> Manage Refunds</a></li> <!-- Added new item -->
         <li><a href="custom_requests_list.php"><i class="fa fa-paint-brush"></i> Custom Requests</a></li>
         <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
         <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
+         <li><a href="refunds_list.php" class="active"><i class="fa fa-receipt"></i> Manage Refunds</a></li> <!-- Added new item -->
+        
         <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
     </ul>
   </div>

@@ -103,8 +103,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
         $postal_code = $_POST['postal_code'] ?? '';
         $country = $_POST['country'] ?? '';
         
+        // --- SERVER-SIDE VALIDATION FOR ADDRESS LINE 1 & 2 LENGTH (Max 60) ---
+        if (strlen($address_line1) > 60) {
+             $errors[] = "Address Line 1 cannot exceed 60 characters.";
+        }
+        if (strlen($address_line2) > 60) {
+             $errors[] = "Address Line 2 cannot exceed 60 characters.";
+        }
+        
+        // --- SERVER-SIDE VALIDATION FOR CITY, STATE, COUNTRY LENGTH (Max 30, Country Max 20) ---
+        if (strlen($city) > 30) {
+            $errors[] = "City name cannot exceed 30 characters.";
+        }
+        if (strlen($state) > 30) {
+            $errors[] = "State name cannot exceed 30 characters.";
+        }
+        // Updated to max 20 characters for Country
+        if (strlen($country) > 20) {
+            $errors[] = "Country name cannot exceed 20 characters.";
+        }
+        // --------------------------------------------------------------
+
+        // --- NEW SERVER-SIDE VALIDATION FOR POSTAL CODE (6 digits only) ---
+        if (empty($postal_code)) {
+            $errors[] = "Postal Code is required.";
+        } elseif (strlen($postal_code) > 6 || !ctype_digit($postal_code)) { // Check for max 6 length and only digits
+            $errors[] = "Postal Code must be up to 6 digits, containing only numbers.";
+        }
+        // ------------------------------------------------------------------
+
         if (empty($address_line1) || empty($city) || empty($state) || empty($postal_code) || empty($country)) {
-            $errors[] = "Please fill in all required address fields.";
+            if (empty($address_line1) || empty($city) || empty($state) || empty($country)) {
+                 $errors[] = "Please fill in all required address fields.";
+            }
         }
     } else if (isset($_POST['existing_address_id'])) {
         $shipping_address_id = (int)$_POST['existing_address_id'];
@@ -119,18 +150,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
             if (isset($_POST['change_card_flag']) && $_POST['change_card_flag'] === 'yes') {
                 $card_number = $_POST['card_number'] ?? '';
                 $cardholder_name = $_POST['card_name'] ?? '';
-                $expiry_date = $_POST['expiry'] ?? '';
+                
+                // --- START: Reading month and year separately and combining them ---
+                $month_input = $_POST['expiry_month'] ?? '';
+                $year_input = $_POST['expiry_year'] ?? '';
+                $expiry_date = "{$month_input}/{$year_input}"; // COMBINE FOR DB STORAGE & VALIDATION
+                // --- END: Reading month and year separately and combining them ---
+                
                 $cvv = $_POST['cvv'] ?? '';
-                if (empty($card_number) || empty($cardholder_name) || empty($expiry_date) || empty($cvv)) {
-                    $errors[] = "Please fill in all required credit/debit card details.";
+                
+                // Server-side validation for Card Number (must be exactly 16 digits and only numbers)
+                if (!preg_match('/^\d{16}$/', $card_number)) {
+                    $errors[] = "Card Number must be exactly 16 digits and contain only numbers.";
+                }
+                
+                // Server-side validation for Cardholder Name (max 20 characters)
+                if (strlen($cardholder_name) > 20) {
+                    $errors[] = "Cardholder Name cannot exceed 20 characters.";
+                }
+
+                // ********************************************************************************
+                // * Updated server-side validation for Expiry Date (MM/YY format expected)
+                // ********************************************************************************
+                if (!preg_match('/^(\d{2})\/(\d{2})$/', $expiry_date, $matches)) {
+                    $errors[] = "Expiry Date must be provided as two 2-digit numbers (MM/YY).";
+                } else {
+                    // Current year (last two digits, e.g., 25) and current month (1-12)
+                    $current_year_yy = (int)date('y'); 
+                    $current_month = (int)date('m');   
+
+                    $month = (int)$matches[1];
+                    $year_yy = (int)$matches[2];
+                    
+                    // --- DIGIT-BASED CHECKS (Must match client-side constraints) ---
+                    $month_first_digit = (int)substr($matches[1], 0, 1);
+                    $year_first_digit = (int)substr($matches[2], 0, 1);
+
+                    // M1 Check: 0 or 1
+                    if ($month_first_digit < 0 || $month_first_digit > 1) {
+                        $errors[] = "The first month digit must be 0 or 1.";
+                    }
+                    // M2 Check: 0-9, but only 0-2 if M1 is 1. (This is covered by the 01-12 check below)
+
+                    // Y1 Check: 2 to 4
+                    if ($year_first_digit < 2 || $year_first_digit > 4) {
+                        $errors[] = "The first year digit must be between 2 and 4 (i.e., between 20 and 49).";
+                    }
+
+                    // Check Month (01-12)
+                    if ($month < 1 || $month > 12) {
+                        $errors[] = "Expiry Month must be between 01 and 12.";
+                    } 
+                    
+                    // Check Year (Current year (e.g., 25) up to 49)
+                    // Y1=4, Y2=9 means max year is 49.
+                    if ($year_yy < $current_year_yy || $year_yy > 49) {
+                        $errors[] = "Expiry Year must be between " . $current_year_yy . " and 49 (inclusive).";
+                    } 
+                    
+                    // Check if the card has already expired (only relevant if year is current year)
+                    if ($year_yy === $current_year_yy && $month < $current_month) {
+                        $errors[] = "The card has already expired.";
+                    }
+                }
+                // ----------------------------------------------------------------------
+                
+                // Server-side validation for CVV (must be exactly 3 digits and only numbers)
+                if (!preg_match('/^\d{3}$/', $cvv)) {
+                    $errors[] = "CVV must be exactly 3 digits and contain only numbers.";
+                }
+
+                if (empty($card_number) || empty($cardholder_name) || empty($month_input) || empty($year_input) || empty($cvv)) {
+                    // Re-check generic emptiness
+                    if (empty($card_number) || empty($cardholder_name) || empty($cvv)) {
+                         $errors[] = "Please fill in all required credit/debit card details.";
+                    }
                 }
             }
             break;
         case 'upi':
             if (isset($_POST['change_upi_flag']) && $_POST['change_upi_flag'] === 'yes') {
                 $upi_id = $_POST['upi_id'] ?? '';
+                
+                // Added validation for UPI ID (max 25 chars and proper format)
                 if (empty($upi_id)) {
-                    $errors[] = "Please enter a valid UPI ID.";
+                    $errors[] = "UPI ID is required.";
+                } elseif (strlen($upi_id) > 25) {
+                    $errors[] = "UPI ID cannot exceed 25 characters.";
+                } elseif (!preg_match('/^[a-zA-Z0-9.\-_]{2,20}@[a-zA-Z0-9.\-_]{2,5}$/', $upi_id)) {
+                    // Basic validation for common VPA format
+                    $errors[] = "Please enter a valid UPI ID format (e.g., username@bank).";
                 }
             }
             break;
@@ -156,6 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 $payment_method = 'credit_card';
                 $payment_status = 'completed';
                 if (isset($_POST['change_card_flag']) && $_POST['change_card_flag'] === 'yes') {
+                    // The combined $expiry_date (MM/YY) is saved here
                     $stmt = $conn->prepare("INSERT INTO Card_Details (user_id, card_number, cardholder_name, expiry_date) VALUES (?, ?, ?, ?)");
                     $stmt->bind_param("isss", $user_id, $card_number, $cardholder_name, $expiry_date);
                     $stmt->execute();
@@ -294,27 +404,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 <?php endif; ?>
                         <div class="form-group">
                             <label for="address_line1">Address Line 1</label>
-                            <input type="text" id="address_line1" name="address_line1" <?php echo !$existing_address ? 'required' : ''; ?>>
+                            <input type="text" id="address_line1" name="address_line1" maxlength="60" <?php echo !$existing_address ? 'required' : ''; ?>>
                         </div>
                         <div class="form-group">
                             <label for="address_line2">Address Line 2 (Optional)</label>
-                            <input type="text" id="address_line2" name="address_line2">
+                            <input type="text" id="address_line2" name="address_line2" maxlength="60">
                         </div>
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input type="text" id="city" name="city" <?php echo !$existing_address ? 'required' : ''; ?>>
+                            <input type="text" id="city" name="city" maxlength="30" <?php echo !$existing_address ? 'required' : ''; ?>>
                         </div>
                         <div class="form-group">
                             <label for="state">State</label>
-                            <input type="text" id="state" name="state" <?php echo !$existing_address ? 'required' : ''; ?>>
+                            <input type="text" id="state" name="state" maxlength="30" <?php echo !$existing_address ? 'required' : ''; ?>>
                         </div>
                         <div class="form-group">
                             <label for="postal_code">Postal Code</label>
-                            <input type="text" id="postal_code" name="postal_code" <?php echo !$existing_address ? 'required' : ''; ?>>
+                            <!-- Client-side: Only allows digits and limits to 6 chars -->
+                            <input type="text" id="postal_code" name="postal_code" maxlength="6" 
+                                pattern="\d{1,6}" 
+                                inputmode="numeric" 
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 6)"
+                                title="Up to 6-digit postal code" 
+                                <?php echo !$existing_address ? 'required' : ''; ?>>
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
-                            <input type="text" id="country" name="country" <?php echo !$existing_address ? 'required' : ''; ?>>
+                            <!-- Client-side max length changed to 20 -->
+                            <input type="text" id="country" name="country" maxlength="20" <?php echo !$existing_address ? 'required' : ''; ?>>
                         </div>
                         <?php if ($existing_address): ?>
                             <div class="address-buttons">
@@ -352,19 +469,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                     <?php endif; ?>
                             <div class="form-group">
                                 <label for="card_name">Cardholder Name</label>
-                                <input type="text" id="card_name" name="card_name" <?php echo !$existing_card_details ? 'required' : ''; ?>>
+                                <!-- Client-side max length changed to 20 -->
+                                <input type="text" id="card_name" name="card_name" maxlength="20" <?php echo !$existing_card_details ? 'required' : ''; ?>>
                             </div>
                             <div class="form-group">
                                 <label for="card_number">Card Number</label>
-                                <input type="text" id="card_number" name="card_number" pattern="\d{16}" title="16-digit card number" <?php echo !$existing_card_details ? 'required' : ''; ?>>
+                                <!-- Client-side constraints for 16 digit number only -->
+                                <input type="text" id="card_number" name="card_number" 
+                                    maxlength="16" 
+                                    pattern="\d{16}" 
+                                    inputmode="numeric" 
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 16)" 
+                                    title="16-digit number" 
+                                    <?php echo !$existing_card_details ? 'required' : ''; ?>>
                             </div>
-                            <div class="form-group">
-                                <label for="expiry">Expiry Date (MM/YY)</label>
-                                <input type="text" id="expiry" name="expiry" pattern="\d{2}/\d{2}" title="Format: MM/YY" <?php echo !$existing_card_details ? 'required' : ''; ?>>
+
+                            <!-- START: SPLIT EXPIRY DATE FIELDS -->
+                            <label style="color: white; display: block; margin-bottom: 5px;">Expiry Date</label>
+                            <div class="form-group-flex">
+                                <div class="form-group">
+                                    <label for="expiry_month">Month (MM)</label>
+                                    <input type="text" id="expiry_month" name="expiry_month" 
+                                        maxlength="2" 
+                                        pattern="\d{2}" 
+                                        inputmode="numeric" 
+                                        oninput="validateMonthInput(this)" 
+                                        onblur="validateExpiryDate(this, document.getElementById('expiry_year'))"
+                                        title="Two-digit month (01-12)" 
+                                        <?php echo !$existing_card_details ? 'required' : ''; ?>>
+                                    <span id="month-error" style="color: #ff9999; font-size: 0.8em; display: block; margin-top: 5px;"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expiry_year">Year (YY)</label>
+                                    <input type="text" id="expiry_year" name="expiry_year" 
+                                        maxlength="2" 
+                                        pattern="\d{2}" 
+                                        inputmode="numeric" 
+                                        oninput="validateYearInput(this)" 
+                                        onblur="validateExpiryDate(document.getElementById('expiry_month'), this)"
+                                        title="Two-digit year (YY)" 
+                                        <?php echo !$existing_card_details ? 'required' : ''; ?>>
+                                    <span id="year-error" style="color: #ff9999; font-size: 0.8em; display: block; margin-top: 5px;"></span>
+                                </div>
                             </div>
+                            <!-- END: SPLIT EXPIRY DATE FIELDS -->
+
                             <div class="form-group">
                                 <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" name="cvv" pattern="\d{3,4}" title="3 or 4 digits" <?php echo !$existing_card_details ? 'required' : ''; ?>>
+                                <!-- Client-side constraints for 3-digit number only -->
+                                <input type="text" id="cvv" name="cvv" 
+                                    maxlength="3" 
+                                    pattern="\d{3}" 
+                                    inputmode="numeric" 
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)" 
+                                    title="3-digit number" 
+                                    <?php echo !$existing_card_details ? 'required' : ''; ?>>
                             </div>
                             <?php if ($existing_card_details): ?>
                                 <button type="button" class="btn1" id="cancel-card-btn" style="width: auto; background-color: #a0a0a0; border-color: #a0a0a0;">Cancel</button>
@@ -388,7 +547,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                     <?php endif; ?>
                             <div class="form-group">
                                 <label for="upi_id">Your UPI ID</label>
-                                <input type="text" id="upi_id" name="upi_id" <?php echo !$existing_upi_details ? 'required' : ''; ?>>
+                                <!-- Updated: Client-side max length is now 25 -->
+                                <input type="text" id="upi_id" name="upi_id" maxlength="25" <?php echo !$existing_upi_details ? 'required' : ''; ?>>
                             </div>
                             <?php if ($existing_upi_details): ?>
                                 <button type="button" class="btn1" id="cancel-upi-btn" style="width: auto; background-color: #a0a0a0; border-color: #a0a0a0;">Cancel</button>
@@ -415,6 +575,126 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
 </footer>
 
 <script>
+    const expiryMonthInput = document.getElementById('expiry_month');
+    const expiryYearInput = document.getElementById('expiry_year');
+    
+    /**
+     * Client-side function for strict validation of Month input based on digit constraints.
+     * M1: 0-1, M2: 0-9 (but max 2 if M1 is 1)
+     * @param {HTMLInputElement} input - The month input element.
+     */
+    function validateMonthInput(input) {
+        let value = input.value.replace(/\D/g, '').substring(0, 2);
+        
+        // M1 Check: Restrict M1 to 0 or 1
+        if (value.length >= 1) {
+            const M1 = parseInt(value[0], 10);
+            if (M1 > 1) {
+                value = '0' + value.substring(1); // Force M1 to 0 if > 1 (e.g., '2' becomes '02')
+            }
+        }
+        
+        // M2 Check: If M1 is 1, M2 must be 0, 1, or 2 (for 10, 11, 12)
+        if (value.length === 2) {
+            const M1 = parseInt(value[0], 10);
+            const M2 = parseInt(value[1], 10);
+            if (M1 === 1 && M2 > 2) {
+                value = '12'; // Force to 12 if invalid (e.g., '13' becomes '12')
+            } else if (M1 === 0 && M2 === 0) {
+                value = '01'; // Force 00 to 01
+            }
+        }
+        
+        input.value = value;
+        // Call main validation after any change
+        validateExpiryDate(input, expiryYearInput); 
+    }
+
+    /**
+     * Client-side function for strict validation of Year input based on digit constraints.
+     * Y1: 2-4, Y2: 0-9
+     * @param {HTMLInputElement} input - The year input element.
+     */
+    function validateYearInput(input) {
+        let value = input.value.replace(/\D/g, '').substring(0, 2);
+
+        // Y1 Check: Restrict Y1 to 2, 3, or 4
+        if (value.length >= 1) {
+            const Y1 = parseInt(value[0], 10);
+            if (Y1 < 2 || Y1 > 4) {
+                value = '2' + value.substring(1); // Force Y1 to 2
+            }
+        }
+        // Y2 is 0-9, which is covered by the \D/g filter.
+
+        input.value = value;
+        // Call main validation after any change
+        validateExpiryDate(expiryMonthInput, input); 
+    }
+    
+    /**
+     * Client-side function for strict validation based on combined MM/YY values
+     * and ensuring the date is not expired.
+     * @param {HTMLInputElement} monthEl - The month input element.
+     * @param {HTMLInputElement} yearEl - The year input element.
+     * @returns {boolean} True if valid, false if invalid.
+     */
+    function validateExpiryDate(monthEl, yearEl) {
+        const monthErrorSpan = document.getElementById('month-error');
+        const yearErrorSpan = document.getElementById('year-error');
+        
+        monthErrorSpan.textContent = ''; // Clear previous error
+        yearErrorSpan.textContent = ''; // Clear previous error
+
+        const monthStr = monthEl.value;
+        const yearStr = yearEl.value;
+        
+        let isValid = true;
+
+        // 1. Check if both fields are completely filled
+        if (monthStr.length !== 2 || yearStr.length !== 2) {
+            return true; // Pass if incomplete, let 'required' attribute handle emptiness
+        }
+
+        const month = parseInt(monthStr, 10);
+        const year_yy = parseInt(yearStr, 10);
+
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear() % 100; 
+        const currentMonth = currentDate.getMonth() + 1; // 1-12
+
+        
+        // 2. Basic Month Validity Check (01-12)
+        if (month < 1 || month > 12) {
+            monthErrorSpan.textContent = "Month must be 01-12.";
+            isValid = false;
+        }
+
+        // 3. Digit-based restriction re-check for year (Y1: 2-4)
+        const Y1 = parseInt(yearStr[0], 10);
+        if (Y1 < 2 || Y1 > 4) {
+            yearErrorSpan.textContent = "Year must be between 20 and 49 (Y1=2-4).";
+            isValid = false;
+        }
+
+        // 4. Expiration Check (only if basic checks passed)
+        if (isValid) {
+            if (year_yy < currentYear) {
+                 yearErrorSpan.textContent = "Card year is in the past.";
+                 isValid = false;
+            } else if (year_yy > 49) {
+                yearErrorSpan.textContent = "Year exceeds maximum (49).";
+                isValid = false;
+            } else if (year_yy === currentYear && month < currentMonth) {
+                monthErrorSpan.textContent = "Card has already expired.";
+                 isValid = false;
+            }
+        }
+        
+        return isValid;
+    }
+
+
     document.addEventListener('DOMContentLoaded', () => {
         const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
         const detailsMap = {
@@ -427,8 +707,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
         const cardInputs = document.querySelectorAll('#new-card-form input');
         const upiInputs = document.querySelectorAll('#new-upi-form input');
 
+        const checkoutForm = document.querySelector('.payment-form form');
+        const changeCardFlag = document.getElementById('change-card-flag');
+
+
+        // --- Add form submission listener for hard client-side block ---
+        checkoutForm.addEventListener('submit', (e) => {
+            const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
+            // Only validate card details if 'card' is selected AND a new card is being entered
+            if (selectedMethod === 'card' && changeCardFlag.value === 'yes') {
+                // Manually run the strict validation
+                const isExpiryValid = validateExpiryDate(expiryMonthInput, expiryYearInput);
+
+                if (!isExpiryValid) {
+                    e.preventDefault();
+                    // Scroll to the error input for better visibility
+                    (document.getElementById('month-error').textContent || document.getElementById('year-error').textContent)
+                        ? expiryMonthInput.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                        : null;
+                }
+            }
+        });
+        // -------------------------------------------------------------------
+
+
         function setRequired(inputs, isRequired) {
             inputs.forEach(input => {
+                // Ensure only 'required' status is toggled, not physical attributes
+                if (input.id === 'address_line1' || input.id === 'address_line2' || input.id === 'city' || input.id === 'state' || input.id === 'country' || input.id === 'postal_code' || input.id === 'card_name' || input.id === 'card_number' || input.id === 'expiry_month' || input.id === 'expiry_year' || input.id === 'cvv' || input.id === 'upi_id') {
+                    // Only apply 'required' status
+                }
+                
                 if (isRequired) {
                     input.setAttribute('required', '');
                 } else {
@@ -478,11 +788,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
         const newAddressForm = document.getElementById('new-address-form');
         const changeAddressFlag = document.getElementById('change-address-flag');
 
+        // Initial setup for address required state based on flag
+        if (changeAddressFlag.value === 'yes') {
+            // Note: address_line2 is optional and not set to required here
+            setRequired(document.querySelectorAll('#address_line1, #city, #state, #postal_code, #country'), true);
+        } else {
+             setRequired(addressInputs, false);
+        }
+
         if (changeAddressBtn) {
             changeAddressBtn.addEventListener('click', () => {
                 existingAddressContainer.style.display = 'none';
                 newAddressForm.style.display = 'block';
-                setRequired(addressInputs, true);
+                // Only make the non-optional fields required
+                setRequired(document.querySelectorAll('#address_line1, #city, #state, #postal_code, #country'), true);
                 changeAddressFlag.value = 'yes';
             });
         }
@@ -500,7 +819,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
         const cancelCardBtn = document.getElementById('cancel-card-btn');
         const existingCardContainer = document.getElementById('existing-card-container');
         const newCardForm = document.getElementById('new-card-form');
-        const changeCardFlag = document.getElementById('change-card-flag');
         
         if (changeCardBtn) {
             changeCardBtn.addEventListener('click', () => {
@@ -508,6 +826,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 newCardForm.style.display = 'block';
                 setRequired(cardInputs, true);
                 changeCardFlag.value = 'yes';
+                // Also clear expiry error message when changing card
+                document.getElementById('month-error').textContent = '';
+                document.getElementById('year-error').textContent = '';
             });
         }
         if (cancelCardBtn) {
@@ -516,6 +837,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
                 newCardForm.style.display = 'none';
                 setRequired(cardInputs, false);
                 changeCardFlag.value = 'no';
+                // Also clear expiry error message when cancelling
+                document.getElementById('month-error').textContent = '';
+                document.getElementById('year-error').textContent = '';
             });
         }
 
@@ -562,6 +886,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay_now'])) {
 .error-message p {
     margin: 0;
     padding: 0;
+}
+.form-group-flex {
+    display: flex;
+    gap: 15px; /* Spacing between month and year fields */
+    margin-bottom: 15px;
+}
+.form-group-flex .form-group {
+    flex: 1; /* Make both fields take equal width */
 }
 </style>
 

@@ -1,6 +1,10 @@
 <?php
 include "db_connect.php"; // DB connection + session
 
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
 // Initialize variables
 $product_data = null;
 $error = "";
@@ -137,7 +141,7 @@ while ($cat_row = $cat_result->fetch_assoc()) {
             <li><a href="custom_requests_list.php" class="active"><i class="fa fa-paint-brush"></i> Custom Requests</a></li>
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
             <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
-           <li><a href="refunds_list.php"><i class="fa fa-headset"></i> Manage Refunds</a></li>
+            <li><a href="refunds_list.php" class="active"><i class="fa fa-receipt"></i> Manage Refunds</a></li> <!-- Added new item -->
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>

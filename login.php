@@ -18,9 +18,9 @@ if (isset($_POST['register'])) {
     if (empty($fullName)) {
         $errors['fullName'] = "Full name is required!";
     }
-    // Added server-side check for name length
-    if (strlen($fullName) > 20) {
-        $errors['fullName'] = "Name must be 20 characters or less.";
+    // Updated server-side check for name length: now limited to 10 characters
+    if (strlen($fullName) > 10) {
+        $errors['fullName'] = "Name must be 10 characters or less.";
     }
 
     if (empty($email)) {
@@ -47,7 +47,7 @@ if (isset($_POST['register'])) {
         }
     }
     
-    // Server-side phone number validation
+    // Server-side phone number validation (Essential security check)
     if (!empty($phone) && !preg_match('/^\d{10}$/', $phone)) {
         $errors['phone'] = "Please enter a valid 10-digit phone number.";
     }
@@ -194,7 +194,7 @@ $showRegisterForm = isset($_POST['register']);
                         </div>
                         <span id="loginPasswordError" class="error-message"><?= $errors['loginPassword'] ?? '' ?></span>
                     </div>
-                    <div class="forgot-password"><a href="forgot-password.php">Forgot Password?</a></div>
+                    <div class="forgot-password"><a href="forgot_password.php">Forgot Password?</a></div>
                     <button type="submit" name="login" class="btn">Login</button>
                 </form>
 
@@ -208,7 +208,8 @@ $showRegisterForm = isset($_POST['register']);
                 <form method="POST" action="login.php">
                     <div class="input-group">
                         <div class="icon-wrapper"><i class="fas fa-user"></i></div>
-                        <input type="text" name="fullName" id="fullName" placeholder="Full Name" required class="<?= isset($errors['fullName']) ? 'invalid' : '' ?>">
+                        <!-- CHANGE 1: Added maxlength="10" to limit client-side input -->
+                        <input type="text" name="fullName" id="fullName" placeholder="Full Name" maxlength="10" required class="<?= isset($errors['fullName']) ? 'invalid' : '' ?>">
                         <span id="fullNameError" class="error-message"><?= $errors['fullName'] ?? '' ?></span>
                     </div>
                     <div class="input-group">
@@ -218,7 +219,15 @@ $showRegisterForm = isset($_POST['register']);
                     </div>
                     <div class="input-group">
                         <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
-                        <input type="text" name="phone" id="phone" placeholder="Phone (optional)" class="<?= isset($errors['phone']) ? 'invalid' : '' ?>">
+                        <!-- Phone input configuration remains for 10-digit, number-only -->
+                        <input type="tel" 
+                               name="phone" 
+                               id="phone" 
+                               placeholder="Phone (optional)" 
+                               maxlength="10" 
+                               pattern="[0-9]{10}"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                               class="<?= isset($errors['phone']) ? 'invalid' : '' ?>">
                         <span id="phoneError" class="error-message"><?= $errors['phone'] ?? '' ?></span>
                     </div>
                     <div class="input-group">

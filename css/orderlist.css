@@ -31,12 +31,12 @@ table th, table td {
 
 /* Styles for the new "Dispatch" and "Delivered" buttons */
 .btn.shipped{
-    background-color: #ffc107; /* A yellowish color */
+    background-color: #8e44ad; /* A yellowish color */
     color: #fff;
 }
 
 .btn.delivered {
-    background-color: #2870a7; /* A green color */
+    background-color: #27ae60; /* A green color */
     color: #fff;
 }
 td ul {
@@ -61,9 +61,9 @@ td ul {
     transition: 0.3s;
     display: inline-block;
 }
-.btn.accept { background: #27ae60; color: white; }
+.btn.accept { background: #2d84bd; color: white; }
 .btn.reject { background: #e74c3c; color: white; }
-.btn.contact { background: #3498db; color: white; }
-.btn.accept:hover { background: #1e8449; }
+.btn.contact { background: #27ae60; color: white; }
+.btn.accept:hover { background: #21618c; }
 .btn.reject:hover { background: #c0392b; }
-.btn.contact:hover { background: #21618c; }
+.btn.contact:hover { background: #22821f; }

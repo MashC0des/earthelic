@@ -7,6 +7,11 @@ error_reporting(E_ALL);
 
 include "db_connect.php"; // DB connection + session
 
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
+}
+
 // --- FIX 2: Check for successful database connection after include ---
 if (!isset($conn) || $conn->connect_error) {
     die("<div class='error-message' style='padding: 20px; background-color: #fdd; border: 1px solid #f99; color: #a00;'>
@@ -122,7 +127,7 @@ if ($result === false) {
             <li><a href="custom_requests_list.php" class="active"><i class="fa fa-paint-brush"></i> Custom Requests</a></li>
             <li><a href="users_list.php"><i class="fa fa-users"></i> Manage Users</a></li>
             <li><a href="complaintadmin.php"><i class="fa fa-headset"></i> Manage Complaints</a></li>
-            <li><a href="refunds_list.php"><i class="fa fa-headset"></i> Manage Refunds</a></li>
+             <li><a href="refunds_list.php" class="active"><i class="fa fa-receipt"></i> Manage Refunds</a></li> <!-- Added new item -->
             <li><a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>

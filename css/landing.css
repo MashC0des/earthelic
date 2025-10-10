@@ -156,8 +156,9 @@ will-change: transform, opacity;
     .card img {
         position: absolute;
         width: 85%;
-        height: 85%;
-        top: 0;
+        height: 68%;
+        border-radius: 5%;
+        top: 13%;
         left: 50%;
         transform: translate(-50%, -10%);
         transition: all 0.5s ease;

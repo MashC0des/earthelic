@@ -8,7 +8,7 @@ body {
 .profile-container {
     max-width: 80%;
     margin: 100px auto 40px;
-    background: #fff;
+    background: #ffffff5a;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -112,7 +112,7 @@ body {
     background:rgba(0,0,0,0.6);
 }
 .modal-content {
-    background:#fff;
+    background:#ffffffc2;
     padding:20px;
     border-radius:10px;
     width:350px;
